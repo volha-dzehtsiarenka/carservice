@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,6 @@ import javax.validation.Valid;
 public class BodyTypeController {
 
     private final BodyTypeService service;
-
     private final BodyTypeMapper mapper;
 
     @GetMapping()
@@ -46,7 +46,14 @@ public class BodyTypeController {
     @PostMapping()
     public ResponseEntity<Object> createBodyType(@Valid @RequestBody BodyTypeDto dto) {
         BodyType bodyType = mapper.toBodyType(dto);
-        return new ResponseEntity<>(service.create(bodyType),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(bodyType), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateBodyType(@Valid @PathVariable Long id, @RequestBody BodyTypeDto dto) {
+        dto.setId(id);
+        BodyType bodyType = mapper.toBodyType(dto);
+        return new ResponseEntity<>(service.update(bodyType), HttpStatus.OK);
     }
 
 }

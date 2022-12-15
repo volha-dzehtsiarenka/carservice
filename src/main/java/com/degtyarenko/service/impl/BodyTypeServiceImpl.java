@@ -32,6 +32,7 @@ public class BodyTypeServiceImpl implements BodyTypeService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         repository.deleteById(id);
     }
@@ -39,6 +40,7 @@ public class BodyTypeServiceImpl implements BodyTypeService {
     @Override
     @Transactional
     public BodyType update(BodyType bodyType) {
-        return repository.save(bodyType);
+        return create(bodyType);
     }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,6 @@ import javax.validation.Valid;
 public class CarController {
 
     private final CarService service;
-
     private final CarMapper mapper;
 
     @GetMapping()
@@ -45,7 +45,14 @@ public class CarController {
     @PostMapping()
     public ResponseEntity<Object> createCar(@Valid @RequestBody CarDto dto) {
         Car car = mapper.toCar(dto);
-        return new ResponseEntity<>(service.create(car),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(car), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateCar(@Valid @PathVariable Long id, @RequestBody CarDto dto) {
+        dto.setId(id);
+        Car car = mapper.toCar(dto);
+        return new ResponseEntity<>(service.update(car), HttpStatus.OK);
     }
 
 }

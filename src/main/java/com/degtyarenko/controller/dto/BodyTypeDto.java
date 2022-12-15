@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BodyTypeDto extends AbstractDto{
+public class BodyTypeDto extends AbstractDto {
 
     private String bodyType;
 }

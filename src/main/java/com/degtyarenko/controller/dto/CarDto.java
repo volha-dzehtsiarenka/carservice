@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class CarDto extends AbstractDto{
+public class CarDto extends AbstractDto {
 
     private BrandDto brand;
     private ModelDto model;

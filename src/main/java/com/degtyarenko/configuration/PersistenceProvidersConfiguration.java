@@ -35,4 +35,5 @@ public class PersistenceProvidersConfiguration {
         properties.put("current_session_context_class", "org.springframework.orm.hibernate5.SpringSessionContext");
         return properties;
     }
+
 }

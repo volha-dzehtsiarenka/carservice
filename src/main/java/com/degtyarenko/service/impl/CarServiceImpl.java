@@ -32,6 +32,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         repository.findById(id);
     }
@@ -39,6 +40,7 @@ public class CarServiceImpl implements CarService {
     @Override
     @Transactional
     public Car update(Car car) {
-        return repository.save(car);
+        return create(car);
     }
+
 }

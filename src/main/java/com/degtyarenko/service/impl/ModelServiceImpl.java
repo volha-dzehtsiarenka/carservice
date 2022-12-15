@@ -32,6 +32,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         repository.deleteById(id);
     }
@@ -39,7 +40,7 @@ public class ModelServiceImpl implements ModelService {
     @Override
     @Transactional
     public Model update(Model model) {
-        return repository.save(model);
+        return create(model);
     }
 
 }

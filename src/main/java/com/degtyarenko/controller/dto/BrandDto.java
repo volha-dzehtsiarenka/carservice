@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BrandDto extends AbstractDto{
+public class BrandDto extends AbstractDto {
 
     private String brandName;
 }

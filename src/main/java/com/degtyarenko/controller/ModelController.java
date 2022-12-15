@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,6 @@ import javax.validation.Valid;
 public class ModelController {
 
     private final ModelService service;
-
     private final ModelMapper mapper;
 
     @GetMapping()
@@ -46,7 +46,14 @@ public class ModelController {
 
     public ResponseEntity<Object> createModel(@Valid @RequestBody ModelDto dto) {
         Model model = mapper.toModel(dto);
-        return new ResponseEntity<>(service.create(model),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(model), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateModel(@Valid @PathVariable Long id, @RequestBody ModelDto dto) {
+        dto.setId(id);
+        Model model = mapper.toModel(dto);
+        return new ResponseEntity<>(service.update(model), HttpStatus.OK);
     }
 
 }

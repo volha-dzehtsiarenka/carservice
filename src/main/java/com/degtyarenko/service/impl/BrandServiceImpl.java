@@ -32,6 +32,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         repository.deleteById(id);
     }
@@ -39,7 +40,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     @Transactional
     public Brand update(Brand brand) {
-        return repository.save(brand);
+        return create(brand);
     }
 
 }

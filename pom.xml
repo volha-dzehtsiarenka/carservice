@@ -26,6 +26,8 @@
         <hikaricp.version>5.0.1</hikaricp.version>
         <modelmapper.version>3.1.1</modelmapper.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <springdoc-openapi-ui.version>1.6.4</springdoc-openapi-ui.version>
+        <springdoc-openapi-webflux-ui.version>1.6.4</springdoc-openapi-webflux-ui.version>
     </properties>
 
     <dependencies>
@@ -96,6 +98,24 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>${hikaricp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webflux-ui</artifactId>
+            <version>${springdoc-openapi-webflux-ui.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>2.1.12</version>
         </dependency>
 
     </dependencies>

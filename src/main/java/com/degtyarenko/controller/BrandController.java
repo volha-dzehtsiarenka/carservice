@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,6 @@ import javax.validation.Valid;
 public class BrandController {
 
     private final BrandService service;
-
     private final BrandMapper mapper;
 
     @GetMapping()
@@ -45,7 +45,14 @@ public class BrandController {
     @PostMapping()
     public ResponseEntity<Object> createBrand(@Valid @RequestBody BrandDto dto) {
         Brand brand = mapper.toBrand(dto);
-        return new ResponseEntity<>(service.create(brand),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(brand), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateBrand(@Valid @PathVariable Long id, @RequestBody BrandDto dto) {
+        dto.setId(id);
+        Brand brand = mapper.toBrand(dto);
+        return new ResponseEntity<>(service.update(brand), HttpStatus.OK);
     }
 
 }

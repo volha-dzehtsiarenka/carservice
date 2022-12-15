@@ -1,5 +1,6 @@
 package com.degtyarenko.controller.dto;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,5 +8,6 @@ import lombok.Setter;
 @Setter
 public class AbstractDto {
 
+    @Hidden
     private Long id;
 }
