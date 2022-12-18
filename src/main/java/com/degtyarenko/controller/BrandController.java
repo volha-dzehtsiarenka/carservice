@@ -50,7 +50,8 @@ public class BrandController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateBrand(@Valid @PathVariable Long id, @RequestBody BrandDto dto) {
-        dto.setId(id);
+        Brand result = service.findById(id);
+        dto.setId(result.getId());
         Brand brand = mapper.toBrand(dto);
         return new ResponseEntity<>(service.update(brand), HttpStatus.OK);
     }

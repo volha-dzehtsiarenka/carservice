@@ -1,6 +1,7 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.entity.BodyType;
+import com.degtyarenko.exeption.NotFoundException;
 import com.degtyarenko.repository.BodyTypeRepository;
 import com.degtyarenko.service.BodyTypeService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ public class BodyTypeServiceImpl implements BodyTypeService {
 
     @Override
     public BodyType findById(Long id) {
-        return repository.findById(id).orElse(new BodyType());
+        return repository.findById(id).orElseThrow(() ->
+                new NotFoundException("Body type not found"));
     }
 
     @Override
@@ -34,7 +36,9 @@ public class BodyTypeServiceImpl implements BodyTypeService {
     @Override
     @Transactional
     public void delete(Long id) {
-        repository.deleteById(id);
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+        } else throw new NotFoundException("Body type not found");
     }
 
     @Override

@@ -37,6 +37,11 @@ public class BodyTypeController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<Object> findByName(@PathVariable String name) {
+        return new ResponseEntity<>(service.findByName(name), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
         service.delete(id);
@@ -51,7 +56,8 @@ public class BodyTypeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateBodyType(@Valid @PathVariable Long id, @RequestBody BodyTypeDto dto) {
-        dto.setId(id);
+        BodyType result = service.findById(id);
+        dto.setId(result.getId());
         BodyType bodyType = mapper.toBodyType(dto);
         return new ResponseEntity<>(service.update(bodyType), HttpStatus.OK);
     }

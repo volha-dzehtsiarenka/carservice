@@ -1,6 +1,7 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.entity.Model;
+import com.degtyarenko.exeption.NotFoundException;
 import com.degtyarenko.repository.ModelRepository;
 import com.degtyarenko.service.ModelService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public Model findById(Long id) {
-        return repository.findById(id).orElse(new Model());
+        return repository.findById(id).orElseThrow(() ->
+                new NotFoundException("Model not found"));
     }
 
     @Override
@@ -34,7 +36,9 @@ public class ModelServiceImpl implements ModelService {
     @Override
     @Transactional
     public void delete(Long id) {
-        repository.deleteById(id);
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+        } else throw new NotFoundException("Model not found");
     }
 
     @Override

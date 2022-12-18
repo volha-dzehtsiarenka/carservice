@@ -50,7 +50,8 @@ public class CarController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateCar(@Valid @PathVariable Long id, @RequestBody CarDto dto) {
-        dto.setId(id);
+        Car result = service.findById(id);
+        dto.setId(result.getId());
         Car car = mapper.toCar(dto);
         return new ResponseEntity<>(service.update(car), HttpStatus.OK);
     }

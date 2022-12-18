@@ -1,6 +1,7 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.entity.Brand;
+import com.degtyarenko.exeption.NotFoundException;
 import com.degtyarenko.repository.BrandRepository;
 import com.degtyarenko.service.BrandService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand findById(Long id) {
-        return repository.findById(id).orElse(new Brand());
+        return repository.findById(id).orElseThrow(() ->
+                new NotFoundException("Brand not found"));
     }
 
     @Override
@@ -34,7 +36,9 @@ public class BrandServiceImpl implements BrandService {
     @Override
     @Transactional
     public void delete(Long id) {
-        repository.deleteById(id);
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+        } else throw new NotFoundException("Brand not found");
     }
 
     @Override

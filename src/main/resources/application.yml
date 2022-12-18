@@ -7,6 +7,16 @@ spring:
     username: postgres
     password: postgres
     url: "jdbc:postgresql://localhost:5432/carservice"
+  jpa:
+    properties:
+      javax.persistence.validation.mode: none
+      hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
+      hibernate.show_sql: true
+      hibernate.connection.characterEncoding: utf8mb4
+      hibernate.connection.CharSet: utf8mb4
+      hibernate.connection.useUnicode: true
+      hibernate:
+        ddl-auto: none
 
 server:
     port: 8080

@@ -51,7 +51,8 @@ public class ModelController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateModel(@Valid @PathVariable Long id, @RequestBody ModelDto dto) {
-        dto.setId(id);
+        Model result = service.findById(id);
+        dto.setId(result.getId());
         Model model = mapper.toModel(dto);
         return new ResponseEntity<>(service.update(model), HttpStatus.OK);
     }

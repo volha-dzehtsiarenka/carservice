@@ -1,6 +1,7 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.entity.Car;
+import com.degtyarenko.exeption.NotFoundException;
 import com.degtyarenko.repository.CarRepository;
 import com.degtyarenko.service.CarService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car findById(Long id) {
-        return repository.findById(id).orElse(new Car());
+        return repository.findById(id).orElseThrow(() ->
+                new NotFoundException("Car not found"));
     }
 
     @Override
@@ -34,7 +36,9 @@ public class CarServiceImpl implements CarService {
     @Override
     @Transactional
     public void delete(Long id) {
-        repository.findById(id);
+        if (repository.findById(id).isPresent()) {
+            repository.deleteById(id);
+        } else throw new NotFoundException("Car not found");
     }
 
     @Override

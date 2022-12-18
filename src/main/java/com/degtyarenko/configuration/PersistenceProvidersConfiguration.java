@@ -1,5 +1,6 @@
 package com.degtyarenko.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -12,6 +13,7 @@ import java.util.Properties;
 @Configuration
 public class PersistenceProvidersConfiguration {
 
+    @Autowired
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em
@@ -29,10 +31,13 @@ public class PersistenceProvidersConfiguration {
     private Properties getAdditionalProperties() {
         Properties properties = new Properties();
 
-        // See: application.properties
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.default_schema", "carservice");
         properties.put("current_session_context_class", "org.springframework.orm.hibernate5.SpringSessionContext");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
+        properties.put("hibernate.connection.characterEncoding", "utf8mb4");
+        properties.put("hibernate.connection.CharSet", "utf8mb4");
+        properties.put("hibernate.connection.useUnicode", "true");
         return properties;
     }
 
