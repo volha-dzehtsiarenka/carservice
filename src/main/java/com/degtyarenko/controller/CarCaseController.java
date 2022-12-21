@@ -1,8 +1,8 @@
 package com.degtyarenko.controller;
 
 import com.degtyarenko.dto.BrandDto;
-import com.degtyarenko.dto.CarDto;
-import com.degtyarenko.service.CarService;
+import com.degtyarenko.dto.CarCaseDto;
+import com.degtyarenko.service.CarCaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,70 +25,72 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/car")
-public class CarController {
+@RequestMapping("/carcase")
+public class CarCaseController {
 
-    private final CarService service;
+    private final CarCaseService carCaseService;
 
-    @Operation(summary = "Find all cars", responses = {
-            @ApiResponse(responseCode = "200", description = "Find all cars",
+
+    @Operation(summary = "Find all car case", responses = {
+            @ApiResponse(responseCode = "200", description = "Finds all car case",
                     content = @Content(schema = @Schema(implementation = BrandDto.class))),
-            @ApiResponse(responseCode = "500", description = "Cars not found, Illegal Arguments",
+            @ApiResponse(responseCode = "500", description = "Car case not found, Illegal Arguments",
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAll() {
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(
+                carCaseService.findAll(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Find car by ID", responses = {
-            @ApiResponse(responseCode = "200", description = "Car found",
+    @Operation(summary = "Find car case by ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Car case found",
                     content = @Content(schema = @Schema(implementation = BrandDto.class))),
-            @ApiResponse(responseCode = "404", description = "Car not found",
+            @ApiResponse(responseCode = "404", description = "Car case not found",
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car not found, Illegal Arguments",
+            @ApiResponse(responseCode = "500", description = "Car case not found, Illegal Arguments",
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(carCaseService.findById(id), HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete Car", responses = {
-            @ApiResponse(responseCode = "200", description = "Car delete successfully !",
+    @Operation(summary = "Delete Car case", responses = {
+            @ApiResponse(responseCode = "200", description = "Car case delete successfully !",
                     content = @Content(schema = @Schema(implementation = BrandDto.class))),
-            @ApiResponse(responseCode = "404", description = "Car not found",
+            @ApiResponse(responseCode = "404", description = "Car case not found",
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car not deleted, Illegal Arguments",
+            @ApiResponse(responseCode = "500", description = "Car case not deleted, Illegal Arguments",
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
-        service.delete(id);
+        carCaseService.delete(id);
         return new ResponseEntity<>("Deleted successful !", HttpStatus.OK);
     }
 
-    @Operation(summary = "Create new Car", responses = {
-            @ApiResponse(responseCode = "201", description = "Car create successfully !",
+    @Operation(summary = "Create new Car case", responses = {
+            @ApiResponse(responseCode = "201", description = "Car case create successfully !",
                     content = @Content(schema = @Schema(implementation = BrandDto.class))),
-            @ApiResponse(responseCode = "409", description = "Car not created, Conflict",
+            @ApiResponse(responseCode = "409", description = "Car case not created, Conflict",
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car not created, Illegal Arguments",
+            @ApiResponse(responseCode = "500", description = "Car case not created, Illegal Arguments",
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createCar(@Valid @RequestBody CarDto carDto) {
-        service.create(carDto);
-        return new ResponseEntity<>("Car create successfully !", HttpStatus.CREATED);
+    public ResponseEntity<Object> createBodyType(@Valid @RequestBody CarCaseDto carCaseDto) {
+        carCaseService.create(carCaseDto);
+        return new ResponseEntity<>("Car case create successfully !", HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Update car", responses = {
-            @ApiResponse(responseCode = "200", description = "Car update successfully !",
+    @Operation(summary = "Update car case", responses = {
+            @ApiResponse(responseCode = "200", description = "Car case update successfully !",
                     content = @Content(schema = @Schema(implementation = BrandDto.class))),
-            @ApiResponse(responseCode = "404", description = "Car not found",
+            @ApiResponse(responseCode = "404", description = "Car case not found",
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car not update, Illegal Arguments",
+            @ApiResponse(responseCode = "500", description = "car case not update, Illegal Arguments",
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateCar(@Valid @RequestBody CarDto carDto) {
-        service.update(carDto);
-        return new ResponseEntity<>("Car update successfully !", HttpStatus.OK);
+    public ResponseEntity<Object> updateBodyType(@Valid @RequestBody CarCaseDto carCaseDto) {
+        carCaseService.update(carCaseDto);
+        return new ResponseEntity<>("Car case update successfully !", HttpStatus.OK);
     }
 
 }

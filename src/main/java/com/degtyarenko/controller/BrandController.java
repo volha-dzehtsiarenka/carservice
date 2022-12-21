@@ -1,9 +1,11 @@
 package com.degtyarenko.controller;
 
-import com.degtyarenko.controller.dto.BrandDto;
-import com.degtyarenko.controller.mappers.BrandMapper;
-import com.degtyarenko.entity.Brand;
+import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.service.BrandService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,42 +20,73 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/brand")
 public class BrandController {
 
     private final BrandService service;
-    private final BrandMapper mapper;
 
-    @GetMapping()
+    @Operation(summary = "Find all brands", responses = {
+            @ApiResponse(responseCode = "200", description = "Find all brands",
+                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+            @ApiResponse(responseCode = "500", description = "Brands not found, Illegal Arguments",
+                    content = @Content)})
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @Operation(summary = "Find brand by ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Brand found",
+                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+            @ApiResponse(responseCode = "404", description = "Brand not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Brand not found, Illegal Arguments",
+                    content = @Content)})
+    @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete Brand", responses = {
+            @ApiResponse(responseCode = "200", description = "Brand delete successfully !",
+                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+            @ApiResponse(responseCode = "404", description = "Brand not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Brand not deleted, Illegal Arguments",
+                    content = @Content)})
+    @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
         service.delete(id);
-        return new ResponseEntity<>("deleted successful!", HttpStatus.OK);
+        return new ResponseEntity<>("Deleted successful !", HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<Object> createBrand(@Valid @RequestBody BrandDto dto) {
-        Brand brand = mapper.toBrand(dto);
-        return new ResponseEntity<>(service.create(brand), HttpStatus.CREATED);
+    @Operation(summary = "Create new Brand", responses = {
+            @ApiResponse(responseCode = "201", description = "Brand create successfully !",
+                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+            @ApiResponse(responseCode = "409", description = "Brand not created, Conflict",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Brand not created, Illegal Arguments",
+                    content = @Content)})
+    @PostMapping(produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> createBrand(@Valid @RequestBody BrandDto brandDto) {
+        return new ResponseEntity<>(service.create(brandDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateBrand(@Valid @PathVariable Long id, @RequestBody BrandDto dto) {
-        Brand result = service.findById(id);
-        dto.setId(result.getId());
-        Brand brand = mapper.toBrand(dto);
-        return new ResponseEntity<>(service.update(brand), HttpStatus.OK);
+    @Operation(summary = "Update Brand", responses = {
+            @ApiResponse(responseCode = "200", description = "Brand update successfully !",
+                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+            @ApiResponse(responseCode = "404", description = "Brand not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Brand not update, Illegal Arguments",
+                    content = @Content)})
+    @PutMapping(produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> updateBrand(@Valid @RequestBody BrandDto brandDto) {
+        service.update(brandDto);
+        return new ResponseEntity<>("Brand update successfully !", HttpStatus.OK);
     }
 
 }

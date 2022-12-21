@@ -1,16 +1,12 @@
 package com.degtyarenko.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,24 +18,18 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "body_type")
-@EqualsAndHashCode(exclude = {
-        "cars"
-})
-@ToString(exclude = {
-        "cars"
-})
-public class BodyType {
+@Table(name = "car_case", schema = "carservice")
+public class CarCase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "body_type")
-    private String bodyType;
+    @Column
+    private String name;
 
-    @OneToMany(mappedBy = "bodyType", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "carCase")
     @JsonBackReference
-    private Set<Car> cars;
+    private Set<CarCaseModel> carCaseModel;
 
 }

@@ -1,7 +1,9 @@
 package com.degtyarenko.service.impl;
 
+import com.degtyarenko.dto.ModelDto;
 import com.degtyarenko.entity.Model;
 import com.degtyarenko.exeption.NotFoundException;
+import com.degtyarenko.mappers.ModelMapper;
 import com.degtyarenko.repository.ModelRepository;
 import com.degtyarenko.service.ModelService;
 import lombok.RequiredArgsConstructor;
@@ -14,37 +16,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ModelServiceImpl implements ModelService {
 
-    private final ModelRepository repository;
+    private static final String MODEL_NOT_FOUND = "Model not found";
+    private final ModelRepository modelRepository;
+    private final ModelMapper modelMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Model> findAll() {
-        return repository.findAll();
+        return modelRepository.findAll();
     }
 
     @Override
     public Model findById(Long id) {
-        return repository.findById(id).orElseThrow(() ->
-                new NotFoundException("Model not found"));
+        return modelRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(MODEL_NOT_FOUND));
     }
 
     @Override
     @Transactional
-    public Model create(Model model) {
-        return repository.save(model);
+    public Model create(ModelDto modelDto) {
+        Model model = modelMapper.toModel(modelDto);
+        return modelRepository.save(model);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        if (repository.findById(id).isPresent()) {
-            repository.deleteById(id);
-        } else throw new NotFoundException("Model not found");
+        if (modelRepository.findById(id).isPresent()) {
+            modelRepository.deleteById(id);
+        } else throw new NotFoundException(MODEL_NOT_FOUND);
     }
 
     @Override
     @Transactional
-    public Model update(Model model) {
-        return create(model);
+    public Model update(ModelDto modelDto) {
+        if (modelRepository.findById(modelDto.getId()).isPresent()) {
+            return create(modelDto);
+        } else throw new NotFoundException(MODEL_NOT_FOUND);
     }
 
 }

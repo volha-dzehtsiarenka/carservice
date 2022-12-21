@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
@@ -19,29 +19,25 @@ import java.time.LocalDate;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "car")
+@Table(name = "car", schema = "carservice")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
+    @OneToOne
+    @JoinColumn(name = "car_case_model_id")
     @JsonManagedReference
-    private Brand brand;
+    private CarCaseModel carCaseModel;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    @JsonManagedReference
-    private Model model;
+    @Column(name = "date_of_issue")
+    private LocalDate dateOfIssue;
 
-    @ManyToOne
-    @JoinColumn(name = "body_type_id")
-    @JsonManagedReference
-    private BodyType bodyType;
+    @Column(name = "vin_code")
+    private String vinCode;
 
     @Column
-    private LocalDate date;
+    private String color;
 
 }

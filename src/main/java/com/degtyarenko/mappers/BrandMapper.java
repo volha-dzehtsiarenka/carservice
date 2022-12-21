@@ -1,6 +1,6 @@
-package com.degtyarenko.controller.mappers;
+package com.degtyarenko.mappers;
 
-import com.degtyarenko.controller.dto.BrandDto;
+import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.entity.Brand;
 import org.mapstruct.Mapper;
 
@@ -8,4 +8,6 @@ import org.mapstruct.Mapper;
 public interface BrandMapper {
 
     Brand toBrand(BrandDto brandDto);
+
+    BrandDto toBrandDto(Brand brand);
 }

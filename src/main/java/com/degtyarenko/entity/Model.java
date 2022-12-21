@@ -1,19 +1,18 @@
 package com.degtyarenko.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
@@ -22,13 +21,7 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "model")
-@EqualsAndHashCode(exclude = {
-        "cars"
-})
-@ToString(exclude = {
-        "cars"
-})
+@Table(name = "model", schema = "carservice")
 public class Model {
 
     @Id
@@ -38,8 +31,13 @@ public class Model {
     @Column(name = "model_name")
     private String modelName;
 
-    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    @JsonManagedReference
+    private Brand brand;
+
+    @OneToMany(mappedBy = "model")
     @JsonBackReference
-    private Set<Car> cars;
+    private Set<CarCaseModel> carCaseModel;
 
 }
