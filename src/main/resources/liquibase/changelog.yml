@@ -1,0 +1,359 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: degtyarenko
+      changes:
+        - createTable:
+            tableName: brand
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: brand_pk
+                    nullable: false
+              - column:
+                  name: brand_name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: brand_name
+                  value: Audi
+        - createTable:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: model_pk
+                    nullable: false
+              - column:
+                  name: model_name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: brand_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: model
+                  baseColumnNames: brand_id
+                  referencedTableName: brand
+                  referencedColumnNames: id
+                  constraintName: model_brand_fk
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: model_name
+                  value: A3
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: model_name
+                  value: A5
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: model_name
+                  value: QUATTRO
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: model_name
+                  value: A4
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: model_name
+                  value: A5 Cabriolet
+              - column:
+                  name: brand_id
+                  value: 1
+  - changeSet:
+      id: 2
+      author: degtyarenko
+      changes:
+        - createTable:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_case_pk
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: SEDAN
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: HATCHBACK
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: CONVERTIBLE
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: name
+                  value: COPE
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: name
+                  value: SPORTS CAR
+  - changeSet:
+      id: 3
+      author: degtyarenko
+      changes:
+        - createTable:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_case_model_pk
+                    nullable: false
+              - column:
+                  name: car_case_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car_case_model
+                  baseColumnNames: car_case_id
+                  referencedTableName: car_case
+                  referencedColumnNames: id
+                  constraintName: car_case_model_car_case_fk
+              - column:
+                  name: model_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car_case_model
+                  baseColumnNames: model_id
+                  referencedTableName: model
+                  referencedColumnNames: id
+                  constraintName: car_case_model_model_fk
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: car_case_id
+                  value: 2
+              - column:
+                  name: model_id
+                  value: 1
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: car_case_id
+                  value: 4
+              - column:
+                  name: model_id
+                  value: 2
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: car_case_id
+                  value: 5
+              - column:
+                  name: model_id
+                  value: 3
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: car_case_id
+                  value: 1
+              - column:
+                  name: model_id
+                  value: 4
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: car_case_id
+                  value: 3
+              - column:
+                  name: model_id
+                  value: 5
+  - changeSet:
+      id: 4
+      author: degtyarenko
+      changes:
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_pk
+                    nullable: false
+              - column:
+                  name: date_of_issue
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vin_code
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: color
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: car_case_model_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car
+                  baseColumnNames: car_case_model_id
+                  referencedTableName: car_case_model
+                  referencedColumnNames: id
+                  constraintName: car_car_case_model_fk
+        - insert:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: date_of_issue
+                  value: 2022-12-03
+              - column:
+                  name: vin_code
+                  value: 123123DFFHFF465646FG4
+              - column:
+                  name: color
+                  value: GREEN
+              - column:
+                  name: car_case_model_id
+                  value: 1
+        - insert:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: date_of_issue
+                  value: 2022-12-05
+              - column:
+                  name: vin_code
+                  value: 123123DFFHFF465706FG4
+              - column:
+                  name: color
+                  value: RED
+              - column:
+                  name: car_case_model_id
+                  value: 2

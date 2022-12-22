@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AbstractDto {
-
-    @Hidden
+    
     private Long id;
 
 }
