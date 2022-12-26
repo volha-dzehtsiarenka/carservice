@@ -3,6 +3,7 @@ package com.degtyarenko.service;
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.entity.Brand;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 
@@ -33,7 +34,7 @@ public interface BrandService {
      * @param brandDto the brand dto
      * @return the brand
      */
-    Brand create(BrandDto brandDto);
+    Brand create(BrandDto brandDto) throws ConstraintViolationException;
 
     /**
      * Delete.

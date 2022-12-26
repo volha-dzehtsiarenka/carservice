@@ -63,7 +63,7 @@ databaseChangeLog:
                   value: 3
               - column:
                   name: model_name
-                  value: QUATTRO
+                  value: Quattro
               - column:
                   name: brand_id
                   value: 1

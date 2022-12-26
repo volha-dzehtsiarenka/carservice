@@ -1,5 +1,6 @@
 package com.degtyarenko.controller;
 
+import com.degtyarenko.dto.AbstractDto;
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.dto.CarDto;
 import com.degtyarenko.service.CarService;
@@ -42,7 +43,7 @@ public class CarController {
 
     @Operation(summary = "Find car by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Car found",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
             @ApiResponse(responseCode = "404", description = "Car not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Car not found, Illegal Arguments",
@@ -54,7 +55,7 @@ public class CarController {
 
     @Operation(summary = "Delete Car", responses = {
             @ApiResponse(responseCode = "200", description = "Car delete successfully !",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
             @ApiResponse(responseCode = "404", description = "Car not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Car not deleted, Illegal Arguments",

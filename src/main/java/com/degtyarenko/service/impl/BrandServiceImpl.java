@@ -10,13 +10,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 
-    private static final String BRAND_NOT_FOUND = "Brand not found";
     private final BrandRepository brandRepository;
     private final BrandMapper brandMapper;
 
@@ -29,14 +29,14 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand findById(Long id) {
         return brandRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(BRAND_NOT_FOUND));
+                new NotFoundException(id));
     }
 
     @Override
     @Transactional
-    public Brand create(BrandDto brandDto) {
-        Brand brand = brandMapper.toBrand(brandDto);
-        return brandRepository.save(brand);
+    public Brand create(BrandDto brandDto) throws ConstraintViolationException {
+            Brand brand = brandMapper.toBrand(brandDto);
+            return brandRepository.save(brand);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class BrandServiceImpl implements BrandService {
     public void delete(Long id) {
         if (brandRepository.findById(id).isPresent()) {
             brandRepository.deleteById(id);
-        } else throw new NotFoundException(BRAND_NOT_FOUND);
+        } else throw new NotFoundException(id);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BrandServiceImpl implements BrandService {
     public Brand update(BrandDto brandDto) {
         if (brandRepository.findById(brandDto.getId()).isPresent()) {
             return create(brandDto);
-        } else throw new NotFoundException(BRAND_NOT_FOUND);
+        } else throw new NotFoundException(brandDto.getId());
     }
 
 }

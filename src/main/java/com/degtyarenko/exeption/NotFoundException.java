@@ -1,9 +1,8 @@
 package com.degtyarenko.exeption;
 
-public class NotFoundException extends AppException {
+public class NotFoundException extends RuntimeException {
 
-    public NotFoundException(String message) {
-        super(message);
+    public NotFoundException(Long id) {
+        super("Entity is not found, id = "+id);
     }
-
 }

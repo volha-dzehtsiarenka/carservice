@@ -1,5 +1,6 @@
 package com.degtyarenko.controller;
 
+import com.degtyarenko.dto.AbstractDto;
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.service.BrandService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +42,7 @@ public class BrandController {
 
     @Operation(summary = "Find brand by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Brand found",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
             @ApiResponse(responseCode = "404", description = "Brand not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Brand not found, Illegal Arguments",
@@ -53,7 +54,7 @@ public class BrandController {
 
     @Operation(summary = "Delete Brand", responses = {
             @ApiResponse(responseCode = "200", description = "Brand delete successfully !",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
             @ApiResponse(responseCode = "404", description = "Brand not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Brand not deleted, Illegal Arguments",
@@ -85,8 +86,7 @@ public class BrandController {
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateBrand(@Valid @RequestBody BrandDto brandDto) {
-        service.update(brandDto);
-        return new ResponseEntity<>("Brand update successfully !", HttpStatus.OK);
+        return new ResponseEntity<>(service.update(brandDto), HttpStatus.OK);
     }
 
 }

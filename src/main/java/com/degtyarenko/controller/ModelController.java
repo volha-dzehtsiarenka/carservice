@@ -1,5 +1,6 @@
 package com.degtyarenko.controller;
 
+import com.degtyarenko.dto.AbstractDto;
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.dto.ModelDto;
 import com.degtyarenko.service.ModelService;
@@ -42,7 +43,7 @@ public class ModelController {
 
     @Operation(summary = "Find model by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Model found",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
             @ApiResponse(responseCode = "404", description = "Model not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Model not found, Illegal Arguments",
@@ -54,7 +55,7 @@ public class ModelController {
 
     @Operation(summary = "Delete model", responses = {
             @ApiResponse(responseCode = "200", description = "Model delete successfully",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
             @ApiResponse(responseCode = "404", description = "Model not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Model not deleted, Illegal Arguments",

@@ -29,7 +29,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     @Override
     public CarCase findById(Long id) {
         return carCaseRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(CAR_CASE_NOT_FOUND));
+                new NotFoundException(id));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     public void delete(Long id) {
         if (carCaseRepository.findById(id).isPresent()) {
             carCaseRepository.deleteById(id);
-        } else throw new NotFoundException(CAR_CASE_NOT_FOUND);
+        } else throw new NotFoundException(id);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     public CarCase update(CarCaseDto carCaseDto) {
         if (carCaseRepository.findById(carCaseDto.getId()).isPresent()) {
             return create(carCaseDto);
-        } else throw new NotFoundException(CAR_CASE_NOT_FOUND);
+        } else throw new NotFoundException(carCaseDto.getId());
     }
 
 }

@@ -29,7 +29,7 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public Model findById(Long id) {
         return modelRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(MODEL_NOT_FOUND));
+                new NotFoundException(id));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ModelServiceImpl implements ModelService {
     public void delete(Long id) {
         if (modelRepository.findById(id).isPresent()) {
             modelRepository.deleteById(id);
-        } else throw new NotFoundException(MODEL_NOT_FOUND);
+        } else throw new NotFoundException(id);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ModelServiceImpl implements ModelService {
     public Model update(ModelDto modelDto) {
         if (modelRepository.findById(modelDto.getId()).isPresent()) {
             return create(modelDto);
-        } else throw new NotFoundException(MODEL_NOT_FOUND);
+        } else throw new NotFoundException(modelDto.getId());
     }
 
 }

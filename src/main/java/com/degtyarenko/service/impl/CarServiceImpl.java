@@ -29,7 +29,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car findById(Long id) {
         return carRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(CAR_NOT_FOUND));
+                new NotFoundException(id));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CarServiceImpl implements CarService {
     public void delete(Long id) {
         if (carRepository.findById(id).isPresent()) {
             carRepository.deleteById(id);
-        } else throw new NotFoundException(CAR_NOT_FOUND);
+        } else throw new NotFoundException(id);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CarServiceImpl implements CarService {
     public Car update(CarDto carDto) {
         if (carRepository.findById(carDto.getId()).isPresent()) {
             return create(carDto);
-        } else throw new NotFoundException(CAR_NOT_FOUND);
+        } else throw new NotFoundException(carDto.getId());
     }
 
 }
