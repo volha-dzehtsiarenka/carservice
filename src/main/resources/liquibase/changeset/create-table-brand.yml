@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: DEV-1
-      author: degtyarenko
+      id: create-brand
+      author: Degtyarenko
       changes:
         - createTable:
             tableName: brand
@@ -20,3 +20,12 @@ databaseChangeLog:
                   constraints:
                     unique: true
                     nullable: false
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: brand_name
+                  value: Audi

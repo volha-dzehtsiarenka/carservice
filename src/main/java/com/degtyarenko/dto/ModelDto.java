@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class ModelDto extends AbstractDto {
 
-    @Size(min = 2, max = 20, message = "Model name should be between 2 and 20 characters")
+    @Size(min = 2, max = 20)
     private String modelName;
 
     private Long brandId;

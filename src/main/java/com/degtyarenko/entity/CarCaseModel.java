@@ -11,7 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+/**
+ * Class contains information about car case and models with properties
+ * <b>id</b>, <b>carCase</b> and <b>model</b>
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since   2022-12-22
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor

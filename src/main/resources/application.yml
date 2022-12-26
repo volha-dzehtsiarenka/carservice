@@ -1,4 +1,8 @@
 spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/changelog-master.yml
+    default-schema: "carservice"
   datasource:
     hikari:
       jdbc-url: "jdbc:postgresql://localhost:5432/carservice"
@@ -17,10 +21,6 @@ spring:
       hibernate.connection.useUnicode: true
       hibernate:
         ddl-auto: validate
-  liquibase:
-    enabled: true
-    change-log: classpath:liquibase/changelog.yml
-    default-schema: "carservice"
 
 server:
     port: 8080
