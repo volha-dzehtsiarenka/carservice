@@ -10,9 +10,9 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Schema(description = "Create brand object without system info")
-public class BrandDto extends AbstractDto{
+public class BrandDto extends AbstractDto {
 
-    @Schema(example = "Toyota", required = true, minLength = 2, maxLength = 20)
+    @Schema(example = "Toyota", minLength = 2, maxLength = 20)
     @Size(min = 2, max = 20)
     @NotNull
     private String brandName;

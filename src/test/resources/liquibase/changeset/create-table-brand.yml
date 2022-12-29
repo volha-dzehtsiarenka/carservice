@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-brand
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: brand
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: brand_pk
+                    nullable: false
+              - column:
+                  name: brand_name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: brand_name
+                  value: Audi

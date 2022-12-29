@@ -6,7 +6,8 @@ import com.degtyarenko.exeption.NotFoundException;
 import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.repository.BrandRepository;
 import com.degtyarenko.service.BrandService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +15,12 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class BrandServiceImpl implements BrandService {
 
-    private final BrandRepository brandRepository;
-    private final BrandMapper brandMapper;
+    private BrandRepository brandRepository;
+    private BrandMapper brandMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -35,8 +37,8 @@ public class BrandServiceImpl implements BrandService {
     @Override
     @Transactional
     public Brand create(BrandDto brandDto) throws ConstraintViolationException {
-            Brand brand = brandMapper.toBrand(brandDto);
-            return brandRepository.save(brand);
+        Brand brand = brandMapper.toBrand(brandDto);
+        return brandRepository.save(brand);
     }
 
     @Override

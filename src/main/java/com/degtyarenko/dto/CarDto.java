@@ -13,19 +13,19 @@ import java.time.LocalDate;
 @Schema(description = "Create car object")
 public class CarDto extends AbstractDto {
 
-    @Schema(example = "1", required = true, minLength = 1)
+    @Schema(example = "1", minLength = 1)
     @NotNull
     private Long carCaseModelId;
 
     @NotNull
     private LocalDate dateOfIssue;
 
-    @Schema(example = "123123DFFFFF465646FG4", required = true, minLength = 1, maxLength = 30)
+    @Schema(example = "123123DFFFFF465646FG4", minLength = 1, maxLength = 30)
     @Size(min = 1, max = 30)
     @NotNull
     private String vinCode;
 
-    @Schema(example = "GREEN", required = true, minLength = 2, maxLength = 20)
+    @Schema(example = "GREEN", minLength = 2, maxLength = 20)
     @Size(min = 2, max = 20)
     @NotNull
     private String color;

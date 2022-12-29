@@ -1,0 +1,98 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-car-case-model
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_case_model_pk
+                    nullable: false
+              - column:
+                  name: car_case_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car_case_model
+                  baseColumnNames: car_case_id
+                  referencedTableName: car_case
+                  referencedColumnNames: id
+                  constraintName: car_case_model_car_case_fk
+              - column:
+                  name: model_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car_case_model
+                  baseColumnNames: model_id
+                  referencedTableName: model
+                  referencedColumnNames: id
+                  constraintName: car_case_model_model_fk
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: car_case_id
+                  value: 2
+              - column:
+                  name: model_id
+                  value: 1
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: car_case_id
+                  value: 4
+              - column:
+                  name: model_id
+                  value: 2
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: car_case_id
+                  value: 5
+              - column:
+                  name: model_id
+                  value: 3
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: car_case_id
+                  value: 1
+              - column:
+                  name: model_id
+                  value: 4
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: car_case_id
+                  value: 3
+              - column:
+                  name: model_id
+                  value: 5

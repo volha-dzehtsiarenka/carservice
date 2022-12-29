@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-model
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: model_pk
+                    nullable: false
+              - column:
+                  name: model_name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: brand_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: model
+                  baseColumnNames: brand_id
+                  referencedTableName: brand
+                  referencedColumnNames: id
+                  constraintName: model_brand_fk
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: model_name
+                  value: A3
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: model_name
+                  value: A5
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: model_name
+                  value: Quattro
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: model_name
+                  value: A4
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: model_name
+                  value: A5 Cabriolet
+              - column:
+                  name: brand_id
+                  value: 1

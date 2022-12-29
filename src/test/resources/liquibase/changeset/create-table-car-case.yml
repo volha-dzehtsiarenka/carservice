@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-car-case
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_case_pk
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: SEDAN
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: HATCHBACK
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: CONVERTIBLE
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: name
+                  value: COPE
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: name
+                  value: SPORTS CAR

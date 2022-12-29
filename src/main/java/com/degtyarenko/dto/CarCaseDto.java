@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @Schema(description = "Create car case object without system info")
 public class CarCaseDto extends AbstractDto {
 
+    @Schema(example = "Minivan", minLength = 2, maxLength = 20)
     @Size(min = 2, max = 20)
     @NotNull
     private String carCase;

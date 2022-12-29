@@ -19,9 +19,10 @@ import java.util.Set;
 /**
  * Class contains information about car <b>brands</b> with properties
  * <b>id</b> and <b>brandName</b>
+ *
  * @author Degtyarenko Olga
  * @version 1.0
- * @since   2022-12-22
+ * @since 2022-12-22
  */
 @Getter
 @Setter

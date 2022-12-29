@@ -33,7 +33,7 @@ public class ModelController {
 
     @Operation(summary = "Find all model case", responses = {
             @ApiResponse(responseCode = "200", description = "All models found",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
             @ApiResponse(responseCode = "500", description = "Models not found, Illegal Arguments",
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
@@ -63,33 +63,31 @@ public class ModelController {
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
         service.delete(id);
-        return new ResponseEntity<>("deleted successful!", HttpStatus.OK);
+        return new ResponseEntity<>("Deleted successful!", HttpStatus.OK);
     }
 
     @Operation(summary = "Create new model", responses = {
             @ApiResponse(responseCode = "201", description = "Model create successfully !",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
             @ApiResponse(responseCode = "409", description = "Model not created, Conflict",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Model not created, Illegal Arguments",
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createModel(@Valid @RequestBody ModelDto modelDto) {
-        service.create(modelDto);
-        return new ResponseEntity<>("Model create successfully !", HttpStatus.CREATED);
+        return new ResponseEntity<>(service.create(modelDto), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update model", responses = {
             @ApiResponse(responseCode = "200", description = "Model update successfully !",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
             @ApiResponse(responseCode = "404", description = "Model not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Model not update, Illegal Arguments",
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateModel(@Valid @RequestBody ModelDto modelDto) {
-        service.update(modelDto);
-        return new ResponseEntity<>("Model update successfully !", HttpStatus.OK);
+        return new ResponseEntity<>(service.update(modelDto), HttpStatus.OK);
     }
 
 }

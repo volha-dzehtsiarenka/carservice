@@ -34,7 +34,7 @@ public class CarCaseController {
 
     @Operation(summary = "Find all car case", responses = {
             @ApiResponse(responseCode = "200", description = "Finds all car case",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = CarCaseDto.class))),
             @ApiResponse(responseCode = "500", description = "Car case not found, Illegal Arguments",
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
@@ -70,28 +70,26 @@ public class CarCaseController {
 
     @Operation(summary = "Create new Car case", responses = {
             @ApiResponse(responseCode = "201", description = "Car case create successfully !",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = CarCaseDto.class))),
             @ApiResponse(responseCode = "409", description = "Car case not created, Conflict",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Car case not created, Illegal Arguments",
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createBodyType(@Valid @RequestBody CarCaseDto carCaseDto) {
-        carCaseService.create(carCaseDto);
-        return new ResponseEntity<>("Car case create successfully !", HttpStatus.CREATED);
+        return new ResponseEntity<>(carCaseService.create(carCaseDto), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update car case", responses = {
             @ApiResponse(responseCode = "200", description = "Car case update successfully !",
-                    content = @Content(schema = @Schema(implementation = BrandDto.class))),
+                    content = @Content(schema = @Schema(implementation = CarCaseDto.class))),
             @ApiResponse(responseCode = "404", description = "Car case not found",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "car case not update, Illegal Arguments",
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateBodyType(@Valid @RequestBody CarCaseDto carCaseDto) {
-        carCaseService.update(carCaseDto);
-        return new ResponseEntity<>("Car case update successfully !", HttpStatus.OK);
+        return new ResponseEntity<>(carCaseService.update(carCaseDto), HttpStatus.OK);
     }
 
 }

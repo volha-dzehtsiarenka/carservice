@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-car
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_pk
+                    nullable: false
+              - column:
+                  name: date_of_issue
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vin_code
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: color
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: car_case_model_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car
+                  baseColumnNames: car_case_model_id
+                  referencedTableName: car_case_model
+                  referencedColumnNames: id
+                  constraintName: car_car_case_model_fk
+        - insert:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: date_of_issue
+                  value: 2022-12-03
+              - column:
+                  name: vin_code
+                  value: 123123DFFHFF465646FG4
+              - column:
+                  name: color
+                  value: GREEN
+              - column:
+                  name: car_case_model_id
+                  value: 1
+        - insert:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: date_of_issue
+                  value: 2022-12-05
+              - column:
+                  name: vin_code
+                  value: 123123DFFHFF465706FG4
+              - column:
+                  name: color
+                  value: RED
+              - column:
+                  name: car_case_model_id
+                  value: 2
