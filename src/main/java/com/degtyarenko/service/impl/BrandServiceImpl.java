@@ -1,26 +1,34 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.BrandDto;
+import com.degtyarenko.dto.BrandSaveDto;
 import com.degtyarenko.entity.Brand;
-import com.degtyarenko.exeption.NotFoundException;
+import com.degtyarenko.exeption.EntityIsUsedException;
+import com.degtyarenko.exeption.EntityNotFoundException;
 import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.repository.BrandRepository;
 import com.degtyarenko.service.BrandService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The type Brand service.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 
-    private BrandRepository brandRepository;
-    private BrandMapper brandMapper;
+    private static final String BRAND_ALREADY_EXIST = "Brand already exist : ";
+    private final BrandRepository brandRepository;
+    private final BrandMapper brandMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -31,14 +39,18 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand findById(Long id) {
         return brandRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(id));
+                new EntityNotFoundException(id));
     }
 
     @Override
     @Transactional
-    public Brand create(BrandDto brandDto) throws ConstraintViolationException {
-        Brand brand = brandMapper.toBrand(brandDto);
-        return brandRepository.save(brand);
+    public Brand create(BrandSaveDto brandDto) {
+        Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
+        if (!Objects.isNull(brand)) {
+            throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, " ", brand.toString()));
+        }
+        Brand newBrand = brandMapper.toBrand(brandDto);
+        return brandRepository.save(newBrand);
     }
 
     @Override
@@ -46,15 +58,21 @@ public class BrandServiceImpl implements BrandService {
     public void delete(Long id) {
         if (brandRepository.findById(id).isPresent()) {
             brandRepository.deleteById(id);
-        } else throw new NotFoundException(id);
+        } else {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
     @Transactional
     public Brand update(BrandDto brandDto) {
-        if (brandRepository.findById(brandDto.getId()).isPresent()) {
-            return create(brandDto);
-        } else throw new NotFoundException(brandDto.getId());
+        Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
+        if (!Objects.isNull(brand)) {
+            throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, " ", brand.toString()));
+        } else if (brandRepository.findById(brandDto.getId()).isPresent()) {
+            Brand newBrand = brandMapper.toBrand(brandDto);
+            return brandRepository.save(newBrand);
+        } else throw new EntityNotFoundException(brandDto.getId());
     }
 
 }

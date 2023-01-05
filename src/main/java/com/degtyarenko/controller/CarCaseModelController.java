@@ -1,13 +1,13 @@
 package com.degtyarenko.controller;
 
-import com.degtyarenko.dto.AbstractDto;
-import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.dto.CarCaseModelDto;
+import com.degtyarenko.dto.CarCaseModelSaveDto;
 import com.degtyarenko.service.CarCaseModelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.degtyarenko.utils.Constant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * The type Car case model controller.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/carcasemodel")
+@Tag(name = "Car case model controller")
 public class CarCaseModelController {
 
     private final CarCaseModelService carCaseModelService;
 
-    @Operation(summary = "Find all car case-model", responses = {
-            @ApiResponse(responseCode = "200", description = "Finds all car case-model",
+    @Operation(summary = FIND_ALL_CAR_CASE_MODEL, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = FIND_ALL_CAR_CASE_MODEL,
                     content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
-            @ApiResponse(responseCode = "500", description = "Car case-model not found, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAll() {
@@ -43,49 +52,49 @@ public class CarCaseModelController {
     }
 
 
-    @Operation(summary = "Find car case - model by ID", responses = {
-            @ApiResponse(responseCode = "200", description = "Car case - model found",
-                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
-            @ApiResponse(responseCode = "404", description = "Car case - model not found",
+    @Operation(summary = FIND_CAR_CASE_MODEL_BY_ID, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_CASE_MODEL_FOUND,
+                    content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_MODEL_NOT_FOUND,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car case - model not found, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findById(@PathVariable Long id) {
         return new ResponseEntity<>(carCaseModelService.findById(id), HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete Car case - model", responses = {
-            @ApiResponse(responseCode = "200", description = "Car case - model delete successfully !",
-                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
-            @ApiResponse(responseCode = "404", description = "Car case - model not found",
+    @Operation(summary = DELETE_CAR_CASE_MODEL, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_CASE_MODEL_DELETE_SUCCESSFULLY,
+                    content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_MODEL_NOT_FOUND,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car case - model not deleted, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
         carCaseModelService.delete(id);
-        return new ResponseEntity<>("Deleted successful !", HttpStatus.OK);
+        return new ResponseEntity<>(DELETED_SUCCESSFUL, HttpStatus.OK);
     }
 
-    @Operation(summary = "Create new Car case - model", responses = {
-            @ApiResponse(responseCode = "201", description = "Car case - model create successfully !",
-                    content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
-            @ApiResponse(responseCode = "409", description = "Car case - model not created, Conflict",
+    @Operation(summary = CREATE_NEW_CAR_CASE_MODEL, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_201, description = CAR_CASE_MODEL_CREATE_SUCCESSFULLY,
+                    content = @Content(schema = @Schema(implementation = CarCaseModelSaveDto.class))),
+            @ApiResponse(responseCode = RESPONSE_CODE_409, description = CAR_CASE_MODEL_NOT_CREATED_CONFLICT,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car case - model not created, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createCarCaseModel(@Valid @RequestBody CarCaseModelDto carCaseModelDto) {
+    public ResponseEntity<Object> createCarCaseModel(@Valid @RequestBody CarCaseModelSaveDto carCaseModelDto) {
         return new ResponseEntity<>(carCaseModelService.create(carCaseModelDto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Update car case - model", responses = {
-            @ApiResponse(responseCode = "200", description = "Car case - model update successfully !",
+    @Operation(summary = UPDATE_CAR_CASE_MODEL, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_CASE_MODEL_UPDATE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
-            @ApiResponse(responseCode = "404", description = "Car case - model not found",
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_MODEL_NOT_FOUND,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Car case - model not update, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateCarCaseModel(@Valid @RequestBody CarCaseModelDto carCaseModelDto) {

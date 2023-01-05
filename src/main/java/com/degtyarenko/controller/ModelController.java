@@ -1,13 +1,13 @@
 package com.degtyarenko.controller;
 
-import com.degtyarenko.dto.AbstractDto;
-import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.dto.ModelDto;
+import com.degtyarenko.dto.ModelSaveDto;
 import com.degtyarenko.service.ModelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,72 +22,81 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.degtyarenko.utils.Constant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * The type Model controller.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/model")
+@Tag(name = "Model controller")
 public class ModelController {
 
-    private final ModelService service;
+    private final ModelService modelService;
 
-    @Operation(summary = "Find all model case", responses = {
-            @ApiResponse(responseCode = "200", description = "All models found",
+    @Operation(summary = FIND_ALL_MODEL_CASE, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = ALL_MODELS_FOUND,
                     content = @Content(schema = @Schema(implementation = ModelDto.class))),
-            @ApiResponse(responseCode = "500", description = "Models not found, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findAll() {
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(modelService.findAll(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Find model by ID", responses = {
-            @ApiResponse(responseCode = "200", description = "Model found",
-                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
-            @ApiResponse(responseCode = "404", description = "Model not found",
+    @Operation(summary = FIND_MODEL_BY_ID, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = MODEL_FOUND,
+                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_FOUND,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Model not found, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(modelService.findById(id), HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete model", responses = {
-            @ApiResponse(responseCode = "200", description = "Model delete successfully",
-                    content = @Content(schema = @Schema(implementation = AbstractDto.class))),
-            @ApiResponse(responseCode = "404", description = "Model not found",
+    @Operation(summary = DELETE_MODEL, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = MODEL_DELETE_SUCCESSFULLY,
+                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_FOUND,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Model not deleted, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
-        service.delete(id);
-        return new ResponseEntity<>("Deleted successful!", HttpStatus.OK);
+        modelService.delete(id);
+        return new ResponseEntity<>(DELETED_SUCCESSFUL, HttpStatus.OK);
     }
 
-    @Operation(summary = "Create new model", responses = {
-            @ApiResponse(responseCode = "201", description = "Model create successfully !",
-                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
-            @ApiResponse(responseCode = "409", description = "Model not created, Conflict",
+    @Operation(summary = CREATE_NEW_MODEL, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_201, description = MODEL_CREATE_SUCCESSFULLY,
+                    content = @Content(schema = @Schema(implementation = ModelSaveDto.class))),
+            @ApiResponse(responseCode = RESPONSE_CODE_409, description = MODEL_NOT_CREATED_CONFLICT,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Model not created, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createModel(@Valid @RequestBody ModelDto modelDto) {
-        return new ResponseEntity<>(service.create(modelDto), HttpStatus.CREATED);
+    public ResponseEntity<Object> createModel(@Valid @RequestBody ModelSaveDto modelDto) {
+        return new ResponseEntity<>(modelService.create(modelDto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Update model", responses = {
-            @ApiResponse(responseCode = "200", description = "Model update successfully !",
+    @Operation(summary = UPDATE_MODEL, responses = {
+            @ApiResponse(responseCode = RESPONSE_CODE_200, description = MODEL_UPDATE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = ModelDto.class))),
-            @ApiResponse(responseCode = "404", description = "Model not found",
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_FOUND,
                     content = @Content),
-            @ApiResponse(responseCode = "500", description = "Model not update, Illegal Arguments",
+            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateModel(@Valid @RequestBody ModelDto modelDto) {
-        return new ResponseEntity<>(service.update(modelDto), HttpStatus.OK);
+        return new ResponseEntity<>(modelService.update(modelDto), HttpStatus.OK);
     }
 
 }

@@ -25,7 +25,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: 1
+                  autoIncrement: true
               - column:
                   name: name
                   value: SEDAN
@@ -34,7 +34,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: 2
+                  autoIncrement: true
               - column:
                   name: name
                   value: HATCHBACK
@@ -43,7 +43,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: 3
+                  autoIncrement: true
               - column:
                   name: name
                   value: CONVERTIBLE
@@ -52,7 +52,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: 4
+                  autoIncrement: true
               - column:
                   name: name
                   value: COPE
@@ -61,7 +61,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: 5
+                  autoIncrement: true
               - column:
                   name: name
                   value: SPORTS CAR

@@ -1,8 +1,10 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.CarDto;
+import com.degtyarenko.dto.CarSaveDto;
 import com.degtyarenko.entity.Car;
-import com.degtyarenko.exeption.NotFoundException;
+import com.degtyarenko.exeption.EntityIsUsedException;
+import com.degtyarenko.exeption.EntityNotFoundException;
 import com.degtyarenko.mappers.CarMapper;
 import com.degtyarenko.repository.CarRepository;
 import com.degtyarenko.service.CarService;
@@ -11,12 +13,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The type Car service.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @Service
 @RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
 
-    private static final String CAR_NOT_FOUND = "Car not found";
+    public static final String CAR_IS_ALREADY_EXIST = "Car is already exist : ";
     private final CarRepository carRepository;
     private final CarMapper carMapper;
 
@@ -29,14 +39,18 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car findById(Long id) {
         return carRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(id));
+                new EntityNotFoundException(id));
     }
 
     @Override
     @Transactional
-    public Car create(CarDto carDto) {
-        Car car = carMapper.toCar(carDto);
-        return carRepository.save(car);
+    public Car create(CarSaveDto carDto) {
+        Car car = carRepository.findByVinCode(carDto.getVinCode());
+        if(!Objects.isNull(car)){
+            throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, " ", car.toString()));
+        }
+        Car newCar = carMapper.toCar(carDto);
+        return carRepository.save(newCar);
     }
 
     @Override
@@ -44,15 +58,19 @@ public class CarServiceImpl implements CarService {
     public void delete(Long id) {
         if (carRepository.findById(id).isPresent()) {
             carRepository.deleteById(id);
-        } else throw new NotFoundException(id);
+        } else throw new EntityNotFoundException(id);
     }
 
     @Override
     @Transactional
     public Car update(CarDto carDto) {
-        if (carRepository.findById(carDto.getId()).isPresent()) {
-            return create(carDto);
-        } else throw new NotFoundException(carDto.getId());
+        Car car = carRepository.findByVinCode(carDto.getVinCode());
+        if(!Objects.isNull(car)){
+            throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, " ", car.toString()));
+        } else if (carRepository.findById(carDto.getId()).isPresent()) {
+            Car newCar = carMapper.toCar(carDto);
+            return carRepository.save(newCar);
+        } else throw new EntityNotFoundException(carDto.getId());
     }
 
 }

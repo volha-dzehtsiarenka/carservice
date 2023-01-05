@@ -7,13 +7,28 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import static com.degtyarenko.utils.Constant.*;
+
+/**
+ * The type Brand dto.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @Getter
 @Setter
-@Schema(description = "Create brand object without system info")
-public class BrandDto extends AbstractDto {
+@Schema(description = "Update brand object")
+public class BrandDto {
 
-    @Schema(example = "Toyota", minLength = 2, maxLength = 20)
-    @Size(min = 2, max = 20)
+
+
+    @Schema(example = STRING_1, minLength = INT_1)
+    @NotNull
+    private Long id;
+
+    @Schema(example = TOYOTA, minLength = INT_2, maxLength = INT_20)
+    @Size(min = INT_2, max = INT_20)
     @NotNull
     private String brandName;
 

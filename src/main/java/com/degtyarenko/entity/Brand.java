@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "brand", schema = "carservice")
+@ToString(exclude = "models")
 public class Brand {
 
     @Id
@@ -38,7 +40,7 @@ public class Brand {
     @Column(name = "brand_name")
     private String brandName;
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonBackReference
     private Set<Model> models;
 

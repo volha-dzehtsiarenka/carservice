@@ -1,6 +1,7 @@
 package com.degtyarenko.service;
 
 import com.degtyarenko.dto.CarCaseModelDto;
+import com.degtyarenko.dto.CarCaseModelSaveDto;
 import com.degtyarenko.entity.CarCaseModel;
 
 import java.util.List;
@@ -8,6 +9,10 @@ import java.util.List;
 
 /**
  * The interface Car case model service.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
  */
 public interface CarCaseModelService {
 
@@ -21,7 +26,7 @@ public interface CarCaseModelService {
     /**
      * Find by id car case model.
      *
-     * @param id the id
+     * @param id the id car case model
      * @return the car case model
      */
     CarCaseModel findById(Long id);
@@ -32,12 +37,12 @@ public interface CarCaseModelService {
      * @param carCaseModelDto the car case model dto
      * @return the car case model
      */
-    CarCaseModel create(CarCaseModelDto carCaseModelDto);
+    CarCaseModel create(CarCaseModelSaveDto carCaseModelDto);
 
     /**
      * Delete.
      *
-     * @param id the id
+     * @param id the id car case model
      */
     void delete(Long id);
 

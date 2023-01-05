@@ -23,6 +23,7 @@ databaseChangeLog:
                   name: vin_code
                   type: varchar(200)
                   constraints:
+                    unique: true
                     nullable: false
               - column:
                   name: color
@@ -45,7 +46,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: 1
+                  autoIncrement: true
               - column:
                   name: date_of_issue
                   value: 2022-12-03
@@ -63,7 +64,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  value: 2
+                  autoIncrement: true
               - column:
                   name: date_of_issue
                   value: 2022-12-05

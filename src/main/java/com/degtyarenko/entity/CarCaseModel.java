@@ -1,10 +1,13 @@
 package com.degtyarenko.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,18 +28,21 @@ import javax.persistence.Table;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "car_case_model", schema = "carservice")
+@ToString
 public class CarCaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "car_case_id")
+    @JsonManagedReference
     private CarCase carCase;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "model_id")
+    @JsonManagedReference
     private Model model;
 
 }

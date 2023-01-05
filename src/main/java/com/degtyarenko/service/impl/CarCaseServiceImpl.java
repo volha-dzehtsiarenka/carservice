@@ -1,8 +1,10 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.CarCaseDto;
+import com.degtyarenko.dto.CarCaseSaveDto;
 import com.degtyarenko.entity.CarCase;
-import com.degtyarenko.exeption.NotFoundException;
+import com.degtyarenko.exeption.EntityIsUsedException;
+import com.degtyarenko.exeption.EntityNotFoundException;
 import com.degtyarenko.mappers.CarCaseMapper;
 import com.degtyarenko.repository.CarCaseRepository;
 import com.degtyarenko.service.CarCaseService;
@@ -11,12 +13,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The type Car case service.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @Service
 @RequiredArgsConstructor
 public class CarCaseServiceImpl implements CarCaseService {
 
-    private static final String CAR_CASE_NOT_FOUND = "Car case not found";
+    private static final String CAR_CASE_ALREADY_EXIST = "Car case already exist";
     private final CarCaseRepository carCaseRepository;
     private final CarCaseMapper carCaseMapper;
 
@@ -29,14 +39,18 @@ public class CarCaseServiceImpl implements CarCaseService {
     @Override
     public CarCase findById(Long id) {
         return carCaseRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(id));
+                new EntityNotFoundException(id));
     }
 
     @Override
     @Transactional
-    public CarCase create(CarCaseDto carCaseDto) {
-        CarCase carCase = carCaseMapper.toCarCase(carCaseDto);
-        return carCaseRepository.save(carCase);
+    public CarCase create(CarCaseSaveDto carCaseDto) {
+        CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
+        if (!Objects.isNull(carCase)) {
+            throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, " ", carCase.toString()));
+        }
+        CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);
+        return carCaseRepository.save(newCarCase);
     }
 
     @Override
@@ -44,15 +58,19 @@ public class CarCaseServiceImpl implements CarCaseService {
     public void delete(Long id) {
         if (carCaseRepository.findById(id).isPresent()) {
             carCaseRepository.deleteById(id);
-        } else throw new NotFoundException(id);
+        } else throw new EntityNotFoundException(id);
     }
 
     @Override
     @Transactional
     public CarCase update(CarCaseDto carCaseDto) {
-        if (carCaseRepository.findById(carCaseDto.getId()).isPresent()) {
-            return create(carCaseDto);
-        } else throw new NotFoundException(carCaseDto.getId());
+        CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
+        if (!Objects.isNull(carCase)) {
+            throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, " ", carCase.toString()));
+        } else if (carCaseRepository.findById(carCaseDto.getId()).isPresent()) {
+            CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);
+            return carCaseRepository.save(newCarCase);
+        } else throw new EntityNotFoundException(carCaseDto.getId());
     }
 
 }

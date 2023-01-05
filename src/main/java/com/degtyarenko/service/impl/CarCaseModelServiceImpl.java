@@ -1,8 +1,10 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.CarCaseModelDto;
+import com.degtyarenko.dto.CarCaseModelSaveDto;
 import com.degtyarenko.entity.CarCaseModel;
-import com.degtyarenko.exeption.NotFoundException;
+import com.degtyarenko.exeption.EntityIsUsedException;
+import com.degtyarenko.exeption.EntityNotFoundException;
 import com.degtyarenko.mappers.CarCaseModelMapper;
 import com.degtyarenko.repository.CarCaseModelRepository;
 import com.degtyarenko.service.CarCaseModelService;
@@ -11,12 +13,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The type Car case model service.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @Service
 @RequiredArgsConstructor
 public class CarCaseModelServiceImpl implements CarCaseModelService {
 
-    private static final String CAR_CASE_MODEL_NOT_FOUND = "Car case model not found";
+    private static final String CAR_CASE_MODEL_ALREADY_EXIST = "Car case model already exist : ";
     private final CarCaseModelRepository carCaseModelRepository;
     private final CarCaseModelMapper carCaseModelMapper;
 
@@ -29,27 +39,37 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     @Override
     public CarCaseModel findById(Long id) {
         return carCaseModelRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(id));
+                new EntityNotFoundException(id));
     }
 
     @Override
-    public CarCaseModel create(CarCaseModelDto carCaseModelDto) {
-        CarCaseModel carCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
-        return carCaseModelRepository.save(carCaseModel);
+    public CarCaseModel create(CarCaseModelSaveDto carCaseModelDto) {
+        CarCaseModel carCaseModel = carCaseModelRepository.findByCarCase_IdAndModel_Id(
+                (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
+        if (!Objects.isNull(carCaseModel)) {
+            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, " ", carCaseModel.toString()));
+        }
+        CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
+        return carCaseModelRepository.save(newCarCaseModel);
     }
 
     @Override
     public void delete(Long id) {
         if (carCaseModelRepository.findById(id).isPresent()) {
             carCaseModelRepository.deleteById(id);
-        } else throw new NotFoundException(id);
+        } else throw new EntityNotFoundException(id);
     }
 
     @Override
     public CarCaseModel update(CarCaseModelDto carCaseModelDto) {
-        if (carCaseModelRepository.findById(carCaseModelDto.getId()).isPresent()) {
-            return create(carCaseModelDto);
-        } else throw new NotFoundException(carCaseModelDto.getId());
+        CarCaseModel carCaseModel = carCaseModelRepository.findByCarCase_IdAndModel_Id(
+                (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
+        if (!Objects.isNull(carCaseModel)) {
+            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, " ", carCaseModel.toString()));
+        } else if (carCaseModelRepository.findById(carCaseModelDto.getId()).isPresent()) {
+            CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
+            return carCaseModelRepository.save(newCarCaseModel);
+        } else throw new EntityNotFoundException(carCaseModelDto.getId());
     }
 
 }

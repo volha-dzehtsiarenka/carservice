@@ -1,8 +1,10 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.ModelDto;
+import com.degtyarenko.dto.ModelSaveDto;
 import com.degtyarenko.entity.Model;
-import com.degtyarenko.exeption.NotFoundException;
+import com.degtyarenko.exeption.EntityIsUsedException;
+import com.degtyarenko.exeption.EntityNotFoundException;
 import com.degtyarenko.mappers.ModelMapper;
 import com.degtyarenko.repository.ModelRepository;
 import com.degtyarenko.service.ModelService;
@@ -11,12 +13,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * The type Model service.
+ *
+ * @author Degtyarenko Olga
+ * @version 1.0
+ * @since 2022-12-22
+ */
 @Service
 @RequiredArgsConstructor
 public class ModelServiceImpl implements ModelService {
 
-    private static final String MODEL_NOT_FOUND = "Model not found";
+    private static final String MODEL_ALREADY_EXIST = "Model already exist : ";
     private final ModelRepository modelRepository;
     private final ModelMapper modelMapper;
 
@@ -29,14 +39,18 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public Model findById(Long id) {
         return modelRepository.findById(id).orElseThrow(() ->
-                new NotFoundException(id));
+                new EntityNotFoundException(id));
     }
 
     @Override
     @Transactional
-    public Model create(ModelDto modelDto) {
-        Model model = modelMapper.toModel(modelDto);
-        return modelRepository.save(model);
+    public Model create(ModelSaveDto modelDto) {
+        Model model = modelRepository.findByModelName(modelDto.getModelName());
+        if (!Objects.isNull(model)) {
+            throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, " ", model.toString()));
+        }
+        Model newModel = modelMapper.toModel(modelDto);
+        return modelRepository.save(newModel);
     }
 
     @Override
@@ -44,15 +58,19 @@ public class ModelServiceImpl implements ModelService {
     public void delete(Long id) {
         if (modelRepository.findById(id).isPresent()) {
             modelRepository.deleteById(id);
-        } else throw new NotFoundException(id);
+        } else throw new EntityNotFoundException(id);
     }
 
     @Override
     @Transactional
     public Model update(ModelDto modelDto) {
-        if (modelRepository.findById(modelDto.getId()).isPresent()) {
-            return create(modelDto);
-        } else throw new NotFoundException(modelDto.getId());
+        Model model = modelRepository.findByModelName(modelDto.getModelName());
+        if (!Objects.isNull(model)) {
+            throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, " ", model.toString()));
+        } else if (modelRepository.findById(modelDto.getId()).isPresent()) {
+            Model newModel = modelMapper.toModel(modelDto);
+            return modelRepository.save(newModel);
+        } else throw new EntityNotFoundException(modelDto.getId());
     }
 
 }

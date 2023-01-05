@@ -1,6 +1,7 @@
 package com.degtyarenko.exceptionhandle;
 
-import com.degtyarenko.exeption.NotFoundException;
+import com.degtyarenko.exeption.EntityIsUsedException;
+import com.degtyarenko.exeption.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,38 +13,43 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.persistence.EntityNotFoundException;
-
+import static com.degtyarenko.utils.Constant.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 
 @ControllerAdvice
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({NotFoundException.class, EntityNotFoundException.class})
-    public ResponseEntity<ErrorMessage> notFoundException(NotFoundException exception) {
-        ErrorMessage message = new ErrorMessage("Entity Not Found Exception", exception.getMessage());
+    @ExceptionHandler({EntityNotFoundException.class, javax.persistence.EntityNotFoundException.class})
+    public ResponseEntity<ErrorMessage> notFoundException(EntityNotFoundException exception) {
+        ErrorMessage message = new ErrorMessage(ENTITY_NOT_FOUND_EXCEPTION, exception.getMessage());
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EntityIsUsedException.class)
+    public ResponseEntity<ErrorMessage> entityIsUsed(EntityIsUsedException exception) {
+        ErrorMessage message = new ErrorMessage(ENTITY_IS_ALREADY_USED, exception.getMessage());
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ErrorMessage message = new ErrorMessage("Malformed JSON Request", ex.getMessage());
+        ErrorMessage message = new ErrorMessage(MALFORMED_JSON_REQUEST, ex.getMessage());
         return new ResponseEntity(message, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ErrorMessage message = new ErrorMessage("Method Argument Not Valid", ex.getMessage());
+        ErrorMessage message = new ErrorMessage(METHOD_ARGUMENT_NOT_VALID, ex.getMessage());
         return new ResponseEntity<>(message, status);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
         ErrorMessage message = new ErrorMessage();
-        message.setMessage(String.format("The parameter '%s' of value '%s' could not be converted to type '%s'",
+        message.setMessage(String.format(THE_PARAMETER_S_OF_VALUE_S_COULD_NOT_BE_CONVERTED_TO_TYPE_S,
                 ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName()));
         message.setDebugMessage(ex.getMessage());
         return new ResponseEntity<>(message, BAD_REQUEST);
@@ -51,7 +57,7 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleAllExceptions(Exception ex) {
-        ErrorMessage message = new ErrorMessage("Internal Exception", ex.getMessage());
+        ErrorMessage message = new ErrorMessage(INTERNAL_EXCEPTION, ex.getMessage());
         return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

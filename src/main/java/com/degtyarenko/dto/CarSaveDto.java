@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import static com.degtyarenko.utils.Constant.*;
 
 /**
- * The type Car dto.
+ * The type Car save dto.
  *
  * @author Degtyarenko Olga
  * @version 1.0
@@ -19,12 +19,8 @@ import static com.degtyarenko.utils.Constant.*;
  */
 @Getter
 @Setter
-@Schema(description = "Update car object")
-public class CarDto {
-
-    @Schema(example = STRING_1 , minLength = INT_1)
-    @NotNull
-    private Long id;
+@Schema(description = "Create car object")
+public class CarSaveDto {
 
     @Schema(example = STRING_1, minLength = INT_1)
     @NotNull

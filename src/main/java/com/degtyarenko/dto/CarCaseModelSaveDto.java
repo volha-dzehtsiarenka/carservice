@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import static com.degtyarenko.utils.Constant.*;
 
 /**
- * The type Model dto.
+ * The type Car case model save dto.
  *
  * @author Degtyarenko Olga
  * @version 1.0
@@ -18,20 +16,15 @@ import static com.degtyarenko.utils.Constant.*;
  */
 @Getter
 @Setter
-@Schema(description = "Update model object")
-public class ModelDto {
+@Schema(description = "Create car case-model object")
+public class CarCaseModelSaveDto {
 
     @Schema(example = STRING_1, minLength = INT_1)
     @NotNull
-    private Long id;
-
-    @Schema(example = MODEL_EXAMPLE, minLength = INT_1, maxLength = INT_20)
-    @Size(min = INT_2, max = INT_20)
-    @NotNull
-    private String modelName;
+    private Long carCaseId;
 
     @Schema(example = STRING_1, minLength = INT_1)
     @NotNull
-    private Long brandId;
+    private Long modelId;
 
 }
