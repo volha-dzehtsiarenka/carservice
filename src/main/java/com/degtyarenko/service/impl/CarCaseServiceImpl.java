@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+import static com.degtyarenko.Constant.CAR_CASE_ALREADY_EXIST;
+import static com.degtyarenko.Constant.STRING;
+
 /**
  * The type Car case service.
  *
@@ -26,7 +29,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CarCaseServiceImpl implements CarCaseService {
 
-    private static final String CAR_CASE_ALREADY_EXIST = "Car case already exist";
     private final CarCaseRepository carCaseRepository;
     private final CarCaseMapper carCaseMapper;
 
@@ -47,7 +49,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     public CarCase create(CarCaseSaveDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
         if (!Objects.isNull(carCase)) {
-            throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, " ", carCase.toString()));
+            throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, STRING, carCase.toString()));
         }
         CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);
         return carCaseRepository.save(newCarCase);
@@ -66,7 +68,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     public CarCase update(CarCaseDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
         if (!Objects.isNull(carCase)) {
-            throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, " ", carCase.toString()));
+            throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, STRING, carCase.toString()));
         } else if (carCaseRepository.findById(carCaseDto.getId()).isPresent()) {
             CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);
             return carCaseRepository.save(newCarCase);

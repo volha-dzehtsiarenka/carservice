@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-import static com.degtyarenko.utils.Constant.*;
+import static com.degtyarenko.Constant.*;
 
 /**
  * The type Car dto.
@@ -22,7 +22,7 @@ import static com.degtyarenko.utils.Constant.*;
 @Schema(description = "Update car object")
 public class CarDto {
 
-    @Schema(example = STRING_1 , minLength = INT_1)
+    @Schema(example = STRING_1, minLength = INT_1)
     @NotNull
     private Long id;
 

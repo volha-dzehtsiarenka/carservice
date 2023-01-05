@@ -22,6 +22,4 @@ public interface ModelMapper {
     @Mapping(source = "brandId", target = "brand.id")
     Model toModel(ModelSaveDto modelSaveDto);
 
-    ModelDto toModelDto(Model model);
-
 }

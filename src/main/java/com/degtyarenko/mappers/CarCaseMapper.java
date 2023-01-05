@@ -19,5 +19,4 @@ public interface CarCaseMapper {
 
     CarCase toCarCase(CarCaseSaveDto carCaseSaveDto);
 
-    CarCaseDto toCarCaseDto(CarCase carCase);
 }

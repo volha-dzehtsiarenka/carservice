@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,7 +39,7 @@ public class CarCase {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "carCase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "carCase", fetch = FetchType.LAZY)
     @JsonBackReference
     private Set<CarCaseModel> carCaseModel;
 

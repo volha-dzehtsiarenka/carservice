@@ -19,5 +19,4 @@ public interface BrandMapper {
 
     Brand toBrand(BrandDto brandDto);
 
-    BrandDto toBrandDto(Brand brand);
 }

@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import static com.degtyarenko.utils.Constant.*;
+
+import static com.degtyarenko.Constant.*;
 
 
 /**

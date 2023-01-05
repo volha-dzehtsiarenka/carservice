@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import static com.degtyarenko.utils.Constant.*;
+import static com.degtyarenko.Constant.*;
 
 /**
  * The type Brand dto.
@@ -20,8 +20,6 @@ import static com.degtyarenko.utils.Constant.*;
 @Setter
 @Schema(description = "Update brand object")
 public class BrandDto {
-
-
 
     @Schema(example = STRING_1, minLength = INT_1)
     @NotNull

@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+import static com.degtyarenko.Constant.CAR_CASE_MODEL_ALREADY_EXIST;
+import static com.degtyarenko.Constant.STRING;
+
 /**
  * The type Car case model service.
  *
@@ -26,7 +29,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CarCaseModelServiceImpl implements CarCaseModelService {
 
-    private static final String CAR_CASE_MODEL_ALREADY_EXIST = "Car case model already exist : ";
     private final CarCaseModelRepository carCaseModelRepository;
     private final CarCaseModelMapper carCaseModelMapper;
 
@@ -44,10 +46,10 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
 
     @Override
     public CarCaseModel create(CarCaseModelSaveDto carCaseModelDto) {
-        CarCaseModel carCaseModel = carCaseModelRepository.findByCarCase_IdAndModel_Id(
+        CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
         if (!Objects.isNull(carCaseModel)) {
-            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, " ", carCaseModel.toString()));
+            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, carCaseModel.toString()));
         }
         CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
         return carCaseModelRepository.save(newCarCaseModel);
@@ -62,10 +64,10 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
 
     @Override
     public CarCaseModel update(CarCaseModelDto carCaseModelDto) {
-        CarCaseModel carCaseModel = carCaseModelRepository.findByCarCase_IdAndModel_Id(
+        CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
         if (!Objects.isNull(carCaseModel)) {
-            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, " ", carCaseModel.toString()));
+            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, carCaseModel.toString()));
         } else if (carCaseModelRepository.findById(carCaseModelDto.getId()).isPresent()) {
             CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
             return carCaseModelRepository.save(newCarCaseModel);

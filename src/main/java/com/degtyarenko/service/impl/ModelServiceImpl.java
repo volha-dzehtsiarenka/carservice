@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+import static com.degtyarenko.Constant.MODEL_ALREADY_EXIST;
+import static com.degtyarenko.Constant.STRING;
+
 /**
  * The type Model service.
  *
@@ -26,7 +29,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ModelServiceImpl implements ModelService {
 
-    private static final String MODEL_ALREADY_EXIST = "Model already exist : ";
     private final ModelRepository modelRepository;
     private final ModelMapper modelMapper;
 
@@ -47,7 +49,7 @@ public class ModelServiceImpl implements ModelService {
     public Model create(ModelSaveDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
         if (!Objects.isNull(model)) {
-            throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, " ", model.toString()));
+            throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));
         }
         Model newModel = modelMapper.toModel(modelDto);
         return modelRepository.save(newModel);
@@ -66,7 +68,7 @@ public class ModelServiceImpl implements ModelService {
     public Model update(ModelDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
         if (!Objects.isNull(model)) {
-            throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, " ", model.toString()));
+            throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));
         } else if (modelRepository.findById(modelDto.getId()).isPresent()) {
             Model newModel = modelMapper.toModel(modelDto);
             return modelRepository.save(newModel);

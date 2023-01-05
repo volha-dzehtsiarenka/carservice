@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,7 +45,7 @@ public class Model {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "model", fetch = FetchType.LAZY)
     @JsonBackReference
     private Set<CarCaseModel> carCaseModel;
 

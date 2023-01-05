@@ -7,7 +7,7 @@ import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static com.degtyarenko.utils.Constant.*;
+import static com.degtyarenko.Constant.*;
 
 @Configuration
 public class OpenAPIConfig {

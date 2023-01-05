@@ -2,7 +2,6 @@ package com.degtyarenko.mappers;
 
 import com.degtyarenko.dto.CarCaseModelDto;
 import com.degtyarenko.dto.CarCaseModelSaveDto;
-import com.degtyarenko.entity.CarCase;
 import com.degtyarenko.entity.CarCaseModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,5 +24,4 @@ public interface CarCaseModelMapper {
     @Mapping(source = "modelId", target = "model.id")
     CarCaseModel toCarCaseModel(CarCaseModelSaveDto carCaseModelSaveDto);
 
-    CarCaseModelDto toCarCaseModelDto(CarCase carCase);
 }

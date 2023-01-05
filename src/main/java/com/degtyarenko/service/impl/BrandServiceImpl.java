@@ -15,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+import static com.degtyarenko.Constant.BRAND_ALREADY_EXIST;
+import static com.degtyarenko.Constant.STRING;
+
 /**
  * The type Brand service.
  *
@@ -26,7 +29,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 
-    private static final String BRAND_ALREADY_EXIST = "Brand already exist : ";
     private final BrandRepository brandRepository;
     private final BrandMapper brandMapper;
 
@@ -47,7 +49,7 @@ public class BrandServiceImpl implements BrandService {
     public Brand create(BrandSaveDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
         if (!Objects.isNull(brand)) {
-            throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, " ", brand.toString()));
+            throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
         }
         Brand newBrand = brandMapper.toBrand(brandDto);
         return brandRepository.save(newBrand);
@@ -68,7 +70,7 @@ public class BrandServiceImpl implements BrandService {
     public Brand update(BrandDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
         if (!Objects.isNull(brand)) {
-            throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, " ", brand.toString()));
+            throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
         } else if (brandRepository.findById(brandDto.getId()).isPresent()) {
             Brand newBrand = brandMapper.toBrand(brandDto);
             return brandRepository.save(newBrand);

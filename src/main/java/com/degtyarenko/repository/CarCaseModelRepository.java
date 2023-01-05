@@ -14,8 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CarCaseModelRepository extends JpaRepository<CarCaseModel, Long> {
 
-    CarCaseModel findByCarCase_IdAndModel_Id(Long idCarCase, Long idModel);
-
+    CarCaseModel findByCarCaseIdAndModelId(Long idCarCase, Long idModel);
 
 
 }

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-import static com.degtyarenko.utils.Constant.*;
+import static com.degtyarenko.Constant.*;
 
 /**
  * The type Car save dto.

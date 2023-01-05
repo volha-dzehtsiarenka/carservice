@@ -1,4 +1,4 @@
-package com.degtyarenko.utils;
+package com.degtyarenko;
 
 public class Constant {
 
@@ -14,7 +14,6 @@ public class Constant {
     public static final String RESPONSE_CODE_404 = "404";
     public static final String DELETED_SUCCESSFUL = "Deleted successful !";
     public static final String RESPONSE_CODE_201 = "201";
-    public static final String RESPONSE_CODE_409 = "409";
 
     public static final String FIND_ALL_BRANDS = "Find all brands";
     public static final String BRANDS_NOT_FOUND_ILLEGAL_ARGUMENTS = "Brands not found, Illegal Arguments";
@@ -108,8 +107,15 @@ public class Constant {
     public static final String MODEL_EXAMPLE = "Quattro";
     public static final String ENTITY_NOT_FOUND_EXCEPTION = "Entity Not Found Exception";
     public static final String ENTITY_IS_ALREADY_USED = "Entity is already used !";
-    public static final String MALFORMED_JSON_REQUEST = "Malformed JSON Request";
-    public static final String METHOD_ARGUMENT_NOT_VALID = "Method Argument Not Valid";
     public static final String THE_PARAMETER_S_OF_VALUE_S_COULD_NOT_BE_CONVERTED_TO_TYPE_S = "The parameter '%s' of value '%s' could not be converted to type '%s'";
     public static final String INTERNAL_EXCEPTION = "Internal Exception";
+    public static final String CAR_CASE_MODEL_ALREADY_EXIST = "Car case model already exist : ";
+    public static final String BRAND_ALREADY_EXIST = "Brand already exist : ";
+    public static final String CAR_CASE_ALREADY_EXIST = "Car case already exist";
+    public static final String CAR_IS_ALREADY_EXIST = "Car is already exist : ";
+    public static final String MODEL_ALREADY_EXIST = "Model already exist : ";
+    public static final String STRING = " ";
+    public static final String BAD_REQUEST = "Bad request";
+    public static final String RESPONSE_CODE_400 = "400";
+
 }

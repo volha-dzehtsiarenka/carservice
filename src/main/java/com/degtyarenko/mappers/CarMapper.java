@@ -22,5 +22,4 @@ public interface CarMapper {
     @Mapping(source = "carCaseModelId", target = "carCaseModel.id")
     Car toCar(CarSaveDto carSaveDto);
 
-    CarDto toCarDto(Car car);
 }

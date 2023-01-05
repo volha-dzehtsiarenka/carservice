@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
-import static com.degtyarenko.utils.Constant.*;
+
+import static com.degtyarenko.Constant.INT_1;
+import static com.degtyarenko.Constant.STRING_1;
 
 /**
  * The type Car case model dto.

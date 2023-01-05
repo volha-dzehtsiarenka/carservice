@@ -2,18 +2,14 @@ package com.degtyarenko.exceptionhandle;
 
 import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static com.degtyarenko.utils.Constant.*;
+import static com.degtyarenko.Constant.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 
@@ -32,26 +28,9 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(MALFORMED_JSON_REQUEST, ex.getMessage());
-        return new ResponseEntity(message, status);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(METHOD_ARGUMENT_NOT_VALID, ex.getMessage());
-        return new ResponseEntity<>(message, status);
-    }
-
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
-        ErrorMessage message = new ErrorMessage();
-        message.setMessage(String.format(THE_PARAMETER_S_OF_VALUE_S_COULD_NOT_BE_CONVERTED_TO_TYPE_S,
-                ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName()));
-        message.setDebugMessage(ex.getMessage());
+        ErrorMessage message = new ErrorMessage(THE_PARAMETER_S_OF_VALUE_S_COULD_NOT_BE_CONVERTED_TO_TYPE_S,ex.getMessage());
         return new ResponseEntity<>(message, BAD_REQUEST);
     }
 

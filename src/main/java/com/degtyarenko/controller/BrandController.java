@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.degtyarenko.utils.Constant.*;
+import static com.degtyarenko.Constant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -78,7 +78,9 @@ public class BrandController {
     @Operation(summary = CREATE_NEW_BRAND, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_201, description = BRAND_CREATE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = BrandSaveDto.class))),
-            @ApiResponse(responseCode = RESPONSE_CODE_409, description = BRAND_NOT_CREATED_CONFLICT,
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = BRAND_NOT_CREATED_CONFLICT,
+                    content = @Content),
+            @ApiResponse(responseCode = RESPONSE_CODE_400, description = BAD_REQUEST,
                     content = @Content),
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = BRAND_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})

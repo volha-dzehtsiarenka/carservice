@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.degtyarenko.utils.Constant.*;
+import static com.degtyarenko.Constant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -79,7 +79,9 @@ public class CarCaseController {
     @Operation(summary = CREATE_NEW_CAR_CASE, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_201, description = CAR_CASE_CREATE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = CarCaseSaveDto.class))),
-            @ApiResponse(responseCode = RESPONSE_CODE_409, description = CAR_CASE_NOT_CREATED_CONFLICT,
+            @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_NOT_CREATED_CONFLICT,
+                    content = @Content),
+            @ApiResponse(responseCode = RESPONSE_CODE_400, description = BAD_REQUEST,
                     content = @Content),
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
