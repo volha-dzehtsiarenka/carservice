@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,6 @@ import javax.persistence.Table;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "car_case_model", schema = "carservice")
-@ToString
 public class CarCaseModel {
 
     @Id

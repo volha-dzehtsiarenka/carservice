@@ -26,6 +26,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 
@@ -33,7 +34,6 @@ public class BrandServiceImpl implements BrandService {
     private final BrandMapper brandMapper;
 
     @Override
-    @Transactional(readOnly = true)
     public List<Brand> findAll() {
         return brandRepository.findAll();
     }
@@ -45,7 +45,6 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    @Transactional
     public Brand create(BrandSaveDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
         if (!Objects.isNull(brand)) {
@@ -56,7 +55,6 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
         if (brandRepository.findById(id).isPresent()) {
             brandRepository.deleteById(id);
@@ -66,7 +64,6 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    @Transactional
     public Brand update(BrandDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
         if (!Objects.isNull(brand)) {

@@ -26,6 +26,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CarCaseModelServiceImpl implements CarCaseModelService {
 
@@ -33,7 +34,6 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     private final CarCaseModelMapper carCaseModelMapper;
 
     @Override
-    @Transactional(readOnly = true)
     public List<CarCaseModel> findAll() {
         return carCaseModelRepository.findAll();
     }

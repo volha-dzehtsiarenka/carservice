@@ -26,6 +26,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CarCaseServiceImpl implements CarCaseService {
 
@@ -33,7 +34,6 @@ public class CarCaseServiceImpl implements CarCaseService {
     private final CarCaseMapper carCaseMapper;
 
     @Override
-    @Transactional(readOnly = true)
     public List<CarCase> findAll() {
         return carCaseRepository.findAll();
     }
@@ -45,7 +45,6 @@ public class CarCaseServiceImpl implements CarCaseService {
     }
 
     @Override
-    @Transactional
     public CarCase create(CarCaseSaveDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
         if (!Objects.isNull(carCase)) {
@@ -56,7 +55,6 @@ public class CarCaseServiceImpl implements CarCaseService {
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
         if (carCaseRepository.findById(id).isPresent()) {
             carCaseRepository.deleteById(id);
@@ -64,7 +62,6 @@ public class CarCaseServiceImpl implements CarCaseService {
     }
 
     @Override
-    @Transactional
     public CarCase update(CarCaseDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
         if (!Objects.isNull(carCase)) {

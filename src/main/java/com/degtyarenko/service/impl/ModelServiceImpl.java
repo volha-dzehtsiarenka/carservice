@@ -26,6 +26,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ModelServiceImpl implements ModelService {
 
@@ -33,7 +34,6 @@ public class ModelServiceImpl implements ModelService {
     private final ModelMapper modelMapper;
 
     @Override
-    @Transactional(readOnly = true)
     public List<Model> findAll() {
         return modelRepository.findAll();
     }
@@ -45,7 +45,6 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    @Transactional
     public Model create(ModelSaveDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
         if (!Objects.isNull(model)) {
@@ -56,7 +55,6 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
         if (modelRepository.findById(id).isPresent()) {
             modelRepository.deleteById(id);
@@ -64,7 +62,6 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    @Transactional
     public Model update(ModelDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
         if (!Objects.isNull(model)) {
