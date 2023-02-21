@@ -35,11 +35,13 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     private final CarCaseModelMapper carCaseModelMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<CarCaseModel> findAll() {
         return carCaseModelRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CarCaseModel findById(Long id) {
         return carCaseModelRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(id));
@@ -49,7 +51,7 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     public CarCaseModel create(CarCaseModelSaveDto carCaseModelDto) {
         CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
-        if (!Objects.isNull(carCaseModel)) {
+        if (Objects.nonNull(carCaseModel)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, carCaseModel.toString()));
         }
         CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
@@ -67,10 +69,10 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     public CarCaseModel update(CarCaseModelDto carCaseModelDto) {
         CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
-        Optional<CarCaseModel> carCaseModelById = carCaseModelRepository.findById(carCaseModelDto.getId());
         if (Objects.nonNull(carCaseModel)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, carCaseModel.toString()));
         }
+        Optional<CarCaseModel> carCaseModelById = carCaseModelRepository.findById(carCaseModelDto.getId());
         if (carCaseModelById.isPresent()) {
             CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
             return carCaseModelRepository.save(newCarCaseModel);

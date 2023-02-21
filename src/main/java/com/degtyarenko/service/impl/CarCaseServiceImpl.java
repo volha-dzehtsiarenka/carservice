@@ -35,11 +35,13 @@ public class CarCaseServiceImpl implements CarCaseService {
     private final CarCaseMapper carCaseMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<CarCase> findAll() {
         return carCaseRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CarCase findById(Long id) {
         return carCaseRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(id));
@@ -48,7 +50,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     @Override
     public CarCase create(CarCaseSaveDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
-        if (!Objects.isNull(carCase)) {
+        if (Objects.nonNull(carCase)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, STRING, carCase.toString()));
         }
         CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);
@@ -65,10 +67,10 @@ public class CarCaseServiceImpl implements CarCaseService {
     @Override
     public CarCase update(CarCaseDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
-        Optional<CarCase> carCaseById = carCaseRepository.findById(carCaseDto.getId());
         if (Objects.nonNull(carCase)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, STRING, carCase.toString()));
         }
+        Optional<CarCase> carCaseById = carCaseRepository.findById(carCaseDto.getId());
         if (carCaseById.isPresent()) {
             CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);
             return carCaseRepository.save(newCarCase);

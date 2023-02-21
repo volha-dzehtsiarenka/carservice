@@ -35,11 +35,13 @@ public class BrandServiceImpl implements BrandService {
     private final BrandMapper brandMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Brand> findAll() {
         return brandRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Brand findById(Long id) {
         return brandRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(id));
@@ -48,7 +50,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand create(BrandSaveDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
-        if (!Objects.isNull(brand)) {
+        if (Objects.nonNull(brand)) {
             throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
         }
         Brand newBrand = brandMapper.toBrand(brandDto);
@@ -67,10 +69,10 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand update(BrandDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
-        Optional<Brand> brandById = brandRepository.findById(brandDto.getId());
         if (Objects.nonNull(brand)) {
             throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
         }
+        Optional<Brand> brandById = brandRepository.findById(brandDto.getId());
         if (brandById.isPresent()) {
             Brand newBrand = brandMapper.toBrand(brandDto);
             return brandRepository.save(newBrand);

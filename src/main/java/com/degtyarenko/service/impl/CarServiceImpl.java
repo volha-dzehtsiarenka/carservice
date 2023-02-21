@@ -35,11 +35,13 @@ public class CarServiceImpl implements CarService {
     private final CarMapper carMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Car> findAll() {
         return carRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Car findById(Long id) {
         return carRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(id));
@@ -48,7 +50,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car create(CarSaveDto carDto) {
         Car car = carRepository.findByVinCode(carDto.getVinCode());
-        if (!Objects.isNull(car)) {
+        if (Objects.nonNull(car)) {
             throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, STRING, car.toString()));
         }
         Car newCar = carMapper.toCar(carDto);
@@ -65,10 +67,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car update(CarDto carDto) {
         Car car = carRepository.findByVinCode(carDto.getVinCode());
-        Optional<Car> carById = carRepository.findById(carDto.getId());
         if (Objects.nonNull(car)) {
             throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, STRING, car.toString()));
         }
+        Optional<Car> carById = carRepository.findById(carDto.getId());
         if (carById.isPresent()) {
             Car newCar = carMapper.toCar(carDto);
             return carRepository.save(newCar);

@@ -29,8 +29,6 @@
         <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
         <springdoc-openapi-webflux-ui.version>1.6.14</springdoc-openapi-webflux-ui.version>
         <swagger-models.version>2.2.6</swagger-models.version>
-        <junit.jupiter.version>5.9.0</junit.jupiter.version>
-        <junit.platform.version>1.9.0</junit.platform.version>
         <testcontainers.version>1.17.5</testcontainers.version>
         <testcontainers.postgresql.version>1.17.5</testcontainers.postgresql.version>
         <liquibase-core.version>4.18.0</liquibase-core.version>
@@ -60,34 +58,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite</artifactId>
-            <version>${junit.platform.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>

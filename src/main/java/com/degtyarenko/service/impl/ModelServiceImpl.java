@@ -35,11 +35,13 @@ public class ModelServiceImpl implements ModelService {
     private final ModelMapper modelMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Model> findAll() {
         return modelRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Model findById(Long id) {
         return modelRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(id));
@@ -48,7 +50,7 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public Model create(ModelSaveDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
-        if (!Objects.isNull(model)) {
+        if (Objects.nonNull(model)) {
             throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));
         }
         Model newModel = modelMapper.toModel(modelDto);
@@ -65,10 +67,10 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public Model update(ModelDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
-        Optional<Model> modelById = modelRepository.findById(modelDto.getId());
         if (Objects.nonNull(model)) {
             throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));
         }
+        Optional<Model> modelById = modelRepository.findById(modelDto.getId());
         if (modelById.isPresent()) {
             Model newModel = modelMapper.toModel(modelDto);
             return modelRepository.save(newModel);
