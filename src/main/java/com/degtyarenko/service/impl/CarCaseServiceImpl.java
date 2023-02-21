@@ -64,7 +64,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     @Override
     public CarCase update(CarCaseDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
-        if (!Objects.isNull(carCase)) {
+        if (Objects.nonNull(carCase)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, STRING, carCase.toString()));
         } else if (carCaseRepository.findById(carCaseDto.getId()).isPresent()) {
             CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);

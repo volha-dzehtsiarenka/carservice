@@ -66,7 +66,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand update(BrandDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
-        if (!Objects.isNull(brand)) {
+        if (Objects.nonNull(brand)) {
             throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
         } else if (brandRepository.findById(brandDto.getId()).isPresent()) {
             Brand newBrand = brandMapper.toBrand(brandDto);

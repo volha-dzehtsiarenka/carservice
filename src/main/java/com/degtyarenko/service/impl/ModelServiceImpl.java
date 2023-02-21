@@ -64,7 +64,7 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public Model update(ModelDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
-        if (!Objects.isNull(model)) {
+        if (Objects.nonNull(model)) {
             throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));
         } else if (modelRepository.findById(modelDto.getId()).isPresent()) {
             Model newModel = modelMapper.toModel(modelDto);

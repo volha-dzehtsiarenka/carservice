@@ -12,6 +12,7 @@ spring:
     password: postgres
     url: "jdbc:postgresql://localhost:5432/carservice"
   jpa:
+    open-in-view: false
     properties:
       javax.persistence.validation.mode: none
       hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect

@@ -66,7 +66,7 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     public CarCaseModel update(CarCaseModelDto carCaseModelDto) {
         CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
-        if (!Objects.isNull(carCaseModel)) {
+        if (Objects.nonNull(carCaseModel)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, carCaseModel.toString()));
         } else if (carCaseModelRepository.findById(carCaseModelDto.getId()).isPresent()) {
             CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);

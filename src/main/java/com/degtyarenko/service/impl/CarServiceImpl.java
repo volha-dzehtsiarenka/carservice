@@ -64,7 +64,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car update(CarDto carDto) {
         Car car = carRepository.findByVinCode(carDto.getVinCode());
-        if (!Objects.isNull(car)) {
+        if (Objects.nonNull(car)) {
             throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, STRING, car.toString()));
         } else if (carRepository.findById(carDto.getId()).isPresent()) {
             Car newCar = carMapper.toCar(carDto);
