@@ -8,7 +8,6 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +38,7 @@ public class CarCase {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "carCase", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "carCase")
     @JsonBackReference
     private Set<CarCaseModel> carCaseModel;
 
