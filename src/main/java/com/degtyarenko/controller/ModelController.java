@@ -25,8 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.degtyarenko.constant.ModelConstant.*;
-import static com.degtyarenko.constant.StatusConstant.*;
+import static com.degtyarenko.constant.ModelConstant.ALL_MODELS_FOUND;
+import static com.degtyarenko.constant.ModelConstant.CREATE_NEW_MODEL;
+import static com.degtyarenko.constant.ModelConstant.DELETE_MODEL;
+import static com.degtyarenko.constant.ModelConstant.FIND_ALL_MODEL_CASE;
+import static com.degtyarenko.constant.ModelConstant.FIND_MODEL_BY_ID;
+import static com.degtyarenko.constant.ModelConstant.MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.ModelConstant.MODEL_CREATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.ModelConstant.MODEL_DELETE_SUCCESSFULLY;
+import static com.degtyarenko.constant.ModelConstant.MODEL_FOUND;
+import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_CREATED_CONFLICT;
+import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_DELETED_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_FOUND;
+import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.ModelConstant.MODEL_UPDATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.ModelConstant.UPDATE_MODEL;
+import static com.degtyarenko.constant.StatusConstant.BAD_REQUEST;
+import static com.degtyarenko.constant.StatusConstant.DELETED_SUCCESSFUL;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_200;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_201;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_400;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_404;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_500;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**

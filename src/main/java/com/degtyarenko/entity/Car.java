@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "car", schema = "carservice")
+@ToString
 public class Car {
 
     @Id

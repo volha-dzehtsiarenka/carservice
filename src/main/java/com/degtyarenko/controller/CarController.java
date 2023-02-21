@@ -25,8 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.degtyarenko.constant.CarConstant.*;
-import static com.degtyarenko.constant.StatusConstant.*;
+import static com.degtyarenko.constant.CarConstant.CARS_NOT_FOUND_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarConstant.CAR_CREATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.CarConstant.CAR_DELETE_SUCCESSFULLY;
+import static com.degtyarenko.constant.CarConstant.CAR_FOUND;
+import static com.degtyarenko.constant.CarConstant.CAR_NOT_CREATED_CONFLICT;
+import static com.degtyarenko.constant.CarConstant.CAR_NOT_CREATED_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarConstant.CAR_NOT_DELETED_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarConstant.CAR_NOT_FOUND;
+import static com.degtyarenko.constant.CarConstant.CAR_NOT_FOUND_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarConstant.CAR_NOT_UPDATE_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarConstant.CAR_UPDATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.CarConstant.CREATE_NEW_CAR;
+import static com.degtyarenko.constant.CarConstant.DELETE_CAR;
+import static com.degtyarenko.constant.CarConstant.FIND_ALL_CARS;
+import static com.degtyarenko.constant.CarConstant.FIND_CAR_BY_ID;
+import static com.degtyarenko.constant.CarConstant.UPDATE_CAR;
+import static com.degtyarenko.constant.StatusConstant.BAD_REQUEST;
+import static com.degtyarenko.constant.StatusConstant.DELETED_SUCCESSFUL;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_200;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_201;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_400;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_404;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_500;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**

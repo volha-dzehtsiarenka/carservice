@@ -25,8 +25,30 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.degtyarenko.constant.CarCaseConstant.*;
-import static com.degtyarenko.constant.StatusConstant.*;
+
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_CREATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_DELETE_SUCCESSFULLY;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_FOUND;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_CREATED_CONFLICT;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_CREATED_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_DELETED_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_FOUND;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_FOUND_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_UPDATE_ILLEGAL_ARGUMENTS;
+import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_UPDATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.CarCaseConstant.CREATE_NEW_CAR_CASE;
+import static com.degtyarenko.constant.CarCaseConstant.DELETE_CAR_CASE;
+import static com.degtyarenko.constant.CarCaseConstant.FINDS_ALL_CAR_CASE;
+import static com.degtyarenko.constant.CarCaseConstant.FIND_ALL_CAR_CASE;
+import static com.degtyarenko.constant.CarCaseConstant.FIND_CAR_CASE_BY_ID;
+import static com.degtyarenko.constant.CarCaseConstant.UPDATE_CAR_CASE;
+import static com.degtyarenko.constant.StatusConstant.BAD_REQUEST;
+import static com.degtyarenko.constant.StatusConstant.DELETED_SUCCESSFUL;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_200;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_201;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_400;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_404;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_500;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -43,7 +65,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CarCaseController {
 
     private final CarCaseService carCaseService;
-
     private final CarCaseMapper carCaseMapper;
 
     @Operation(summary = FIND_ALL_CAR_CASE, responses = {

@@ -6,8 +6,4 @@ public class EntityIsUsedException extends RuntimeException {
         super(message);
     }
 
-    public EntityIsUsedException() {
-        super("Entity already exists");
-    }
-
 }

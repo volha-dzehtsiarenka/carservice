@@ -25,5 +25,4 @@ public interface CarCaseMapper {
 
     List<CarCaseDto> toCarCaseDtoList(List<CarCase> list);
 
-
 }

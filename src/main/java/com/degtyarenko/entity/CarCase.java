@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "car_case", schema = "carservice")
+@ToString(exclude = "carCaseModel")
 public class CarCase {
 
     @Id

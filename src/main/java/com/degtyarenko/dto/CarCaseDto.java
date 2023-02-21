@@ -8,7 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_EXAMPLE;
-import static com.degtyarenko.constant.SchemaConstant.*;
+import static com.degtyarenko.constant.SchemaConstant.INT_1;
+import static com.degtyarenko.constant.SchemaConstant.INT_2;
+import static com.degtyarenko.constant.SchemaConstant.INT_20;
+import static com.degtyarenko.constant.SchemaConstant.STRING_1;
 
 
 /**
