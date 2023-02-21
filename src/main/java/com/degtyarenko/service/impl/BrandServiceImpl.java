@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.degtyarenko.constant.BrandConstant.BRAND_ALREADY_EXIST;
 import static com.degtyarenko.constant.SchemaConstant.STRING;
@@ -66,9 +67,11 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand update(BrandDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
+        Optional<Brand> brandById = brandRepository.findById(brandDto.getId());
         if (Objects.nonNull(brand)) {
             throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
-        } else if (brandRepository.findById(brandDto.getId()).isPresent()) {
+        }
+        if (brandById.isPresent()) {
             Brand newBrand = brandMapper.toBrand(brandDto);
             return brandRepository.save(newBrand);
         } else throw new EntityNotFoundException(brandDto.getId());

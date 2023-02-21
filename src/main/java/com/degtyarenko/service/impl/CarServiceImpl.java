@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.degtyarenko.constant.CarConstant.CAR_IS_ALREADY_EXIST;
 import static com.degtyarenko.constant.SchemaConstant.STRING;
@@ -64,9 +65,11 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car update(CarDto carDto) {
         Car car = carRepository.findByVinCode(carDto.getVinCode());
+        Optional<Car> carById = carRepository.findById(carDto.getId());
         if (Objects.nonNull(car)) {
             throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, STRING, car.toString()));
-        } else if (carRepository.findById(carDto.getId()).isPresent()) {
+        }
+        if (carById.isPresent()) {
             Car newCar = carMapper.toCar(carDto);
             return carRepository.save(newCar);
         } else throw new EntityNotFoundException(carDto.getId());

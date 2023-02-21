@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.degtyarenko.constant.ModelConstant.MODEL_ALREADY_EXIST;
 import static com.degtyarenko.constant.SchemaConstant.STRING;
@@ -64,9 +65,11 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public Model update(ModelDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
+        Optional<Model> modelById = modelRepository.findById(modelDto.getId());
         if (Objects.nonNull(model)) {
             throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));
-        } else if (modelRepository.findById(modelDto.getId()).isPresent()) {
+        }
+        if (modelById.isPresent()) {
             Model newModel = modelMapper.toModel(modelDto);
             return modelRepository.save(newModel);
         } else throw new EntityNotFoundException(modelDto.getId());

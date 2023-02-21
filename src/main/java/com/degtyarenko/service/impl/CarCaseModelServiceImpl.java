@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.degtyarenko.constant.CarCaseModelConstant.CAR_CASE_MODEL_ALREADY_EXIST;
 import static com.degtyarenko.constant.SchemaConstant.STRING;
@@ -66,9 +67,11 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     public CarCaseModel update(CarCaseModelDto carCaseModelDto) {
         CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
+        Optional<CarCaseModel> carCaseModelById = carCaseModelRepository.findById(carCaseModelDto.getId());
         if (Objects.nonNull(carCaseModel)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, carCaseModel.toString()));
-        } else if (carCaseModelRepository.findById(carCaseModelDto.getId()).isPresent()) {
+        }
+        if (carCaseModelById.isPresent()) {
             CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
             return carCaseModelRepository.save(newCarCaseModel);
         } else throw new EntityNotFoundException(carCaseModelDto.getId());
