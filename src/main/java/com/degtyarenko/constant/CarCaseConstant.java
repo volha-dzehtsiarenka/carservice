@@ -22,7 +22,6 @@ public class CarCaseConstant {
     public static final String CAR_CASE_EXAMPLE = "Minivan";
 
     private CarCaseConstant() {
-
     }
 
 }

@@ -20,7 +20,6 @@ public class CarCaseModelConstant {
     public static final String CAR_CASE_MODEL_ALREADY_EXIST = "Car case model already exist : ";
 
     private CarCaseModelConstant() {
-
     }
 
 }

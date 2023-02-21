@@ -5,6 +5,8 @@ import com.degtyarenko.dto.CarCaseSaveDto;
 import com.degtyarenko.entity.CarCase;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 /**
  * The interface Car case mapper.
  *
@@ -18,5 +20,10 @@ public interface CarCaseMapper {
     CarCase toCarCase(CarCaseDto carCaseDto);
 
     CarCase toCarCase(CarCaseSaveDto carCaseSaveDto);
+
+    CarCaseDto toCarCaseDto(CarCase carCase);
+
+    List<CarCaseDto> toCarCaseDtoList(List<CarCase> list);
+
 
 }

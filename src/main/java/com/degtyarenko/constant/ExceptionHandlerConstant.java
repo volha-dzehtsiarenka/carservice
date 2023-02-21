@@ -8,7 +8,6 @@ public class ExceptionHandlerConstant {
     public static final String INTERNAL_EXCEPTION = "Internal Exception";
 
     private ExceptionHandlerConstant() {
-
     }
 
 }

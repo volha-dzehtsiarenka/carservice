@@ -22,7 +22,6 @@ public class BrandConstant {
     public static final String TOYOTA = "Toyota";
 
     private BrandConstant() {
-
     }
 
 }

@@ -2,6 +2,8 @@ package com.degtyarenko.controller;
 
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.dto.BrandSaveDto;
+import com.degtyarenko.entity.Brand;
+import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.service.BrandService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static com.degtyarenko.constant.BrandConstant.*;
 import static com.degtyarenko.constant.StatusConstant.*;
@@ -40,6 +43,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class BrandController {
 
     private final BrandService brandService;
+    private final BrandMapper brandMapper;
 
     @Operation(summary = FIND_ALL_BRANDS, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = FIND_ALL_BRANDS,
@@ -47,8 +51,8 @@ public class BrandController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = BRANDS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findAll() {
-        return new ResponseEntity<>(brandService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<BrandDto>> findAll() {
+        return new ResponseEntity<>(brandMapper.toBrandDtoList(brandService.findAll()), HttpStatus.OK);
     }
 
     @Operation(summary = FIND_BRAND_BY_ID, responses = {
@@ -59,8 +63,9 @@ public class BrandController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = BRAND_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(brandService.findById(id), HttpStatus.OK);
+    public ResponseEntity<BrandDto> findById(@PathVariable Long id) {
+        Brand brandById = brandService.findById(id);
+        return new ResponseEntity<>(brandMapper.toBrandDto(brandById), HttpStatus.OK);
     }
 
     @Operation(summary = DELETE_BRAND, responses = {
@@ -86,8 +91,9 @@ public class BrandController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = BRAND_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createBrand(@Valid @RequestBody BrandSaveDto brandDto) {
-        return new ResponseEntity<>(brandService.create(brandDto), HttpStatus.CREATED);
+    public ResponseEntity<BrandDto> createBrand(@Valid @RequestBody BrandSaveDto brandDto) {
+        Brand createBrand = brandService.create(brandDto);
+        return new ResponseEntity<>(brandMapper.toBrandDto(createBrand), HttpStatus.CREATED);
     }
 
     @Operation(summary = UPDATE_BRAND, responses = {
@@ -98,8 +104,9 @@ public class BrandController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = BRAND_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateBrand(@Valid @RequestBody BrandDto brandDto) {
-        return new ResponseEntity<>(brandService.update(brandDto), HttpStatus.OK);
+    public ResponseEntity<BrandDto> updateBrand(@Valid @RequestBody BrandDto brandDto) {
+        Brand updateBrand = brandService.update(brandDto);
+        return new ResponseEntity<>(brandMapper.toBrandDto(updateBrand), HttpStatus.OK);
     }
 
 }

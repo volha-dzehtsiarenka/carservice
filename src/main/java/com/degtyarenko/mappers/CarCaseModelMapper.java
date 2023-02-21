@@ -6,6 +6,8 @@ import com.degtyarenko.entity.CarCaseModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 /**
  * The interface Car case model mapper.
  *
@@ -23,5 +25,11 @@ public interface CarCaseModelMapper {
     @Mapping(source = "carCaseId", target = "carCase.id")
     @Mapping(source = "modelId", target = "model.id")
     CarCaseModel toCarCaseModel(CarCaseModelSaveDto carCaseModelSaveDto);
+
+    @Mapping(source = "carCase.id", target = "carCaseId")
+    @Mapping(source = "model.id", target = "modelId")
+    CarCaseModelDto toCarCaseModelDto(CarCaseModel carCaseModel);
+
+    List<CarCaseModelDto> toCarCaseModelDtoList(List<CarCaseModel> carCaseModelList);
 
 }

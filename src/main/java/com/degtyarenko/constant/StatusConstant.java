@@ -11,7 +11,6 @@ public class StatusConstant {
     public static final String RESPONSE_CODE_400 = "400";
 
     private StatusConstant() {
-
     }
 
 }

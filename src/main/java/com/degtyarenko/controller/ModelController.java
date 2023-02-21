@@ -2,6 +2,8 @@ package com.degtyarenko.controller;
 
 import com.degtyarenko.dto.ModelDto;
 import com.degtyarenko.dto.ModelSaveDto;
+import com.degtyarenko.entity.Model;
+import com.degtyarenko.mappers.ModelMapper;
 import com.degtyarenko.service.ModelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static com.degtyarenko.constant.ModelConstant.*;
 import static com.degtyarenko.constant.StatusConstant.*;
@@ -40,6 +43,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ModelController {
 
     private final ModelService modelService;
+    private final ModelMapper modelMapper;
 
     @Operation(summary = FIND_ALL_MODEL_CASE, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = ALL_MODELS_FOUND,
@@ -47,8 +51,8 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findAll() {
-        return new ResponseEntity<>(modelService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<ModelDto>> findAll() {
+        return new ResponseEntity<>(modelMapper.toModelDtoList(modelService.findAll()), HttpStatus.OK);
     }
 
     @Operation(summary = FIND_MODEL_BY_ID, responses = {
@@ -59,8 +63,9 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(modelService.findById(id), HttpStatus.OK);
+    public ResponseEntity<ModelDto> findById(@PathVariable Long id) {
+        Model modelById = modelService.findById(id);
+        return new ResponseEntity<>(modelMapper.toModelDto(modelById), HttpStatus.OK);
     }
 
     @Operation(summary = DELETE_MODEL, responses = {
@@ -86,8 +91,9 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createModel(@Valid @RequestBody ModelSaveDto modelDto) {
-        return new ResponseEntity<>(modelService.create(modelDto), HttpStatus.CREATED);
+    public ResponseEntity<ModelDto> createModel(@Valid @RequestBody ModelSaveDto modelDto) {
+        Model modelCreate = modelService.create(modelDto);
+        return new ResponseEntity<>(modelMapper.toModelDto(modelCreate), HttpStatus.CREATED);
     }
 
     @Operation(summary = UPDATE_MODEL, responses = {
@@ -98,8 +104,9 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateModel(@Valid @RequestBody ModelDto modelDto) {
-        return new ResponseEntity<>(modelService.update(modelDto), HttpStatus.OK);
+    public ResponseEntity<ModelDto> updateModel(@Valid @RequestBody ModelDto modelDto) {
+        Model modelUpdate = modelService.update(modelDto);
+        return new ResponseEntity<>(modelMapper.toModelDto(modelUpdate), HttpStatus.OK);
     }
 
 }

@@ -6,6 +6,8 @@ import com.degtyarenko.entity.Model;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 /**
  * The interface Model mapper.
  *
@@ -21,5 +23,10 @@ public interface ModelMapper {
 
     @Mapping(source = "brandId", target = "brand.id")
     Model toModel(ModelSaveDto modelSaveDto);
+
+    @Mapping(source = "brand.id", target = "brandId")
+    ModelDto toModelDto(Model model);
+
+    List<ModelDto> toModelDtoList(List<Model> modelList);
 
 }

@@ -22,7 +22,6 @@ public class ModelConstant {
     public static final String MODEL_EXAMPLE = "Quattro";
 
     private ModelConstant() {
-
     }
 
 }

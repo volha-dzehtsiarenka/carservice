@@ -24,7 +24,6 @@ public class CarConstant {
     public static final int INT_30 = 30;
 
     private CarConstant() {
-
     }
 
 }

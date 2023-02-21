@@ -12,7 +12,6 @@ public class OpenAPIConstant {
     public static final String SERVICE_API = "Car service API";
 
     private OpenAPIConstant() {
-
     }
 
 }

@@ -9,7 +9,6 @@ public class SchemaConstant {
     public static final String STRING = " ";
 
     private SchemaConstant() {
-
     }
 
 }
