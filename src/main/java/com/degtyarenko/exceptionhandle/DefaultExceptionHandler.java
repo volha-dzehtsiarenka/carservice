@@ -17,13 +17,13 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({EntityNotFoundException.class, javax.persistence.EntityNotFoundException.class})
-    public ResponseEntity<ErrorMessage> notFoundException(EntityNotFoundException exception) {
+    public ResponseEntity<ErrorMessage> handleEntityNotFoundException(EntityNotFoundException exception) {
         ErrorMessage message = new ErrorMessage(ENTITY_NOT_FOUND_EXCEPTION, exception.getMessage());
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(EntityIsUsedException.class)
-    public ResponseEntity<ErrorMessage> entityIsUsed(EntityIsUsedException exception) {
+    public ResponseEntity<ErrorMessage> handleEntityIsUsedException(EntityIsUsedException exception) {
         ErrorMessage message = new ErrorMessage(ENTITY_IS_ALREADY_USED, exception.getMessage());
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
