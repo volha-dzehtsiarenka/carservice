@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-model
+      author: Degtyarenko
+      changes:
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: model_name
+                  value: A3
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: model_name
+                  value: A5
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: model_name
+                  value: Quattro
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: model_name
+                  value: A4
+              - column:
+                  name: brand_id
+                  value: 1
+        - insert:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: model_name
+                  value: A5 Cabriolet
+              - column:
+                  name: brand_id
+                  value: 1

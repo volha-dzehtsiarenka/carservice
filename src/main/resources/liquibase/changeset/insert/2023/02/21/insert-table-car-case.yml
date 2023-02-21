@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-car-case
+      author: Degtyarenko
+      changes:
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: name
+                  value: SEDAN
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: name
+                  value: HATCHBACK
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: name
+                  value: CONVERTIBLE
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: name
+                  value: COPE
+        - insert:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: name
+                  value: SPORTS CAR

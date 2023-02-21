@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-brand
+      author: Degtyarenko
+      changes:
+        - insert:
+            tableName: brand
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: brand_name
+                  value: Audi
