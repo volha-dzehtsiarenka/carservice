@@ -7,7 +7,8 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import static com.degtyarenko.Constant.*;
+import static com.degtyarenko.constant.ModelConstant.MODEL_EXAMPLE;
+import static com.degtyarenko.constant.SchemaConstant.*;
 
 /**
  * The type Model save dto.

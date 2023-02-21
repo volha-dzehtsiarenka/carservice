@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static com.degtyarenko.Constant.*;
+import static com.degtyarenko.constant.ExceptionHandlerConstant.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 
@@ -30,7 +30,7 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
-        ErrorMessage message = new ErrorMessage(THE_PARAMETER_S_OF_VALUE_S_COULD_NOT_BE_CONVERTED_TO_TYPE_S,ex.getMessage());
+        ErrorMessage message = new ErrorMessage(THE_PARAMETER_S_OF_VALUE_S_COULD_NOT_BE_CONVERTED_TO_TYPE_S, ex.getMessage());
         return new ResponseEntity<>(message, BAD_REQUEST);
     }
 

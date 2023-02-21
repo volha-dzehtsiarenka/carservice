@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.degtyarenko.Constant.*;
+import static com.degtyarenko.constant.CarConstant.*;
+import static com.degtyarenko.constant.StatusConstant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**

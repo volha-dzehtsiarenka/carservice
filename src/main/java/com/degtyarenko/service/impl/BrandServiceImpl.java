@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.degtyarenko.Constant.BRAND_ALREADY_EXIST;
-import static com.degtyarenko.Constant.STRING;
+import static com.degtyarenko.constant.BrandConstant.BRAND_ALREADY_EXIST;
+import static com.degtyarenko.constant.SchemaConstant.STRING;
 
 /**
  * The type Brand service.

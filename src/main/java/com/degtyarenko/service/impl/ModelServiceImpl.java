@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
-import static com.degtyarenko.Constant.MODEL_ALREADY_EXIST;
-import static com.degtyarenko.Constant.STRING;
+import static com.degtyarenko.constant.ModelConstant.MODEL_ALREADY_EXIST;
+import static com.degtyarenko.constant.SchemaConstant.STRING;
 
 /**
  * The type Model service.

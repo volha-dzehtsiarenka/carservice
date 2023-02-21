@@ -7,7 +7,8 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import static com.degtyarenko.Constant.*;
+import static com.degtyarenko.constant.BrandConstant.TOYOTA;
+import static com.degtyarenko.constant.SchemaConstant.*;
 
 /**
  * The type Brand dto.
