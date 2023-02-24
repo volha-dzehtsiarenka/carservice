@@ -98,7 +98,7 @@ public class BrandController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = BRAND_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> deleteById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
         brandService.delete(id);
         return new ResponseEntity<>(DELETED_SUCCESSFUL, HttpStatus.OK);
     }
