@@ -61,7 +61,8 @@ public class CarCaseServiceImpl implements CarCaseService {
     public void delete(Long id) {
         if (carCaseRepository.findById(id).isPresent()) {
             carCaseRepository.deleteById(id);
-        } else throw new EntityNotFoundException(id);
+        }
+        throw new EntityNotFoundException(id);
     }
 
     @Override
@@ -74,7 +75,8 @@ public class CarCaseServiceImpl implements CarCaseService {
         if (carCaseById.isPresent()) {
             CarCase newCarCase = carCaseMapper.toCarCase(carCaseDto);
             return carCaseRepository.save(newCarCase);
-        } else throw new EntityNotFoundException(carCaseDto.getId());
+        }
+        throw new EntityNotFoundException(carCaseDto.getId());
     }
 
 }

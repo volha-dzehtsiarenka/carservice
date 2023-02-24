@@ -61,7 +61,8 @@ public class CarServiceImpl implements CarService {
     public void delete(Long id) {
         if (carRepository.findById(id).isPresent()) {
             carRepository.deleteById(id);
-        } else throw new EntityNotFoundException(id);
+        }
+        throw new EntityNotFoundException(id);
     }
 
     @Override
@@ -74,7 +75,8 @@ public class CarServiceImpl implements CarService {
         if (carById.isPresent()) {
             Car newCar = carMapper.toCar(carDto);
             return carRepository.save(newCar);
-        } else throw new EntityNotFoundException(carDto.getId());
+        }
+        throw new EntityNotFoundException(carDto.getId());
     }
 
 }

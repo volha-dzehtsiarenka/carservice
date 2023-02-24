@@ -61,9 +61,8 @@ public class BrandServiceImpl implements BrandService {
     public void delete(Long id) {
         if (brandRepository.findById(id).isPresent()) {
             brandRepository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException(id);
         }
+        throw new EntityNotFoundException(id);
     }
 
     @Override
@@ -76,7 +75,8 @@ public class BrandServiceImpl implements BrandService {
         if (brandById.isPresent()) {
             Brand newBrand = brandMapper.toBrand(brandDto);
             return brandRepository.save(newBrand);
-        } else throw new EntityNotFoundException(brandDto.getId());
+        }
+        throw new EntityNotFoundException(brandDto.getId());
     }
 
 }

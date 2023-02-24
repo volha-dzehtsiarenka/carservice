@@ -61,7 +61,8 @@ public class ModelServiceImpl implements ModelService {
     public void delete(Long id) {
         if (modelRepository.findById(id).isPresent()) {
             modelRepository.deleteById(id);
-        } else throw new EntityNotFoundException(id);
+        }
+        throw new EntityNotFoundException(id);
     }
 
     @Override
@@ -74,7 +75,8 @@ public class ModelServiceImpl implements ModelService {
         if (modelById.isPresent()) {
             Model newModel = modelMapper.toModel(modelDto);
             return modelRepository.save(newModel);
-        } else throw new EntityNotFoundException(modelDto.getId());
+        }
+        throw new EntityNotFoundException(modelDto.getId());
     }
 
 }
