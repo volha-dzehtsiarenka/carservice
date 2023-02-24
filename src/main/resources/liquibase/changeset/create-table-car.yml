@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-car
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_pk
+                    nullable: false
+              - column:
+                  name: date_of_issue
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vin_code
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: color
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: car_case_model_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car
+                  baseColumnNames: car_case_model_id
+                  referencedTableName: car_case_model
+                  referencedColumnNames: id
+                  constraintName: car_car_case_model_fk

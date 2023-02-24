@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-car-case-model
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_case_model_pk
+                    nullable: false
+              - column:
+                  name: car_case_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car_case_model
+                  baseColumnNames: car_case_id
+                  referencedTableName: car_case
+                  referencedColumnNames: id
+                  constraintName: car_case_model_car_case_fk
+              - column:
+                  name: model_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: car_case_model
+                  baseColumnNames: model_id
+                  referencedTableName: model
+                  referencedColumnNames: id
+                  constraintName: car_case_model_model_fk

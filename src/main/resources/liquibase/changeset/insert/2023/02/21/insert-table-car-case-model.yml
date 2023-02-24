@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-car-case-model
+      author: Degtyarenko
+      changes:
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: car_case_id
+                  value: 2
+              - column:
+                  name: model_id
+                  value: 1
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: car_case_id
+                  value: 4
+              - column:
+                  name: model_id
+                  value: 2
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: car_case_id
+                  value: 5
+              - column:
+                  name: model_id
+                  value: 3
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: car_case_id
+                  value: 1
+              - column:
+                  name: model_id
+                  value: 4
+        - insert:
+            tableName: car_case_model
+            columns:
+              - column:
+                  name: id
+                  autoIncrement: true
+              - column:
+                  name: car_case_id
+                  value: 3
+              - column:
+                  name: model_id
+                  value: 5

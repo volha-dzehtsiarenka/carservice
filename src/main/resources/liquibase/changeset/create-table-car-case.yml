@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-car-case
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: car_case
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: car_case_pk
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false

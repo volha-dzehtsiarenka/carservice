@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/changeset/create-table-brand.yml
+  - include:
+      file: liquibase/changeset/create-table-model.yml
+  - include:
+      file: liquibase/changeset/create-table-car-case.yml
+  - include:
+      file: liquibase/changeset/create-table-car-case-model.yml
+  - include:
+      file: liquibase/changeset/create-table-car.yml
+  - include:
+      file: liquibase/changeset/insert/2023/02/21/insert-table-brand.yml
+  - include:
+      file: liquibase/changeset/insert/2023/02/21/insert-table-car.yml
+  - include:
+      file: liquibase/changeset/insert/2023/02/21/insert-table-car-case.yml
+  - include:
+      file: liquibase/changeset/insert/2023/02/21/insert-table-car-case-model.yml
+  - include:
+      file: liquibase/changeset/insert/2023/02/21/insert-table-model.yml

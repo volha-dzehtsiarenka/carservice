@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-model
+      author: Degtyarenko
+      changes:
+        - createTable:
+            tableName: model
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: model_pk
+                    nullable: false
+              - column:
+                  name: model_name
+                  type: varchar(200)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: brand_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: model
+                  baseColumnNames: brand_id
+                  referencedTableName: brand
+                  referencedColumnNames: id
+                  constraintName: model_brand_fk
