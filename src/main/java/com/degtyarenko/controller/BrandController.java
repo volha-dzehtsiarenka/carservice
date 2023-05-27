@@ -3,6 +3,7 @@ package com.degtyarenko.controller;
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.dto.BrandSaveDto;
 import com.degtyarenko.entity.Brand;
+import com.degtyarenko.kafka.KafkaProducerService;
 import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.service.BrandService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,6 +67,8 @@ public class BrandController {
 
     private final BrandService brandService;
     private final BrandMapper brandMapper;
+    private final KafkaProducerService kafkaProducerService;
+    private static final String TOKEN_GRANTED_PAYLOAD = "successfully got token";
 
     @Operation(summary = FIND_ALL_BRANDS, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = FIND_ALL_BRANDS,
@@ -87,6 +90,8 @@ public class BrandController {
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BrandDto> findById(@PathVariable Long id) {
         Brand brandById = brandService.findById(id);
+//        String tokenGrantedLog = String.format(TOKEN_GRANTED_PAYLOAD, brandById.getBrandName());
+//        kafkaProducerService.logTokenGrant(tokenGrantedLog);
         return new ResponseEntity<>(brandMapper.toBrandDto(brandById), HttpStatus.OK);
     }
 

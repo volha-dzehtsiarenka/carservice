@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-table-brand.yml
+  - include:
+      file: db/changelog/changeset/create-table-model.yml
+  - include:
+      file: db/changelog/changeset/create-table-car-case.yml
+  - include:
+      file: db/changelog/changeset/create-table-car-case-model.yml
+  - include:
+      file: db/changelog/changeset/create-table-car.yml
+  - include:
+      file: db/changelog/changeset/insert/2023/02/21/insert-table-brand.yml
+  - include:
+      file: db/changelog/changeset/insert/2023/02/21/insert-table-car.yml
+  - include:
+      file: db/changelog/changeset/insert/2023/02/21/insert-table-car-case.yml
+  - include:
+      file: db/changelog/changeset/insert/2023/02/21/insert-table-car-case-model.yml
+  - include:
+      file: db/changelog/changeset/insert/2023/02/21/insert-table-model.yml
