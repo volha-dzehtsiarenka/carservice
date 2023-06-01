@@ -19,6 +19,8 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
+    volumes:
+      - ./src/main/resources/db/changelog/db.changelog.yml:/app/resources/db/changelog/db.changelog.yml
 
   postgresqldb:
     container_name: postgres-db
@@ -26,12 +28,14 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: "carservice"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: carservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     restart: always
     volumes:
       - postgresql-data:/var/lib/postgresql/data
+      - ./src/main/resources/db/changelog/db.changelog.yml:/app/resources/db/changelog/db.changelog.yml
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest

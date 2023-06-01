@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-brand
+      author: Degtyarenko
+      script: CREATE SCHEMA IF NOT EXISTS carservice;

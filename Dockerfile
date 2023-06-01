@@ -5,8 +5,8 @@ LABEL version="1.0"
 ENV APP_DIR=/carservice
 ENV APP_NAME=carservice.jar
 
-RUN mkdir $APP_DIR
-COPY target/$APP_NAME $APP_DIR
+COPY src/main/resources/db/changelog/db.changelog.yml /app/resources/db/changelog/db.changelog.yml
+COPY target/$APP_NAME $APP_DIR/$APP_NAME
 
 WORKDIR $APP_DIR
 

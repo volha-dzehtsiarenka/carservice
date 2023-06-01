@@ -6,7 +6,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(scanBasePackages ="com.degtyarenko")
-@EnableAspectJAutoProxy
 @EnableTransactionManagement
 public class Application {
     public static void main(String[] args) {

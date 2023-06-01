@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "kafka.consumer.groupId",
+      "type": "java.lang.String",
+      "description": "Description for kafka.consumer.groupId."
+  }
+] }
