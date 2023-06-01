@@ -30,7 +30,7 @@ import java.time.LocalDate;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "car", schema = "carservice")
+@Table(name = "car")
 @ToString
 public class Car {
 

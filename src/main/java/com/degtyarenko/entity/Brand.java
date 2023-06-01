@@ -27,7 +27,7 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "brand", schema = "carservice")
+@Table(name = "brand")
 @ToString(exclude = "models")
 public class Brand {
 

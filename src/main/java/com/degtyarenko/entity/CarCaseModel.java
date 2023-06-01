@@ -26,7 +26,7 @@ import javax.persistence.Table;
 @Setter
 @RequiredArgsConstructor
 @Entity
-@Table(name = "car_case_model", schema = "carservice")
+@Table(name = "car_case_model")
 @ToString
 public class CarCaseModel {
 
