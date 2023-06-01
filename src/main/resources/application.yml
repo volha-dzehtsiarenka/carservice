@@ -15,7 +15,7 @@ spring:
       hibernate:
         ddl-auto: none
   datasource:
-    url: jdbc:postgresql://postgresqldb:5432/carservice
+    url: jdbc:postgresql://localhost:5432/carservice
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
