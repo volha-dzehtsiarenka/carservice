@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-
 import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_CREATE_SUCCESSFULLY;
 import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_DELETE_SUCCESSFULLY;
 import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_FOUND;

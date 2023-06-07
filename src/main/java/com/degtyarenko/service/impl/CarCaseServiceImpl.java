@@ -61,8 +61,9 @@ public class CarCaseServiceImpl implements CarCaseService {
     public void delete(Long id) {
         if (carCaseRepository.findById(id).isPresent()) {
             carCaseRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(id);
         }
-        throw new EntityNotFoundException(id);
     }
 
     @Override

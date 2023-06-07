@@ -60,23 +60,25 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
 
     @Override
     public void delete(Long id) {
-        if (carCaseModelRepository.findById(id).isPresent()) {
+        Optional<CarCaseModel> carCaseModelOptional = carCaseModelRepository.findById(id);
+        if (carCaseModelOptional.isPresent()) {
             carCaseModelRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(id);
         }
-        throw new EntityNotFoundException(id);
     }
 
     @Override
     public CarCaseModel update(CarCaseModelDto carCaseModelDto) {
-        CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
-                (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
-        if (Objects.nonNull(carCaseModel)) {
-            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, carCaseModel.toString()));
+        CarCaseModel existingCarCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
+                carCaseModelDto.getCarCaseId(), carCaseModelDto.getModelId());
+        if (existingCarCaseModel != null && !existingCarCaseModel.getId().equals(carCaseModelDto.getId())) {
+            throw new EntityIsUsedException(String.join(CAR_CASE_MODEL_ALREADY_EXIST, STRING, existingCarCaseModel.toString()));
         }
-        Optional<CarCaseModel> carCaseModelById = carCaseModelRepository.findById(carCaseModelDto.getId());
-        if (carCaseModelById.isPresent()) {
-            CarCaseModel newCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
-            return carCaseModelRepository.save(newCarCaseModel);
+        Optional<CarCaseModel> carCaseModelOptional = carCaseModelRepository.findById(carCaseModelDto.getId());
+        if (carCaseModelOptional.isPresent()) {
+            CarCaseModel updatedCarCaseModel = carCaseModelMapper.toCarCaseModel(carCaseModelDto);
+            return carCaseModelRepository.save(updatedCarCaseModel);
         }
         throw new EntityNotFoundException(carCaseModelDto.getId());
     }

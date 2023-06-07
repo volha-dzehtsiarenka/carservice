@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-
 import static com.degtyarenko.constant.BrandConstant.BRANDS_NOT_FOUND_ILLEGAL_ARGUMENTS;
 import static com.degtyarenko.constant.BrandConstant.BRAND_CREATE_SUCCESSFULLY;
 import static com.degtyarenko.constant.BrandConstant.BRAND_DELETE_SUCCESSFULLY;
@@ -65,10 +64,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Tag(name = "Brand controller")
 public class BrandController {
 
+    private static final String TOKEN_GRANTED_PAYLOAD = "successfully got token %s";
     private final BrandService brandService;
     private final BrandMapper brandMapper;
     private final KafkaProducerService kafkaProducerService;
-    private static final String TOKEN_GRANTED_PAYLOAD = "successfully got token %s";
 
     @Operation(summary = FIND_ALL_BRANDS, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = FIND_ALL_BRANDS,

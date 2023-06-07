@@ -59,24 +59,25 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void delete(Long id) {
-        if (brandRepository.findById(id).isPresent()) {
+        if (brandRepository.existsById(id)) {
             brandRepository.deleteById(id);
         }
-        throw new EntityNotFoundException(id);
     }
 
     @Override
     public Brand update(BrandDto brandDto) {
-        Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
-        if (Objects.nonNull(brand)) {
-            throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
+        Optional<Brand> brandOptional = brandRepository.findById(brandDto.getId());
+        if (brandOptional.isPresent()) {
+            Brand brand = brandOptional.get();
+            Brand existingBrand = brandRepository.findByBrandName(brandDto.getBrandName());
+            if (Objects.nonNull(existingBrand) && !existingBrand.equals(brand)) {
+                throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, existingBrand.toString()));
+            }
+            Brand updatedBrand = brandMapper.toBrand(brandDto);
+            return brandRepository.save(updatedBrand);
+        } else {
+            throw new EntityNotFoundException(brandDto.getId());
         }
-        Optional<Brand> brandById = brandRepository.findById(brandDto.getId());
-        if (brandById.isPresent()) {
-            Brand newBrand = brandMapper.toBrand(brandDto);
-            return brandRepository.save(newBrand);
-        }
-        throw new EntityNotFoundException(brandDto.getId());
     }
 
 }

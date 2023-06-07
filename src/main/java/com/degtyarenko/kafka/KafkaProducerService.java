@@ -15,13 +15,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class KafkaProducerService {
 
+    private final KafkaTemplate<String, String> kafkaTemplate;
     @Value("${kafka.topic.request.log}")
     private String requestLogTopicName;
-
     @Value("${kafka.topic.token.grant.log}")
     private String tokenGrantLogTopicName;
-
-    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void logRequest(String request) {
         kafkaTemplate.send(requestLogTopicName, request);
