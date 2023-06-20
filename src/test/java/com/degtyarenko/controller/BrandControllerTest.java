@@ -34,6 +34,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class BrandControllerTest {
 
+    private static final Long BRAND_ID = 1L;
+    private static final String HONDA = "Honda";
+    private static final String TOYOTA = "Toyota";
+    private static final String DELETED_SUCCESSFUL = "Deleted successful !";
+    private static final long BRAND_ID_2 = 2L;
     @Mock
     private BrandService brandService;
     @Mock
@@ -52,21 +57,21 @@ class BrandControllerTest {
     void testFindingAllBrands() {
         List<Brand> brands = new ArrayList<>();
         Brand brand1 = new Brand();
-        brand1.setId(1L);
-        brand1.setBrandName("Toyota");
+        brand1.setId(BRAND_ID);
+        brand1.setBrandName(TOYOTA);
         Brand brand2 = new Brand();
-        brand2.setId(2L);
-        brand2.setBrandName("Honda");
+        brand2.setId(BRAND_ID_2);
+        brand2.setBrandName(HONDA);
         brands.add(brand1);
         brands.add(brand2);
 
         List<BrandDto> brandDto = new ArrayList<>();
         BrandDto brandDto1 = new BrandDto();
-        brandDto1.setId(1L);
-        brandDto1.setBrandName("Toyota");
+        brandDto1.setId(BRAND_ID);
+        brandDto1.setBrandName(TOYOTA);
         BrandDto brandDto2 = new BrandDto();
-        brandDto2.setId(2L);
-        brandDto2.setBrandName("Honda");
+        brandDto2.setId(BRAND_ID_2);
+        brandDto2.setBrandName(HONDA);
         brandDto.add(brandDto1);
         brandDto.add(brandDto2);
 
@@ -79,14 +84,14 @@ class BrandControllerTest {
 
     @Test
     void testFindingBrandByIdWhenIdExists() {
-        Long brandId = 1L;
+        Long brandId = BRAND_ID;
         Brand brand = new Brand();
         brand.setId(brandId);
-        brand.setBrandName("Toyota");
+        brand.setBrandName(TOYOTA);
 
         BrandDto brandDto = new BrandDto();
         brandDto.setId(brandId);
-        brandDto.setBrandName("Toyota");
+        brandDto.setBrandName(TOYOTA);
 
         when(brandService.findById(brandId)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
@@ -98,24 +103,24 @@ class BrandControllerTest {
 
     @Test
     void testDeletingBrandById() {
-        Long brandId = 1L;
+        Long brandId = BRAND_ID;
         ResponseEntity<String> response = brandController.deleteById(brandId);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Deleted successful !", response.getBody());
+        assertEquals(DELETED_SUCCESSFUL, response.getBody());
     }
 
     @Test
     void testCreatingBrand() {
         BrandSaveDto brandSaveDto = new BrandSaveDto();
-        brandSaveDto.setBrandName("Toyota");
+        brandSaveDto.setBrandName(TOYOTA);
 
         Brand brand = new Brand();
-        brand.setId(1L);
-        brand.setBrandName("Toyota");
+        brand.setId(BRAND_ID);
+        brand.setBrandName(TOYOTA);
 
         BrandDto brandDto = new BrandDto();
-        brandDto.setId(1L);
-        brandDto.setBrandName("Toyota");
+        brandDto.setId(BRAND_ID);
+        brandDto.setBrandName(TOYOTA);
 
         when(brandService.create(brandSaveDto)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
@@ -128,13 +133,13 @@ class BrandControllerTest {
 
     @Test
     void testUpdatingBrand() {
-        Long brandId = 1L;
+        Long brandId = BRAND_ID;
         BrandDto brandDto = new BrandDto();
         brandDto.setId(brandId);
-        brandDto.setBrandName("Toyota");
+        brandDto.setBrandName(TOYOTA);
         Brand brand = new Brand();
         brand.setId(brandId);
-        brand.setBrandName("Toyota");
+        brand.setBrandName(TOYOTA);
 
         when(brandService.update(brandDto)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
