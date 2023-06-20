@@ -8,8 +8,12 @@ import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.service.BrandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -17,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -26,6 +31,7 @@ import static org.mockito.Mockito.when;
  * @since 06.06.2023
  */
 
+@ExtendWith(MockitoExtension.class)
 class BrandControllerTest {
 
     @Mock
@@ -34,11 +40,11 @@ class BrandControllerTest {
     private BrandMapper brandMapper;
     @Mock
     private KafkaProducerService kafkaProducerService;
+    @InjectMocks
     private BrandController brandController;
 
     @BeforeEach
     void setup() {
-        MockitoAnnotations.openMocks(this);
         brandController = new BrandController(brandService, brandMapper, kafkaProducerService);
     }
 
@@ -111,7 +117,6 @@ class BrandControllerTest {
         brandDto.setId(1L);
         brandDto.setBrandName("Toyota");
 
-        when(brandMapper.toBrand(brandSaveDto)).thenReturn(brand);
         when(brandService.create(brandSaveDto)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
 
@@ -131,7 +136,6 @@ class BrandControllerTest {
         brand.setId(brandId);
         brand.setBrandName("Toyota");
 
-        when(brandMapper.toBrand(brandDto)).thenReturn(brand);
         when(brandService.update(brandDto)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
 

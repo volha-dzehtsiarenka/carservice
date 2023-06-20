@@ -7,11 +7,14 @@ import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
 import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.repository.BrandRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ import static org.mockito.Mockito.when;
  * @since 06.06.2023
  */
 
+@ExtendWith(MockitoExtension.class)
 class BrandServiceImplTest {
 
     @Mock
@@ -40,7 +44,6 @@ class BrandServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         brandService = new BrandServiceImpl(brandRepository, brandMapper);
     }
 
