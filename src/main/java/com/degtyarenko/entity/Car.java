@@ -27,10 +27,10 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Entity
-@Table(name = "car")
 @ToString
+@Table(name = "car")
+@RequiredArgsConstructor
 public class Car {
 
     @Id

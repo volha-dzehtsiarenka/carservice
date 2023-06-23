@@ -27,9 +27,9 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Entity
 @Table(name = "model")
+@RequiredArgsConstructor
 @ToString(exclude = "carCaseModel")
 public class Model {
 
@@ -44,8 +44,8 @@ public class Model {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @OneToMany(mappedBy = "model")
     @JsonBackReference
+    @OneToMany(mappedBy = "model")
     private Set<CarCaseModel> carCaseModel;
 
 }

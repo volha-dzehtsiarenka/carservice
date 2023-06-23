@@ -65,7 +65,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand update(BrandDto brandDto) {
+    public Brand update(BrandDto brandDto) throws EntityNotFoundException {
         Optional<Brand> brandOptional = brandRepository.findById(brandDto.getId());
         if (brandOptional.isPresent()) {
             Brand brand = brandOptional.get();
@@ -75,9 +75,7 @@ public class BrandServiceImpl implements BrandService {
             }
             Brand updatedBrand = brandMapper.toBrand(brandDto);
             return brandRepository.save(updatedBrand);
-        } else {
-            throw new EntityNotFoundException(brandDto.getId());
-        }
+        } else throw new EntityNotFoundException(brandDto.getId());
     }
 
 }

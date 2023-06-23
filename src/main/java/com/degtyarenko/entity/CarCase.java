@@ -25,8 +25,8 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Entity
+@RequiredArgsConstructor
 @Table(name = "car_case")
 @ToString(exclude = "carCaseModel")
 public class CarCase {

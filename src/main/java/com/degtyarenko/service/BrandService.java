@@ -3,6 +3,7 @@ package com.degtyarenko.service;
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.dto.BrandSaveDto;
 import com.degtyarenko.entity.Brand;
+import com.degtyarenko.exeption.EntityNotFoundException;
 
 import java.util.List;
 
@@ -49,6 +50,6 @@ public interface BrandService {
      * @param brandDto the brand dto
      * @return the brand
      */
-    Brand update(BrandDto brandDto);
+    Brand update(BrandDto brandDto) throws EntityNotFoundException;
 
 }

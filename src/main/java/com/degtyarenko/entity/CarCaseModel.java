@@ -24,10 +24,10 @@ import javax.persistence.Table;
  */
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Entity
-@Table(name = "car_case_model")
 @ToString
+@RequiredArgsConstructor
+@Table(name = "car_case_model")
 public class CarCaseModel {
 
     @Id
