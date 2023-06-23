@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -77,7 +74,8 @@ class BrandControllerTest {
 
         when(brandService.findAll()).thenReturn(brands);
         when(brandMapper.toBrandDtoList(brands)).thenReturn(brandDto);
-        ResponseEntity<List<BrandDto>> response = brandController.findAll();
+        ResponseEntity<List<BrandDto>> response =
+                ResponseEntity.status(HttpStatus.OK).body(brandController.findAll());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(brandDto, response.getBody());
     }
@@ -95,7 +93,8 @@ class BrandControllerTest {
 
         when(brandService.findById(brandId)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
-        ResponseEntity<BrandDto> response = brandController.findById(brandId);
+        ResponseEntity<BrandDto> response =
+                ResponseEntity.status(HttpStatus.OK).body(brandController.findById(brandId));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(brandDto, response.getBody());
@@ -103,8 +102,8 @@ class BrandControllerTest {
 
     @Test
     void testDeletingBrandById() {
-        Long brandId = BRAND_ID;
-        ResponseEntity<String> response = brandController.deleteById(brandId);
+        ResponseEntity<String> response =
+                ResponseEntity.status(HttpStatus.OK).body(brandController.deleteById(BRAND_ID));
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(DELETED_SUCCESSFUL, response.getBody());
     }
@@ -125,7 +124,8 @@ class BrandControllerTest {
         when(brandService.create(brandSaveDto)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
 
-        ResponseEntity<BrandDto> response = brandController.createBrand(brandSaveDto);
+        ResponseEntity<BrandDto> response =
+                ResponseEntity.status(HttpStatus.CREATED).body(brandController.createBrand(brandSaveDto));
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(brandDto, response.getBody());
@@ -144,7 +144,8 @@ class BrandControllerTest {
         when(brandService.update(brandDto)).thenReturn(brand);
         when(brandMapper.toBrandDto(brand)).thenReturn(brandDto);
 
-        ResponseEntity<BrandDto> response = brandController.updateBrand(brandDto);
+        ResponseEntity<BrandDto> response =
+                ResponseEntity.status(HttpStatus.OK).body(brandController.updateBrand(brandDto));
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(brandDto, response.getBody());
