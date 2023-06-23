@@ -12,42 +12,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.degtyarenko.constant.CarConstant.CARS_NOT_FOUND_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarConstant.CAR_CREATE_SUCCESSFULLY;
-import static com.degtyarenko.constant.CarConstant.CAR_DELETE_SUCCESSFULLY;
-import static com.degtyarenko.constant.CarConstant.CAR_FOUND;
-import static com.degtyarenko.constant.CarConstant.CAR_NOT_CREATED_CONFLICT;
-import static com.degtyarenko.constant.CarConstant.CAR_NOT_CREATED_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarConstant.CAR_NOT_DELETED_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarConstant.CAR_NOT_FOUND;
-import static com.degtyarenko.constant.CarConstant.CAR_NOT_FOUND_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarConstant.CAR_NOT_UPDATE_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarConstant.CAR_UPDATE_SUCCESSFULLY;
-import static com.degtyarenko.constant.CarConstant.CREATE_NEW_CAR;
-import static com.degtyarenko.constant.CarConstant.DELETE_CAR;
-import static com.degtyarenko.constant.CarConstant.FIND_ALL_CARS;
-import static com.degtyarenko.constant.CarConstant.FIND_CAR_BY_ID;
-import static com.degtyarenko.constant.CarConstant.UPDATE_CAR;
-import static com.degtyarenko.constant.StatusConstant.BAD_REQUEST;
-import static com.degtyarenko.constant.StatusConstant.DELETED_SUCCESSFUL;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_200;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_201;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_400;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_404;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_500;
+import static com.degtyarenko.constant.CarConstant.*;
+import static com.degtyarenko.constant.StatusConstant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -72,8 +43,9 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CARS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CarDto>> findAll() {
-        return new ResponseEntity<>(carMapper.toCarDtoList(carService.findAll()), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<CarDto> findAll() {
+        return carMapper.toCarDtoList(carService.findAll());
     }
 
     @Operation(summary = FIND_CAR_BY_ID, responses = {
@@ -84,9 +56,10 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarDto> findById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public CarDto findById(@PathVariable Long id) {
         Car carById = carService.findById(id);
-        return new ResponseEntity<>(carMapper.toCarDto(carById), HttpStatus.OK);
+        return carMapper.toCarDto(carById);
     }
 
     @Operation(summary = DELETE_CAR, responses = {
@@ -97,9 +70,10 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteById(@PathVariable Long id) {
         carService.delete(id);
-        return new ResponseEntity<>(DELETED_SUCCESSFUL, HttpStatus.OK);
+        return DELETED_SUCCESSFUL;
     }
 
     @Operation(summary = CREATE_NEW_CAR, responses = {
@@ -112,9 +86,10 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarDto> createCar(@Valid @RequestBody CarSaveDto carDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public CarDto createCar(@Valid @RequestBody CarSaveDto carDto) {
         Car carCreate = carService.create(carDto);
-        return new ResponseEntity<>(carMapper.toCarDto(carCreate), HttpStatus.CREATED);
+        return carMapper.toCarDto(carCreate);
     }
 
     @Operation(summary = UPDATE_CAR, responses = {
@@ -125,9 +100,10 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarDto> updateCar(@Valid @RequestBody CarDto carDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public CarDto updateCar(@Valid @RequestBody CarDto carDto) {
         Car carUpdate = carService.update(carDto);
-        return new ResponseEntity<>(carMapper.toCarDto(carUpdate), HttpStatus.OK);
+        return carMapper.toCarDto(carUpdate);
     }
 
 }

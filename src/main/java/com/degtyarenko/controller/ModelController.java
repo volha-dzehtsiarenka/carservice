@@ -12,42 +12,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.degtyarenko.constant.ModelConstant.ALL_MODELS_FOUND;
-import static com.degtyarenko.constant.ModelConstant.CREATE_NEW_MODEL;
-import static com.degtyarenko.constant.ModelConstant.DELETE_MODEL;
-import static com.degtyarenko.constant.ModelConstant.FIND_ALL_MODEL_CASE;
-import static com.degtyarenko.constant.ModelConstant.FIND_MODEL_BY_ID;
-import static com.degtyarenko.constant.ModelConstant.MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.ModelConstant.MODEL_CREATE_SUCCESSFULLY;
-import static com.degtyarenko.constant.ModelConstant.MODEL_DELETE_SUCCESSFULLY;
-import static com.degtyarenko.constant.ModelConstant.MODEL_FOUND;
-import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_CREATED_CONFLICT;
-import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_DELETED_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_FOUND;
-import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.ModelConstant.MODEL_UPDATE_SUCCESSFULLY;
-import static com.degtyarenko.constant.ModelConstant.UPDATE_MODEL;
-import static com.degtyarenko.constant.StatusConstant.BAD_REQUEST;
-import static com.degtyarenko.constant.StatusConstant.DELETED_SUCCESSFUL;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_200;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_201;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_400;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_404;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_500;
+import static com.degtyarenko.constant.ModelConstant.*;
+import static com.degtyarenko.constant.StatusConstant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -72,8 +43,9 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ModelDto>> findAll() {
-        return new ResponseEntity<>(modelMapper.toModelDtoList(modelService.findAll()), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<ModelDto> findAll() {
+        return modelMapper.toModelDtoList(modelService.findAll());
     }
 
     @Operation(summary = FIND_MODEL_BY_ID, responses = {
@@ -84,9 +56,10 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ModelDto> findById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public ModelDto findById(@PathVariable Long id) {
         Model modelById = modelService.findById(id);
-        return new ResponseEntity<>(modelMapper.toModelDto(modelById), HttpStatus.OK);
+        return modelMapper.toModelDto(modelById);
     }
 
     @Operation(summary = DELETE_MODEL, responses = {
@@ -97,9 +70,10 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteById(@PathVariable Long id) {
         modelService.delete(id);
-        return new ResponseEntity<>(DELETED_SUCCESSFUL, HttpStatus.OK);
+        return DELETED_SUCCESSFUL;
     }
 
     @Operation(summary = CREATE_NEW_MODEL, responses = {
@@ -112,9 +86,10 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ModelDto> createModel(@Valid @RequestBody ModelSaveDto modelDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ModelDto createModel(@Valid @RequestBody ModelSaveDto modelDto) {
         Model modelCreate = modelService.create(modelDto);
-        return new ResponseEntity<>(modelMapper.toModelDto(modelCreate), HttpStatus.CREATED);
+        return modelMapper.toModelDto(modelCreate);
     }
 
     @Operation(summary = UPDATE_MODEL, responses = {
@@ -125,9 +100,10 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ModelDto> updateModel(@Valid @RequestBody ModelDto modelDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public ModelDto updateModel(@Valid @RequestBody ModelDto modelDto) {
         Model modelUpdate = modelService.update(modelDto);
-        return new ResponseEntity<>(modelMapper.toModelDto(modelUpdate), HttpStatus.OK);
+        return modelMapper.toModelDto(modelUpdate);
     }
 
 }

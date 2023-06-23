@@ -12,42 +12,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_CREATE_SUCCESSFULLY;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_DELETE_SUCCESSFULLY;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_FOUND;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_CREATED_CONFLICT;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_CREATED_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_DELETED_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_FOUND;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_FOUND_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_NOT_UPDATE_ILLEGAL_ARGUMENTS;
-import static com.degtyarenko.constant.CarCaseConstant.CAR_CASE_UPDATE_SUCCESSFULLY;
-import static com.degtyarenko.constant.CarCaseConstant.CREATE_NEW_CAR_CASE;
-import static com.degtyarenko.constant.CarCaseConstant.DELETE_CAR_CASE;
-import static com.degtyarenko.constant.CarCaseConstant.FINDS_ALL_CAR_CASE;
-import static com.degtyarenko.constant.CarCaseConstant.FIND_ALL_CAR_CASE;
-import static com.degtyarenko.constant.CarCaseConstant.FIND_CAR_CASE_BY_ID;
-import static com.degtyarenko.constant.CarCaseConstant.UPDATE_CAR_CASE;
-import static com.degtyarenko.constant.StatusConstant.BAD_REQUEST;
-import static com.degtyarenko.constant.StatusConstant.DELETED_SUCCESSFUL;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_200;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_201;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_400;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_404;
-import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_500;
+import static com.degtyarenko.constant.CarCaseConstant.*;
+import static com.degtyarenko.constant.StatusConstant.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -72,8 +43,9 @@ public class CarCaseController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CarCaseDto>> findAll() {
-        return new ResponseEntity<>(carCaseMapper.toCarCaseDtoList(carCaseService.findAll()), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<CarCaseDto> findAll() {
+        return carCaseMapper.toCarCaseDtoList(carCaseService.findAll());
     }
 
     @Operation(summary = FIND_CAR_CASE_BY_ID, responses = {
@@ -84,9 +56,10 @@ public class CarCaseController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarCaseDto> findById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public CarCaseDto findById(@PathVariable Long id) {
         CarCase carCaseById = carCaseService.findById(id);
-        return new ResponseEntity<>(carCaseMapper.toCarCaseDto(carCaseById), HttpStatus.OK);
+        return carCaseMapper.toCarCaseDto(carCaseById);
     }
 
     @Operation(summary = DELETE_CAR_CASE, responses = {
@@ -97,9 +70,10 @@ public class CarCaseController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteById(@PathVariable Long id) {
         carCaseService.delete(id);
-        return new ResponseEntity<>(DELETED_SUCCESSFUL, HttpStatus.OK);
+        return DELETED_SUCCESSFUL;
     }
 
     @Operation(summary = CREATE_NEW_CAR_CASE, responses = {
@@ -112,9 +86,10 @@ public class CarCaseController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarCaseDto> createBodyType(@Valid @RequestBody CarCaseSaveDto carCaseDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public CarCaseDto createBodyType(@Valid @RequestBody CarCaseSaveDto carCaseDto) {
         CarCase carCasePost = carCaseService.create(carCaseDto);
-        return new ResponseEntity<>(carCaseMapper.toCarCaseDto(carCasePost), HttpStatus.CREATED);
+        return carCaseMapper.toCarCaseDto(carCasePost);
     }
 
     @Operation(summary = UPDATE_CAR_CASE, responses = {
@@ -125,9 +100,10 @@ public class CarCaseController {
             @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarCaseDto> updateBodyType(@Valid @RequestBody CarCaseDto carCaseDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public CarCaseDto updateBodyType(@Valid @RequestBody CarCaseDto carCaseDto) {
         CarCase updateCarCase = carCaseService.update(carCaseDto);
-        return new ResponseEntity<>(carCaseMapper.toCarCaseDto(updateCarCase), HttpStatus.OK);
+        return carCaseMapper.toCarCaseDto(updateCarCase);
     }
 
 }
