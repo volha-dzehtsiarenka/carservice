@@ -1,7 +1,6 @@
 package com.degtyarenko.mappers;
 
 import com.degtyarenko.dto.ModelDto;
-import com.degtyarenko.dto.ModelSaveDto;
 import com.degtyarenko.entity.Model;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,10 +18,8 @@ import java.util.List;
 public interface ModelMapper {
 
     @Mapping(source = "brandId", target = "brand.id")
+    @Mapping(target = "id", ignore = true)
     Model toModel(ModelDto modelDto);
-
-    @Mapping(source = "brandId", target = "brand.id")
-    Model toModel(ModelSaveDto modelSaveDto);
 
     @Mapping(source = "brand.id", target = "brandId")
     ModelDto toModelDto(Model model);

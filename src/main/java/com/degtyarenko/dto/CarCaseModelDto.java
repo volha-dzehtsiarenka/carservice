@@ -4,8 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
-
 import static com.degtyarenko.constant.SchemaConstant.INT_1;
 import static com.degtyarenko.constant.SchemaConstant.STRING_1;
 
@@ -18,7 +16,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING_1;
  */
 @Getter
 @Setter
-@Schema(description = "Update car case-model object")
+@Schema(description = "Car case-model object")
 public class CarCaseModelDto {
 
     @Schema(example = STRING_1, minLength = INT_1)

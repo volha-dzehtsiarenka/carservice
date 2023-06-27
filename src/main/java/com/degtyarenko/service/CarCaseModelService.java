@@ -1,9 +1,9 @@
 package com.degtyarenko.service;
 
 import com.degtyarenko.dto.CarCaseModelDto;
-import com.degtyarenko.dto.CarCaseModelSaveDto;
 import com.degtyarenko.entity.CarCaseModel;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -37,7 +37,7 @@ public interface CarCaseModelService {
      * @param carCaseModelDto the car case model dto
      * @return the car case model
      */
-    CarCaseModel create(CarCaseModelSaveDto carCaseModelDto);
+    CarCaseModel create(@Valid CarCaseModelDto carCaseModelDto);
 
     /**
      * Delete.
@@ -52,6 +52,6 @@ public interface CarCaseModelService {
      * @param carCaseModelDto the car case model dto
      * @return the car case model
      */
-    CarCaseModel update(CarCaseModelDto carCaseModelDto);
+    CarCaseModel update(@Valid CarCaseModelDto carCaseModelDto);
 
 }

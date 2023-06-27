@@ -27,6 +27,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+//@Validated
 @Transactional
 @RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {

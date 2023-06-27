@@ -1,7 +1,6 @@
 package com.degtyarenko.controller;
 
 import com.degtyarenko.dto.ModelDto;
-import com.degtyarenko.dto.ModelSaveDto;
 import com.degtyarenko.entity.Model;
 import com.degtyarenko.mappers.ModelMapper;
 import com.degtyarenko.service.ModelService;
@@ -12,13 +11,34 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
-import static com.degtyarenko.constant.ModelConstant.*;
-import static com.degtyarenko.constant.StatusConstant.*;
+import static com.degtyarenko.constant.ModelConstant.ALL_MODELS_FOUND;
+import static com.degtyarenko.constant.ModelConstant.CREATE_NEW_MODEL;
+import static com.degtyarenko.constant.ModelConstant.DELETE_MODEL;
+import static com.degtyarenko.constant.ModelConstant.FIND_ALL_MODEL_CASE;
+import static com.degtyarenko.constant.ModelConstant.FIND_MODEL_BY_ID;
+import static com.degtyarenko.constant.ModelConstant.MODEL_CREATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.ModelConstant.MODEL_DELETE_SUCCESSFULLY;
+import static com.degtyarenko.constant.ModelConstant.MODEL_FOUND;
+import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_CREATED_CONFLICT;
+import static com.degtyarenko.constant.ModelConstant.MODEL_NOT_FOUND;
+import static com.degtyarenko.constant.ModelConstant.MODEL_UPDATE_SUCCESSFULLY;
+import static com.degtyarenko.constant.ModelConstant.UPDATE_MODEL;
+import static com.degtyarenko.constant.StatusConstant.DELETED_SUCCESSFUL;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_200;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_201;
+import static com.degtyarenko.constant.StatusConstant.RESPONSE_CODE_404;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -72,14 +92,12 @@ public class ModelController {
 
     @Operation(summary = CREATE_NEW_MODEL, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_201, description = MODEL_CREATE_SUCCESSFULLY,
-                    content = @Content(schema = @Schema(implementation = ModelSaveDto.class))),
+                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_CREATED_CONFLICT,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_400, description = BAD_REQUEST,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ModelDto createModel(@RequestBody ModelSaveDto modelDto) {
+    public ModelDto createModel(@RequestBody ModelDto modelDto) {
         Model modelCreate = modelService.create(modelDto);
         return modelMapper.toModelDto(modelCreate);
     }

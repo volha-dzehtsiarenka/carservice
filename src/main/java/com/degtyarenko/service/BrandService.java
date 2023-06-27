@@ -2,8 +2,8 @@ package com.degtyarenko.service;
 
 import com.degtyarenko.dto.BrandDto;
 import com.degtyarenko.entity.Brand;
-import com.degtyarenko.exeption.EntityNotFoundException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -34,7 +34,7 @@ public interface BrandService {
      * @param brandDto the brand dto
      * @return the brand
      */
-    Brand create(BrandDto brandDto);
+    Brand create(@Valid BrandDto brandDto);
 
     /**
      * Delete.
@@ -49,6 +49,6 @@ public interface BrandService {
      * @param brandDto the brand dto
      * @return the brand
      */
-    Brand update(BrandDto brandDto) throws EntityNotFoundException;
+    Brand update(@Valid BrandDto brandDto);
 
 }

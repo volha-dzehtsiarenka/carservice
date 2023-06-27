@@ -1,9 +1,9 @@
 package com.degtyarenko.service;
 
 import com.degtyarenko.dto.CarDto;
-import com.degtyarenko.dto.CarSaveDto;
 import com.degtyarenko.entity.Car;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -37,7 +37,7 @@ public interface CarService {
      * @param carDto the car dto
      * @return the car
      */
-    Car create(CarSaveDto carDto);
+    Car create(@Valid CarDto carDto);
 
     /**
      * Delete.
@@ -52,6 +52,6 @@ public interface CarService {
      * @param carDto the car dto
      * @return the car
      */
-    Car update(CarDto carDto);
+    Car update(@Valid CarDto carDto);
 
 }

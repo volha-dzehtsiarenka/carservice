@@ -1,7 +1,6 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.CarCaseModelDto;
-import com.degtyarenko.dto.CarCaseModelSaveDto;
 import com.degtyarenko.entity.CarCaseModel;
 import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
@@ -11,6 +10,7 @@ import com.degtyarenko.service.CarCaseModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +28,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Validated
 @Transactional
 @RequiredArgsConstructor
 public class CarCaseModelServiceImpl implements CarCaseModelService {
@@ -49,7 +50,7 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     }
 
     @Override
-    public CarCaseModel create(@Valid CarCaseModelSaveDto carCaseModelDto) {
+    public CarCaseModel create(@Valid CarCaseModelDto carCaseModelDto) {
         CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
         if (Objects.nonNull(carCaseModel)) {

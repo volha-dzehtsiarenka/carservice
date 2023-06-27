@@ -1,7 +1,6 @@
 package com.degtyarenko.mappers;
 
 import com.degtyarenko.dto.CarCaseModelDto;
-import com.degtyarenko.dto.CarCaseModelSaveDto;
 import com.degtyarenko.entity.CarCaseModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,11 +19,12 @@ public interface CarCaseModelMapper {
 
     @Mapping(source = "carCaseId", target = "carCase.id")
     @Mapping(source = "modelId", target = "model.id")
+    @Mapping(target = "id", ignore = true)
     CarCaseModel toCarCaseModel(CarCaseModelDto carCaseModelDto);
 
-    @Mapping(source = "carCaseId", target = "carCase.id")
-    @Mapping(source = "modelId", target = "model.id")
-    CarCaseModel toCarCaseModel(CarCaseModelSaveDto carCaseModelSaveDto);
+//    @Mapping(source = "carCaseId", target = "carCase.id")
+//    @Mapping(source = "modelId", target = "model.id")
+//    CarCaseModel toCarCaseModel(CarCaseModelSaveDto carCaseModelSaveDto);
 
     @Mapping(source = "carCase.id", target = "carCaseId")
     @Mapping(source = "model.id", target = "modelId")

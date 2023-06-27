@@ -1,7 +1,6 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.CarDto;
-import com.degtyarenko.dto.CarSaveDto;
 import com.degtyarenko.entity.Car;
 import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
@@ -11,6 +10,7 @@ import com.degtyarenko.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +28,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Validated
 @Transactional
 @RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
@@ -49,7 +50,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car create(@Valid CarSaveDto carDto) {
+    public Car create(@Valid CarDto carDto) {
         Car car = carRepository.findByVinCode(carDto.getVinCode());
         if (Objects.nonNull(car)) {
             throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, STRING, car.toString()));

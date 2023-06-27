@@ -1,7 +1,6 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.ModelDto;
-import com.degtyarenko.dto.ModelSaveDto;
 import com.degtyarenko.entity.Model;
 import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
@@ -11,6 +10,7 @@ import com.degtyarenko.service.ModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,6 +28,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Validated
 @Transactional
 @RequiredArgsConstructor
 public class ModelServiceImpl implements ModelService {
@@ -49,7 +50,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public Model create(@Valid ModelSaveDto modelDto) {
+    public Model create(@Valid ModelDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
         if (Objects.nonNull(model)) {
             throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));

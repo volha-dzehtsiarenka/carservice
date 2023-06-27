@@ -1,9 +1,9 @@
 package com.degtyarenko.service;
 
 import com.degtyarenko.dto.ModelDto;
-import com.degtyarenko.dto.ModelSaveDto;
 import com.degtyarenko.entity.Model;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -37,7 +37,7 @@ public interface ModelService {
      * @param modelDto the model dto
      * @return the model
      */
-    Model create(ModelSaveDto modelDto);
+    Model create(@Valid ModelDto modelDto);
 
     /**
      * Delete.
@@ -52,6 +52,6 @@ public interface ModelService {
      * @param modelDto the model dto
      * @return the model
      */
-    Model update(ModelDto modelDto);
+    Model update(@Valid ModelDto modelDto);
 
 }

@@ -10,6 +10,7 @@ import com.degtyarenko.service.CarCaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +28,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
  * @since 2022-12-22
  */
 @Service
+@Validated
 @Transactional
 @RequiredArgsConstructor
 public class CarCaseServiceImpl implements CarCaseService {

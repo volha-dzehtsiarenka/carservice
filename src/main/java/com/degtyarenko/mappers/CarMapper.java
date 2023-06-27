@@ -1,7 +1,6 @@
 package com.degtyarenko.mappers;
 
 import com.degtyarenko.dto.CarDto;
-import com.degtyarenko.dto.CarSaveDto;
 import com.degtyarenko.entity.Car;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,10 +18,8 @@ import java.util.List;
 public interface CarMapper {
 
     @Mapping(source = "carCaseModelId", target = "carCaseModel.id")
+    @Mapping(target = "id", ignore = true)
     Car toCar(CarDto carDto);
-
-    @Mapping(source = "carCaseModelId", target = "carCaseModel.id")
-    Car toCar(CarSaveDto carSaveDto);
 
     @Mapping(source = "carCaseModel.id", target = "carCaseModelId")
     CarDto toCarDto(Car car);
