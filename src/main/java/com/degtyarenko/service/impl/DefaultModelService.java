@@ -31,7 +31,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
 @Validated
 @Transactional
 @RequiredArgsConstructor
-public class ModelServiceImpl implements ModelService {
+public class DefaultModelService implements ModelService {
 
     private final ModelRepository modelRepository;
     private final ModelMapper modelMapper;

@@ -31,7 +31,7 @@ import static com.degtyarenko.constant.SchemaConstant.STRING;
 @Validated
 @Transactional
 @RequiredArgsConstructor
-public class CarCaseModelServiceImpl implements CarCaseModelService {
+public class DefaultCarCaseModelService implements CarCaseModelService {
 
     private final CarCaseModelRepository carCaseModelRepository;
     private final CarCaseModelMapper carCaseModelMapper;

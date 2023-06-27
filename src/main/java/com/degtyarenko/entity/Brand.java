@@ -1,6 +1,7 @@
 package com.degtyarenko.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -38,10 +40,12 @@ public class Brand {
     private Long id;
 
     @Column(name = "brand_name")
+    @NotNull
     private String brandName;
 
     @OneToMany(mappedBy = "brand")
     @JsonBackReference
+    @Hidden
     private Set<Model> models;
 
 }
