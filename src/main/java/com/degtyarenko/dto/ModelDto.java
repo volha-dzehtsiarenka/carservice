@@ -8,10 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static com.degtyarenko.constant.ModelConstant.MODEL_EXAMPLE;
-import static com.degtyarenko.constant.SchemaConstant.INT_1;
-import static com.degtyarenko.constant.SchemaConstant.INT_2;
-import static com.degtyarenko.constant.SchemaConstant.INT_20;
-import static com.degtyarenko.constant.SchemaConstant.STRING_1;
+import static com.degtyarenko.constant.SchemaConstant.*;
 
 /**
  * The type Model dto.

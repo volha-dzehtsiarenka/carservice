@@ -8,13 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-import static com.degtyarenko.constant.CarConstant.COLOR;
-import static com.degtyarenko.constant.CarConstant.INT_30;
-import static com.degtyarenko.constant.CarConstant.VIN_CODE_EXAMPLE;
-import static com.degtyarenko.constant.SchemaConstant.INT_1;
-import static com.degtyarenko.constant.SchemaConstant.INT_2;
-import static com.degtyarenko.constant.SchemaConstant.INT_20;
-import static com.degtyarenko.constant.SchemaConstant.STRING_1;
+import static com.degtyarenko.constant.CarConstant.*;
+import static com.degtyarenko.constant.SchemaConstant.*;
 
 
 /**

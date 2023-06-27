@@ -7,13 +7,7 @@ import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static com.degtyarenko.constant.OpenAPIConstant.APACHE_LICENSE_2_0;
-import static com.degtyarenko.constant.OpenAPIConstant.DEGTYARENKO_OLGA;
-import static com.degtyarenko.constant.OpenAPIConstant.FOR_WORKING_WITH_CAR_SERVICE;
-import static com.degtyarenko.constant.OpenAPIConstant.HTTPS_WWW_APACHE_ORG_LICENSES_LICENSE_2_0_HTML;
-import static com.degtyarenko.constant.OpenAPIConstant.OLGA_DEGTYARENKO_1_GMAIL_COM;
-import static com.degtyarenko.constant.OpenAPIConstant.SERVICE_API;
-import static com.degtyarenko.constant.OpenAPIConstant.VERSION;
+import static com.degtyarenko.constant.OpenAPIConstant.*;
 
 @Configuration
 public class OpenAPIConfig {

@@ -59,10 +59,12 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public void delete(Long id) {
-        if (modelRepository.findById(id).isPresent()) {
+        Optional<Model> modelById = modelRepository.findById(id);
+        if (modelById.isPresent()) {
             modelRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(id);
         }
-        throw new EntityNotFoundException(id);
     }
 
     @Override

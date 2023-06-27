@@ -7,22 +7,18 @@ import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
 import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.repository.BrandRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -59,6 +55,7 @@ class BrandServiceImplTest {
     void testFindingBrandByIdWhenIdExists() {
         Long id = 1L;
         Brand expectedBrand = new Brand();
+        expectedBrand.setId(id);
         when(brandRepository.findById(id)).thenReturn(Optional.of(expectedBrand));
         Brand actualBrand = brandService.findById(id);
         assertEquals(expectedBrand, actualBrand);
@@ -74,11 +71,15 @@ class BrandServiceImplTest {
     @Test
     void testCreatingBrandWhenDoesNotExist() {
         BrandSaveDto brandDto = new BrandSaveDto();
+        brandDto.setBrandName("Toyota");
         Brand newBrand = new Brand();
+        newBrand.setId(1L);
+        newBrand.setBrandName("Toyota");
         when(brandRepository.findByBrandName(brandDto.getBrandName())).thenReturn(null);
         when(brandMapper.toBrand(brandDto)).thenReturn(newBrand);
         when(brandRepository.save(newBrand)).thenReturn(newBrand);
         Brand createdBrand = brandService.create(brandDto);
+        assertNotNull(brandDto);
         assertEquals(newBrand, createdBrand);
     }
 
@@ -92,9 +93,8 @@ class BrandServiceImplTest {
 
     @Test
     void testDeleteBrandWhenIdExists() {
-        Long id = 1L;
-        when(brandRepository.existsById(id)).thenReturn(true);
-        assertDoesNotThrow(() -> brandService.delete(id));
+        when(brandRepository.existsById(1L)).thenReturn(true);
+        assertDoesNotThrow(() -> brandService.delete(1L));
     }
 
     @Test
@@ -122,10 +122,8 @@ class BrandServiceImplTest {
         BrandDto brandDto = new BrandDto();
         brandDto.setBrandName("Toyota");
         Brand existingBrand = new Brand();
-
         when(brandRepository.findByBrandName(brandDto.getBrandName())).thenReturn(existingBrand);
         when(brandRepository.findById(brandDto.getId())).thenReturn(Optional.of(new Brand()));
-
         assertThrows(EntityIsUsedException.class, () -> brandService.update(brandDto));
     }
 

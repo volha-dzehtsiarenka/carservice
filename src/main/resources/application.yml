@@ -9,6 +9,8 @@ spring:
       javax.persistence.validation.mode: none
       hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
       hibernate.show_sql: true
+      #необходимо использовать только на уровне разработки и тестирования.
+      #В финальной версии свойство «show_sql» должно быть отключено.
       hibernate:
         ddl-auto: none
   datasource:
@@ -24,7 +26,11 @@ logging:
     sql: debug
 
 kafka:
-  producer.id: 1
+  producer:
+    id: 1
   topic:
-    request.log: request_logs
-    token.grant.log: token_grant_logs
+    request:
+      log: request_logs
+    token:
+      grant:
+        log: token_grant_logs

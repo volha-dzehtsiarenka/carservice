@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static com.degtyarenko.constant.ExceptionHandlerConstant.ENTITY_IS_ALREADY_USED;
-import static com.degtyarenko.constant.ExceptionHandlerConstant.ENTITY_NOT_FOUND_EXCEPTION;
-import static com.degtyarenko.constant.ExceptionHandlerConstant.INTERNAL_EXCEPTION;
-import static com.degtyarenko.constant.ExceptionHandlerConstant.THE_PARAMETER_S_OF_VALUE_S_COULD_NOT_BE_CONVERTED_TO_TYPE_S;
+import static com.degtyarenko.constant.ExceptionHandlerConstant.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 
