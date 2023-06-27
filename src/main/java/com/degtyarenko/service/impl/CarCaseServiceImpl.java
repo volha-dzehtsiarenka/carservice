@@ -1,7 +1,6 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.CarCaseDto;
-import com.degtyarenko.dto.CarCaseSaveDto;
 import com.degtyarenko.entity.CarCase;
 import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
@@ -12,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -48,7 +48,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     }
 
     @Override
-    public CarCase create(CarCaseSaveDto carCaseDto) {
+    public CarCase create(@Valid CarCaseDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
         if (Objects.nonNull(carCase)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, STRING, carCase.toString()));
@@ -67,7 +67,7 @@ public class CarCaseServiceImpl implements CarCaseService {
     }
 
     @Override
-    public CarCase update(CarCaseDto carCaseDto) {
+    public CarCase update(@Valid CarCaseDto carCaseDto) {
         CarCase carCase = carCaseRepository.findByName(carCaseDto.getName());
         if (Objects.nonNull(carCase)) {
             throw new EntityIsUsedException(String.join(CAR_CASE_ALREADY_EXIST, STRING, carCase.toString()));

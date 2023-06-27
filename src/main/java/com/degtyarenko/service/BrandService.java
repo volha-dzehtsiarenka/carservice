@@ -1,7 +1,6 @@
 package com.degtyarenko.service;
 
 import com.degtyarenko.dto.BrandDto;
-import com.degtyarenko.dto.BrandSaveDto;
 import com.degtyarenko.entity.Brand;
 import com.degtyarenko.exeption.EntityNotFoundException;
 
@@ -35,7 +34,7 @@ public interface BrandService {
      * @param brandDto the brand dto
      * @return the brand
      */
-    Brand create(BrandSaveDto brandDto);
+    Brand create(BrandDto brandDto);
 
     /**
      * Delete.

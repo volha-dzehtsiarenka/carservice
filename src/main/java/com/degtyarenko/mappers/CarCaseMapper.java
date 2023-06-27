@@ -1,9 +1,9 @@
 package com.degtyarenko.mappers;
 
 import com.degtyarenko.dto.CarCaseDto;
-import com.degtyarenko.dto.CarCaseSaveDto;
 import com.degtyarenko.entity.CarCase;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -17,9 +17,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CarCaseMapper {
 
+    @Mapping(target = "id", ignore = true)
     CarCase toCarCase(CarCaseDto carCaseDto);
-
-    CarCase toCarCase(CarCaseSaveDto carCaseSaveDto);
 
     CarCaseDto toCarCaseDto(CarCase carCase);
 

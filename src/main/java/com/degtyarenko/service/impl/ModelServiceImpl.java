@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public Model create(ModelSaveDto modelDto) {
+    public Model create(@Valid ModelSaveDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
         if (Objects.nonNull(model)) {
             throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));
@@ -68,7 +69,7 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public Model update(ModelDto modelDto) {
+    public Model update(@Valid ModelDto modelDto) {
         Model model = modelRepository.findByModelName(modelDto.getModelName());
         if (Objects.nonNull(model)) {
             throw new EntityIsUsedException(String.join(MODEL_ALREADY_EXIST, STRING, model.toString()));

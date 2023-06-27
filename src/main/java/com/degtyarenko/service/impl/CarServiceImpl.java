@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car create(CarSaveDto carDto) {
+    public Car create(@Valid CarSaveDto carDto) {
         Car car = carRepository.findByVinCode(carDto.getVinCode());
         if (Objects.nonNull(car)) {
             throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, STRING, car.toString()));
@@ -66,7 +67,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car update(CarDto carDto) {
+    public Car update(@Valid CarDto carDto) {
         Car car = carRepository.findByVinCode(carDto.getVinCode());
         if (Objects.nonNull(car)) {
             throw new EntityIsUsedException(String.join(CAR_IS_ALREADY_EXIST, STRING, car.toString()));

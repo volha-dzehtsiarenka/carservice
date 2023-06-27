@@ -1,7 +1,6 @@
 package com.degtyarenko.service.impl;
 
 import com.degtyarenko.dto.BrandDto;
-import com.degtyarenko.dto.BrandSaveDto;
 import com.degtyarenko.entity.Brand;
 import com.degtyarenko.exeption.EntityIsUsedException;
 import com.degtyarenko.exeption.EntityNotFoundException;
@@ -12,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -48,7 +48,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand create(BrandSaveDto brandDto) {
+    public Brand create(@Valid BrandDto brandDto) {
         Brand brand = brandRepository.findByBrandName(brandDto.getBrandName());
         if (Objects.nonNull(brand)) {
             throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, brand.toString()));
@@ -59,13 +59,16 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void delete(Long id) {
-        if (brandRepository.existsById(id)) {
+        Optional<Brand> optionalBrand = brandRepository.findById(id);
+        if (optionalBrand.isPresent()) {
             brandRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public Brand update(BrandDto brandDto) throws EntityNotFoundException {
+    public Brand update(@Valid BrandDto brandDto) throws EntityNotFoundException {
         Optional<Brand> brandOptional = brandRepository.findById(brandDto.getId());
         if (brandOptional.isPresent()) {
             Brand brand = brandOptional.get();
@@ -73,8 +76,8 @@ public class BrandServiceImpl implements BrandService {
             if (Objects.nonNull(existingBrand) && !existingBrand.equals(brand)) {
                 throw new EntityIsUsedException(String.join(BRAND_ALREADY_EXIST, STRING, existingBrand.toString()));
             }
-            Brand updatedBrand = brandMapper.toBrand(brandDto);
-            return brandRepository.save(updatedBrand);
+            brand.setBrandName(brandDto.getBrandName());
+            return brandRepository.save(brand);
         } else throw new EntityNotFoundException(brandDto.getId());
     }
 

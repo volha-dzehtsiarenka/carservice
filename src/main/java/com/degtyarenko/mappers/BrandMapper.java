@@ -1,9 +1,9 @@
 package com.degtyarenko.mappers;
 
 import com.degtyarenko.dto.BrandDto;
-import com.degtyarenko.dto.BrandSaveDto;
 import com.degtyarenko.entity.Brand;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -17,8 +17,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface BrandMapper {
 
-    Brand toBrand(BrandSaveDto brandSaveDto);
-
+    @Mapping(target = "id", ignore = true)
     Brand toBrand(BrandDto brandDto);
 
     BrandDto toBrandDto(Brand brand);

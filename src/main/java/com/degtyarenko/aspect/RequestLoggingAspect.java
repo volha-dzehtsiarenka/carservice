@@ -1,7 +1,6 @@
 package com.degtyarenko.aspect;
 
 
-import com.degtyarenko.kafka.KafkaProducerService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,14 +24,14 @@ public class RequestLoggingAspect {
 
     private static final String TYPE_URL = "type:url ";
     private final HttpServletRequest httpServletRequest;
-    private final KafkaProducerService kafkaProducerService;
+ //   private final KafkaProducerService kafkaProducerService;
 
     @SneakyThrows
     @Before(value = "within(com.degtyarenko.controller..*)")
     public void logRequestAndResponse() {
         String requestDetails = TYPE_URL + httpServletRequest.getMethod() + " " +
                 ServletUriComponentsBuilder.fromRequest(httpServletRequest).toUriString();
-        kafkaProducerService.logRequest(requestDetails);
+       // kafkaProducerService.logRequest(requestDetails);
     }
 
 }

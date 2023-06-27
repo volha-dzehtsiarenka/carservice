@@ -1,7 +1,6 @@
 package com.degtyarenko.service;
 
 import com.degtyarenko.dto.CarCaseDto;
-import com.degtyarenko.dto.CarCaseSaveDto;
 import com.degtyarenko.entity.CarCase;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public interface CarCaseService {
      * @param carCaseDto the car case dto
      * @return the car case
      */
-    CarCase create(CarCaseSaveDto carCaseDto);
+    CarCase create(CarCaseDto carCaseDto);
 
     /**
      * Delete.

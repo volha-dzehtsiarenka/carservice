@@ -22,15 +22,12 @@ import static com.degtyarenko.constant.SchemaConstant.STRING_1;
 public class CarCaseModelDto {
 
     @Schema(example = STRING_1, minLength = INT_1)
-    @NotNull
     private Long id;
 
     @Schema(example = STRING_1, minLength = INT_1)
-    @NotNull
     private Long carCaseId;
 
     @Schema(example = STRING_1, minLength = INT_1)
-    @NotNull
     private Long modelId;
 
 }

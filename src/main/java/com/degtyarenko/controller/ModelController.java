@@ -39,9 +39,7 @@ public class ModelController {
 
     @Operation(summary = FIND_ALL_MODEL_CASE, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = ALL_MODELS_FOUND,
-                    content = @Content(schema = @Schema(implementation = ModelDto.class))),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
-                    content = @Content)})
+                    content = @Content(schema = @Schema(implementation = ModelDto.class)))})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<ModelDto> findAll() {
@@ -52,8 +50,6 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = MODEL_FOUND,
                     content = @Content(schema = @Schema(implementation = ModelDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODELS_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -66,8 +62,6 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = MODEL_DELETE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = ModelDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -82,12 +76,10 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_CREATED_CONFLICT,
                     content = @Content),
             @ApiResponse(responseCode = RESPONSE_CODE_400, description = BAD_REQUEST,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ModelDto createModel(@Valid @RequestBody ModelSaveDto modelDto) {
+    public ModelDto createModel(@RequestBody ModelSaveDto modelDto) {
         Model modelCreate = modelService.create(modelDto);
         return modelMapper.toModelDto(modelCreate);
     }
@@ -96,12 +88,10 @@ public class ModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = MODEL_UPDATE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = ModelDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = MODEL_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ModelDto updateModel(@Valid @RequestBody ModelDto modelDto) {
+    public ModelDto updateModel(@RequestBody ModelDto modelDto) {
         Model modelUpdate = modelService.update(modelDto);
         return modelMapper.toModelDto(modelUpdate);
     }

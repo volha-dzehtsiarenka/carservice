@@ -39,9 +39,7 @@ public class CarCaseModelController {
 
     @Operation(summary = FIND_ALL_CAR_CASE_MODEL, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = FIND_ALL_CAR_CASE_MODEL,
-                    content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_FOUND_ILLEGAL_ARGUMENTS,
-                    content = @Content)})
+                    content = @Content(schema = @Schema(implementation = CarCaseModelDto.class)))})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<CarCaseModelDto> findAll() {
@@ -54,8 +52,6 @@ public class CarCaseModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_CASE_MODEL_FOUND,
                     content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_MODEL_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -68,8 +64,6 @@ public class CarCaseModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_CASE_MODEL_DELETE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_MODEL_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -84,12 +78,10 @@ public class CarCaseModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_MODEL_NOT_CREATED_CONFLICT,
                     content = @Content),
             @ApiResponse(responseCode = RESPONSE_CODE_400, description = BAD_REQUEST,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CarCaseModelDto createCarCaseModel(@Valid @RequestBody CarCaseModelSaveDto carCaseModelDto) {
+    public CarCaseModelDto createCarCaseModel(@RequestBody CarCaseModelSaveDto carCaseModelDto) {
         CarCaseModel carCaseModelCreate = carCaseModelService.create(carCaseModelDto);
         return carCaseModelMapper.toCarCaseModelDto(carCaseModelCreate);
     }
@@ -98,12 +90,10 @@ public class CarCaseModelController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_CASE_MODEL_UPDATE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = CarCaseModelDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_CASE_MODEL_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_CASE_MODEL_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public CarCaseModelDto updateCarCaseModel(@Valid @RequestBody CarCaseModelDto carCaseModelDto) {
+    public CarCaseModelDto updateCarCaseModel(@RequestBody CarCaseModelDto carCaseModelDto) {
         CarCaseModel carCaseModelUpdate = carCaseModelService.update(carCaseModelDto);
         return carCaseModelMapper.toCarCaseModelDto(carCaseModelUpdate);
     }

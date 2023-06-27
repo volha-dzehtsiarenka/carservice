@@ -39,9 +39,7 @@ public class CarController {
 
     @Operation(summary = FIND_ALL_CARS, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = FIND_ALL_CARS,
-                    content = @Content(schema = @Schema(implementation = CarDto.class))),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CARS_NOT_FOUND_ILLEGAL_ARGUMENTS,
-                    content = @Content)})
+                    content = @Content(schema = @Schema(implementation = CarDto.class)))})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<CarDto> findAll() {
@@ -52,8 +50,6 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_FOUND,
                     content = @Content(schema = @Schema(implementation = CarDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_FOUND_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -66,8 +62,6 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_DELETE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = CarDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_DELETED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -82,12 +76,10 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_NOT_CREATED_CONFLICT,
                     content = @Content),
             @ApiResponse(responseCode = RESPONSE_CODE_400, description = BAD_REQUEST,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_CREATED_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CarDto createCar(@Valid @RequestBody CarSaveDto carDto) {
+    public CarDto createCar(@RequestBody CarSaveDto carDto) {
         Car carCreate = carService.create(carDto);
         return carMapper.toCarDto(carCreate);
     }
@@ -96,12 +88,10 @@ public class CarController {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = CAR_UPDATE_SUCCESSFULLY,
                     content = @Content(schema = @Schema(implementation = CarDto.class))),
             @ApiResponse(responseCode = RESPONSE_CODE_404, description = CAR_NOT_FOUND,
-                    content = @Content),
-            @ApiResponse(responseCode = RESPONSE_CODE_500, description = CAR_NOT_UPDATE_ILLEGAL_ARGUMENTS,
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public CarDto updateCar(@Valid @RequestBody CarDto carDto) {
+    public CarDto updateCar(@RequestBody CarDto carDto) {
         Car carUpdate = carService.update(carDto);
         return carMapper.toCarDto(carUpdate);
     }

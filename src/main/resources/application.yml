@@ -18,19 +18,18 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-  kafka:
-    bootstrap-servers: ${KAFKA_SERVER}
+#  kafka:
+#    bootstrap-servers: ${KAFKA_SERVER}
 
 logging:
   level:
     sql: debug
-
-kafka:
-  producer:
-    id: 1
-  topic:
-    request:
-      log: request_logs
-    token:
-      grant:
-        log: token_grant_logs
+#kafka:
+#  producer:
+#    id: 1
+#  topic:
+#    request:
+#      log: request_logs
+#    token:
+#      grant:
+#        log: token_grant_logs

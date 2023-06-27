@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     }
 
     @Override
-    public CarCaseModel create(CarCaseModelSaveDto carCaseModelDto) {
+    public CarCaseModel create(@Valid CarCaseModelSaveDto carCaseModelDto) {
         CarCaseModel carCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 (carCaseModelDto.getCarCaseId()), carCaseModelDto.getModelId());
         if (Objects.nonNull(carCaseModel)) {
@@ -69,7 +70,7 @@ public class CarCaseModelServiceImpl implements CarCaseModelService {
     }
 
     @Override
-    public CarCaseModel update(CarCaseModelDto carCaseModelDto) {
+    public CarCaseModel update(@Valid CarCaseModelDto carCaseModelDto) {
         CarCaseModel existingCarCaseModel = carCaseModelRepository.findByCarCaseIdAndModelId(
                 carCaseModelDto.getCarCaseId(), carCaseModelDto.getModelId());
         if (existingCarCaseModel != null && !existingCarCaseModel.getId().equals(carCaseModelDto.getId())) {
