@@ -2,11 +2,8 @@
 //
 //import org.apache.kafka.clients.admin.AdminClientConfig;
 //import org.apache.kafka.clients.admin.NewTopic;
-//import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.annotation.PropertySource;
-//import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 //import org.springframework.kafka.core.KafkaAdmin;
 //
 //import java.util.HashMap;
@@ -19,17 +16,13 @@
 // * @since 18.05.2023
 // */
 //@Configuration
-//@PropertySource("classpath:kafka.properties")
 //public class KafkaTopicConfig {
 //
-//    @Value("${spring.kafka.bootstrap-servers}")
 //    private String kafkaServer;
 //
-//    @Value("${kafka.topic.request.log}")
-//    private String requestLogTopicName;
+//    private String kafkaTopicRequestLog;
 //
-//    @Value("${kafka.topic.token.grant.log}")
-//    private String tokenGrantLogTopicName;
+//    private String kafkaTopicTokenGrantLog;
 //
 //    @Bean
 //    public KafkaAdmin kafkaAdmin() {
@@ -40,12 +33,12 @@
 //
 //    @Bean
 //    public NewTopic requestLogTopic() {
-//        return new NewTopic(requestLogTopicName, 1, (short) 1);
+//        return new NewTopic(kafkaTopicRequestLog, 1, (short) 1);
 //    }
 //
 //    @Bean
 //    public NewTopic tokenGrantLogTopic() {
-//        return new NewTopic(tokenGrantLogTopicName, 1, (short) 1);
+//        return new NewTopic(kafkaTopicTokenGrantLog, 1, (short) 1);
 //    }
 //
 //}

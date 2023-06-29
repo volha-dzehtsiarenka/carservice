@@ -2,11 +2,8 @@
 //
 //import org.apache.kafka.clients.producer.ProducerConfig;
 //import org.apache.kafka.common.serialization.StringSerializer;
-//import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.annotation.PropertySource;
-//import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 //import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 //import org.springframework.kafka.core.KafkaTemplate;
 //import org.springframework.kafka.core.ProducerFactory;
@@ -20,19 +17,11 @@
 // * @since 18.05.2023
 // */
 //@Configuration
-//@PropertySource("classpath:kafka.properties")
 //public class KafkaProducerConfig {
 //
-//    @Value("${spring.kafka.bootstrap-servers}")
 //    private String kafkaServer;
 //
-//    @Value("${kafka.producer.id}")
 //    private String kafkaProducerId;
-//
-//    @Bean
-//    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-//        return new PropertySourcesPlaceholderConfigurer();
-//    }
 //
 //    @Bean
 //    public Map<String, Object> producerConfigs() {

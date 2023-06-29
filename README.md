@@ -1,6 +1,19 @@
-# carservice
+# Carservice
 
-Приложение автосервис.
-В наличии машины 1 марки но разных моделей. Общее марка String, дата выпуска Date, остальные параметры отличаются в
-зависимости от модели. имеем 3 модели.
-Мы должны иметь возможность подключить новую марку машин.
+* Java version: "11"
+
+RESTful application is written using technologies:
+
+* Spring Boot
+* Spring Data JPA
+* Hibernate
+* Swagger
+
+Database
+
+* PostgreSQL
+
+Application containerizer
+
+* Docker
+* Docker Compose
