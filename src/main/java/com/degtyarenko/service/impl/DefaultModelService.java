@@ -8,6 +8,9 @@ import com.degtyarenko.mappers.ModelMapper;
 import com.degtyarenko.repository.ModelRepository;
 import com.degtyarenko.service.ModelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +43,13 @@ public class DefaultModelService implements ModelService {
     @Transactional(readOnly = true)
     public List<Model> findAll() {
         return modelRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Model> findAll(Integer pageNumber, Integer pageSize) {
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        return modelRepository.findAll(page);
     }
 
     @Override

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import static com.degtyarenko.constant.ModelConstant.ALL_MODELS_FOUND;
 import static com.degtyarenko.constant.ModelConstant.CREATE_NEW_MODEL;
@@ -62,8 +61,8 @@ public class ModelController {
                     content = @Content(schema = @Schema(implementation = ModelDto.class)))})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<ModelDto> findAll() {
-        return modelMapper.toModelDtoList(modelService.findAll());
+    public Page<Model> findAll(Integer page, Integer size) {
+        return modelService.findAll(page, size);
     }
 
     @Operation(summary = FIND_MODEL_BY_ID, responses = {

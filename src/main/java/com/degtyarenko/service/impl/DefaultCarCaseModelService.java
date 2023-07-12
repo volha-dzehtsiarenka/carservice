@@ -8,6 +8,9 @@ import com.degtyarenko.mappers.CarCaseModelMapper;
 import com.degtyarenko.repository.CarCaseModelRepository;
 import com.degtyarenko.service.CarCaseModelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +43,13 @@ public class DefaultCarCaseModelService implements CarCaseModelService {
     @Transactional(readOnly = true)
     public List<CarCaseModel> findAll() {
         return carCaseModelRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<CarCaseModel> findAll(Integer pageNumber, Integer pageSize) {
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        return carCaseModelRepository.findAll(page);
     }
 
     @Override

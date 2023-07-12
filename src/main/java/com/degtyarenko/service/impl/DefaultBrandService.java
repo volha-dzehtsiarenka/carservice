@@ -8,6 +8,9 @@ import com.degtyarenko.mappers.BrandMapper;
 import com.degtyarenko.repository.BrandRepository;
 import com.degtyarenko.service.BrandService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +43,13 @@ public class DefaultBrandService implements BrandService {
     @Transactional(readOnly = true)
     public List<Brand> findAll() {
         return brandRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Brand> findAll(Integer pageNumber, Integer pageSize) {
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        return brandRepository.findAll(page);
     }
 
     @Override

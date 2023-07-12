@@ -2,6 +2,9 @@ package com.degtyarenko.service;
 
 import com.degtyarenko.dto.CarCaseModelDto;
 import com.degtyarenko.entity.CarCaseModel;
+import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022-12-22
  */
+@Validated
 public interface CarCaseModelService {
 
     /**
@@ -22,6 +26,9 @@ public interface CarCaseModelService {
      * @return the list of car case models
      */
     List<CarCaseModel> findAll();
+
+    @Transactional(readOnly = true)
+    Page<CarCaseModel> findAll(Integer pageNumber, Integer pageSize);
 
     /**
      * Find by id car case model.

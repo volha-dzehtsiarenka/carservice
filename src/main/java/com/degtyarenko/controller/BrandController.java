@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import static com.degtyarenko.constant.BrandConstant.BRAND_CREATE_SUCCESSFULLY;
 import static com.degtyarenko.constant.BrandConstant.BRAND_DELETE_SUCCESSFULLY;
@@ -61,8 +60,8 @@ public class BrandController {
                     content = @Content(schema = @Schema(implementation = BrandDto.class)))})
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<BrandDto> findAll() {
-        return brandMapper.toBrandDtoList(brandService.findAll());
+    public Page<Brand> findAllBrand(Integer page, Integer size) {
+        return brandService.findAll(page, size);
     }
 
     @Operation(summary = FIND_BRAND_BY_ID, responses = {
@@ -76,6 +75,7 @@ public class BrandController {
         Brand brandById = brandService.findById(id);
         return brandMapper.toBrandDto(brandById);
     }
+
 
     @Operation(summary = DELETE_BRAND, responses = {
             @ApiResponse(responseCode = RESPONSE_CODE_200, description = BRAND_DELETE_SUCCESSFULLY,
@@ -108,7 +108,7 @@ public class BrandController {
                     content = @Content)})
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public BrandDto updateBrand(@RequestBody  BrandDto brandDto) {
+    public BrandDto updateBrand(@RequestBody BrandDto brandDto) {
         Brand updateBrand = brandService.update(brandDto);
         return brandMapper.toBrandDto(updateBrand);
     }

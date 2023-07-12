@@ -22,10 +22,6 @@ public interface CarCaseModelMapper {
     @Mapping(target = "id", ignore = true)
     CarCaseModel toCarCaseModel(CarCaseModelDto carCaseModelDto);
 
-//    @Mapping(source = "carCaseId", target = "carCase.id")
-//    @Mapping(source = "modelId", target = "model.id")
-//    CarCaseModel toCarCaseModel(CarCaseModelSaveDto carCaseModelSaveDto);
-
     @Mapping(source = "carCase.id", target = "carCaseId")
     @Mapping(source = "model.id", target = "modelId")
     CarCaseModelDto toCarCaseModelDto(CarCaseModel carCaseModel);

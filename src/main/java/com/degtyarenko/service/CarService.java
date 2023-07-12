@@ -2,6 +2,9 @@ package com.degtyarenko.service;
 
 import com.degtyarenko.dto.CarDto;
 import com.degtyarenko.entity.Car;
+import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022-12-22
  */
+@Validated
 public interface CarService {
 
     /**
@@ -22,6 +26,9 @@ public interface CarService {
      * @return the list of cars
      */
     List<Car> findAll();
+
+    @Transactional(readOnly = true)
+    Page<Car> findAll(Integer pageNumber, Integer pageSize);
 
     /**
      * Find by id car.

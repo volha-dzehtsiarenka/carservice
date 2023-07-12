@@ -2,6 +2,9 @@ package com.degtyarenko.service;
 
 import com.degtyarenko.dto.ModelDto;
 import com.degtyarenko.entity.Model;
+import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022-12-22
  */
+@Validated
 public interface ModelService {
 
     /**
@@ -22,6 +26,9 @@ public interface ModelService {
      * @return the list of models
      */
     List<Model> findAll();
+
+    @Transactional(readOnly = true)
+    Page<Model> findAll(Integer pageNumber, Integer pageSize);
 
     /**
      * Find by id model.

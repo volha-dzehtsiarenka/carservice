@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: carservice
+  config:
+    import: http://localhost:8888/
