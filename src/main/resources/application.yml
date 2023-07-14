@@ -4,30 +4,4 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog.yml
-  jpa:
-    properties:
-      javax.persistence.validation.mode: none
-      hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
-      hibernate.show_sql: true
-      hibernate:
-        ddl-auto: none
-  datasource:
-    url: jdbc:postgresql://localhost:5432/carservice
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
-#  kafka:
-#    bootstrap-servers: ${KAFKA_SERVER}
 
-logging:
-  level:
-    sql: debug
-#kafka:
-#  producer:
-#    id: 1
-#  topic:
-#    request:
-#      log: request_logs
-#    token:
-#      grant:
-#        log: token_grant_logs
