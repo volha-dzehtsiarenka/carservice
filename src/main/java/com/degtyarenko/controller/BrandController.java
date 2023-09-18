@@ -74,8 +74,7 @@ public class BrandController {
     @GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public BrandDto findById(@PathVariable Long id) {
-        Brand brandById = brandService.findById(id);
-        return brandMapper.toBrandDto(brandById);
+        return brandMapper.toBrandDto(brandService.findById(id));
     }
 
 
@@ -99,8 +98,7 @@ public class BrandController {
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public BrandDto createBrand(@RequestBody BrandDto brandDto) {
-        Brand createBrand = brandService.create(brandDto);
-        return brandMapper.toBrandDto(createBrand);
+        return brandMapper.toBrandDto(brandService.create(brandDto));
     }
 
     @Operation(summary = UPDATE_BRAND, responses = {
@@ -111,8 +109,7 @@ public class BrandController {
     @PutMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public BrandDto updateBrand(@RequestBody BrandDto brandDto) {
-        Brand updateBrand = brandService.update(brandDto);
-        return brandMapper.toBrandDto(updateBrand);
+        return brandMapper.toBrandDto(brandService.update(brandDto));
     }
 
 }
