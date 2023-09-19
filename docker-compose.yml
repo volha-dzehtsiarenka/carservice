@@ -33,6 +33,13 @@ services:
     volumes:
       - postgresql-data:/var/lib/postgresql/data
 
+  config-server:
+    image: carservice_spring_cloud-config-server:latest
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/volha-dzehtsiarenka/config_spring_cloud
+
 #  zookeeper:
 #    image: confluentinc/cp-zookeeper:latest
 #    environment:
